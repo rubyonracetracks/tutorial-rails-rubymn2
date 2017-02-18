@@ -1,8 +1,8 @@
 # Unit 1
 ## Chapter 1: Creating the App
 
-## GenericApp
+### GenericApp
 
-## Pushing to GitHub
+### Pushing to GitHub
 
-## Pushing to Heroku
+### Pushing to Heroku
