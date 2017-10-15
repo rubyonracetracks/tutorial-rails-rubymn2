@@ -18,6 +18,7 @@ rm app/views/static_pages/about.html.erb
 rm app/views/static_pages/contact.html.erb
 ```
 * In the app/controllers/static_pages_controller.rb file, remove the about and contact methods.
+* In the config/routes.rb file, remove the lines beginning with "get '/about'" and "get '/contact'".
 * In the test/integration/user_edit_test.rb and test/integration/admin_edit_test.rb files, remove the portions of the tests that involve accessing the about and contact pages. (NOTE: This will be removed in future versions of Rails Neutrino and GenericApp.)
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
