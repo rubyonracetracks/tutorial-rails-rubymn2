@@ -43,7 +43,7 @@ rm app/views/static_pages/contact.html.erb
 * Enter the command "sh test_app.sh".  5 of the tests will fail.  2 of the tests are in test/controllers/static_pages_controller_test.rb, 2 of the tests are in test/integration/admin_edit_test.rb, and 1 test is in test/integration/user_edit_test.rb.
 * NOTE: In the future, the template app used by GenericApp will be revised to eliminate the portions of the tests in test/integration/admin_edit_test.rb and test/integration/user_edit_test.rb that depend on the "About" page.
 
-## Updating the Admin Edit Test and User Edit Test
+### Updating the Admin Edit Test and User Edit Test
 * In test/integration/user_edit_test.rb, edit the "user can access the page for editing settings" test.  Remove the line "visit about_path" and everything else in the test after this line.
 * In test/integration/admin_edit_test.rb, edit the "super admin can access the page for editing settings" test and "regular admin can access the page for editing settings" test.  Remove the line "visit about_path" and everything else in these tests after this line.
 * Enter the command "sh test_app.sh".  Now the 2 failed tests in test/controllers/static_pages_controller_test.rb are the only ones that should remain.
