@@ -1,10 +1,21 @@
 # Unit 1
 ## Chapter 2: Removing Pages
 
-In this chapter, you will remove the about and contact pages.
+In this chapter, you will remove the about and contact pages.  However, this task is NOT as simple as simply deleting these two pages.  You must also remove tests, links in the header, controller methods, and routes.
 
 ### New Branch
 Enter the command "git checkout -b 01-02-remove_pages".
+
+### Blanking Out the About and Contact Pages
+* Enter the following commands:
+```
+rm app/views/static_pages/about.html.erb
+touch app/views/static_pages/about.html.erb
+rm app/views/static_pages/contact.html.erb
+touch app/views/static_pages/contact.html.erb
+```
+* The net result of this is eliminating the about and contact pages.
+* Enter the command "sh test_app.sh".  
 
 ### Removing the About and Contact Pages
 * In the test/integration/static_pages_test.rb file, remove all tests except for the "home page has expected content" test.
