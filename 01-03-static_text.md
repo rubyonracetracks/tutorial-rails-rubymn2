@@ -1,13 +1,12 @@
 # Unit 1
-## Chapter 2: Updating the Static Pages
+## Chapter 3: Updating the Static Text
 
 ### Objectives
-* Remove the About and Contact pages.
 * Update the footer.
-* Update the home page.
+* Update the home page text.
 
 ### New Branch
-Enter the command "git checkout -b 01-02-static_pages".
+Enter the command "git checkout -b 01-03-static_text".
 
 ### Removing the About and Contact Pages
 * In the test/integration/static_pages_test.rb file, remove all tests except for the "home page has expected content" test.
@@ -55,8 +54,8 @@ We are Ruby enthusiasts from the Twin Cities area.  On this site, we showcase sp
 * Enter the following commands:
 ```
 git add .
-git commit -m "Updating the static page content"
-git push origin 01-02-static_pages
+git commit -m "Updating the static page text"
+git push origin 01-03-static_text
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in contiuous integration, accept this pull request to merge it with the master branch.
