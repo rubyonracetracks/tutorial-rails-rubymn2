@@ -26,7 +26,7 @@ touch app/views/static_pages/about.html.erb
 rm app/views/static_pages/contact.html.erb
 touch app/views/static_pages/contact.html.erb
 ```
-* Enter the command "sh test_app.sh".  2 tests in test/integration/static_pages_test.rb fail.
+* Enter the command "test1".  2 tests in test/integration/static_pages_test.rb fail.
 * In the test/integration/static_pages_test.rb file, remove the "about page has expected content" test. Enter the command "test1".  1 test will fail.
 * In the test/integration/static_pages_test.rb file, remove the "contact page has expected content" test.  Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
