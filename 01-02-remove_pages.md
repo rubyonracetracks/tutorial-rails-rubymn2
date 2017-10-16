@@ -7,7 +7,7 @@ In this chapter, you will remove the about and contact pages.  However, this tas
 Enter the command "git checkout -b 01-02-remove_pages".
 
 ### Updating the Header
-* Edit the file app/views/layouts/_header.html.erb.  Remove the lines containing "about_path" and "contact_path".
+* Edit the file app/views/layouts/_header.html.erb.  Remove the lines containing "about_path" and "contact_path".  This removes the links to the "About" and "Contact" pages in the header menu bar.
 * In your web browser view of your local version of the app, hit the refresh button.  The links to the "About" and "Contact" pages in the header should be gone.
 * Enter the command "sh test_app.sh".  4 tests in test/integration/static_pages_test.rb fail.
 * Enter the command "alias test1='(command for running the failed tests minus the TESTOPTS portion)'".
