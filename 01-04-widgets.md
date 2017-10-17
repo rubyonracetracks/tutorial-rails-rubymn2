@@ -18,7 +18,7 @@ Enter the command "git checkout -b 01-04-widgets".
 
 
 ### Twitter Widget
-* In the app/views/static_pages/home.html.erb page, add the following lines after the description of the Meetup Widget:
+* In the app/views/static_pages/home.html.erb page, add the following lines after the Meetup Widget:
 ```
   <% # BEGIN: TWITTER WIDGET %>
   <a class="twitter-timeline" data-width="420" data-height="420" href="https://twitter.com/RubyMN?ref_src=twsrc%5Etfw">Tweets by RubyMN</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
