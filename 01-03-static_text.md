@@ -32,7 +32,7 @@ Enter the command "git checkout -b 01-03-static_text".
 * Enter the command "test1".  The test still fails.
 * In the app/views/static_pages/home.html.erb page, add the following lines after the end of the variable section:
 ```
-We are Ruby enthusiasts from the Twin Cities area.  On this site, we showcase sponsors, post job openings, showcase our projects, and present our qualifications.  We meet on the last Monday of the month at <%= link_to 'Day Block Brewery', 'https://www.dayblockbrewing.com/' %>.  For more details, go to the <%= link_to 'Ruby.MN Meetup group', 'https://www.meetup.com/ruby-mn/' %> to register to attend the next meeting.  Our <%= link_to 'ruby.mn Google group', 'https://groups.google.com/forum/#!forum/rubymn' %> is the primary way to discuss Ruby with our members.  To view our full Twitter feed, go to <%= link_to 'Ruby.MN on Twitter', ''https://twitter.com/rubymn' %>.
+We are Ruby enthusiasts from the Twin Cities area.  On this site, we showcase sponsors, post job openings, showcase our projects, and present our qualifications.  We meet on the last Monday of the month at <%= link_to 'Day Block Brewery', 'https://www.dayblockbrewing.com/' %>.  For more details, go to the <%= link_to 'Ruby.MN Meetup group', 'https://www.meetup.com/ruby-mn/' %> to register to attend the next meeting.  Our <%= link_to 'ruby.mn Google group', 'https://groups.google.com/forum/#!forum/rubymn' %> is the primary way to discuss Ruby with our members.  To view our full Twitter feed, go to <%= link_to 'Ruby.MN on Twitter', 'https://twitter.com/rubymn' %>.
 ```
 * Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
