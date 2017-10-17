@@ -15,8 +15,8 @@ Enter the command "git checkout -b 01-03-static_text".
     <%= link_to "Ruby Users of Minnesota", root_path %>
 ```
 * Enter the command "sh test_app.sh".  You'll see that one of the tests in the static pages test now fails.
-* In the test/integration/static_pages_test.rb file, remove the line containing "Ruby Users of Minnesota by Somebody".
-* Enter the command "sh test_app.sh".  All tests should now pass.
+* In the test/integration/static_pages_test.rb file, shorten the string "Ruby Users of Minnesota by Somebody" to "Ruby Users of Minnesota".
+* Enter the command "test1".  All tests should now pass.
 
 ### Home Page
 * In the test/integration/static_pages_test.rb file, add the following lines to the end of the "home page has expected content" test.
