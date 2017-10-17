@@ -15,6 +15,8 @@ Enter the command "git checkout -b 01-03-static_text".
     <%= link_to "Ruby Users of Minnesota", root_path %>
 ```
 * Enter the command "sh test_app.sh".  You'll see that one of the tests in the static pages test now fails.
+* Enter the command "alias test1='(command for running failed tests minus the TESTOPTS portion)'".
+* Enter the command "test1".  The test still fails.
 * In the test/integration/static_pages_test.rb file, shorten the string "Ruby Users of Minnesota by Somebody" to "Ruby Users of Minnesota".
 * Enter the command "test1".  All tests should now pass.
 
