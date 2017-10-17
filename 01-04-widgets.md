@@ -31,7 +31,7 @@ Enter the command "git checkout -b 01-04-widgets".
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added widgets to the home page."
+git commit -m "Added widgets to the home page"
 git push origin 01-04-widgets
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
