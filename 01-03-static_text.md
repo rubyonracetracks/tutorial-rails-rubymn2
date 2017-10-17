@@ -41,7 +41,7 @@ We are Ruby enthusiasts from the Twin Cities area.  On this site, we showcase sp
 * Enter the following commands:
 ```
 git add .
-git commit -m "Updated the static page text"
+git commit -m "Updated the text in the static pages"
 git push origin 01-03-static_text
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
