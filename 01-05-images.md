@@ -12,7 +12,10 @@ Enter the command "git checkout -b 01-05-images".
 * In the app/views/static_pages/home.html.erb file, remove all code between the Twitter image and the final "</div>".  This removes the Rails logo.
 
 ### Header Image
-* 
+* Download the header background image by entering the following command:
+```
+curl -o app/assets/images/header_background.png -OL https://github.com/jhsu802701/tutorial_rails_rubymn2/blob/master/images/header_background.png
+```
 
 ### Wrapping Up
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
