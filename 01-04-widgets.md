@@ -15,7 +15,7 @@ Enter the command "git checkout -b 01-04-widgets".
   <% # END: TWITTER WIDGET %>
 
 ```
-* In your browser, refresh the local version of your app.  The Meetup widget should now appear.
+* In your browser, refresh the local version of your app.  The Twitter widget should now appear.
 
 ### Meetup Widget
 * In the app/views/static_pages/home.html.erb page, add the following lines after the Twitter widget:
