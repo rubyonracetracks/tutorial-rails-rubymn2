@@ -6,25 +6,25 @@ In this chapter, you will add widgets displaying Meetup group information and th
 ### New Branch
 Enter the command "git checkout -b 01-04-widgets".
 
-### Twitter Widget
+### Meetup Widget
 * In the app/views/static_pages/home.html.erb page, add the following lines after the description of the Ruby.MN group:
 ```
   <br><br>
-  <% # BEGIN: TWITTER WIDGET %>
-  <a class="twitter-timeline" data-width="420" data-height="420" href="https://twitter.com/RubyMN?ref_src=twsrc%5Etfw">Tweets by RubyMN</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <% # END: TWITTER WIDGET %>
-
-```
-* In your browser, refresh the local version of your app.  The Twitter widget should now appear.
-
-### Meetup Widget
-* In the app/views/static_pages/home.html.erb page, add the following lines after the Twitter widget:
-```
   <% # BEGIN: MEETUP WIDGET %>
   <iframe width="200" height="420" src="http://meetu.ps/2Rx1rR" frameborder="0"></iframe>
   <% # END: MEETUP WIDGET %>
 ```
 * In your browser, refresh the local version of your app.  The Meetup widget should now appear.
+
+
+### Twitter Widget
+* In the app/views/static_pages/home.html.erb page, add the following lines after the description of the Meetup Widget:
+```
+  <% # BEGIN: TWITTER WIDGET %>
+  <a class="twitter-timeline" data-width="420" data-height="420" href="https://twitter.com/RubyMN?ref_src=twsrc%5Etfw">Tweets by RubyMN</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <% # END: TWITTER WIDGET %>
+```
+* In your browser, refresh the local version of your app.  The Twitter widget should now appear.
 
 ### Home Page
 * In the test/integration/static_pages_test.rb file, add the following lines to the end of the "home page has expected content" test.
