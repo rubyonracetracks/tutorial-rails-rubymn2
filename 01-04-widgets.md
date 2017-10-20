@@ -1,30 +1,34 @@
 # Unit 1
 ## Chapter 4: Adding Widgets
 
-In this chapter, you will add widgets displaying Meetup group information and the latest Tweets.
+In this chapter, you will add images.
 
 ### New Branch
-Enter the command "git checkout -b 01-04-widgets".
+Enter the command "git checkout -b 01-04-images".
 
-### Meetup Widget
-* In the app/views/static_pages/home.html.erb page, add the following lines after the description of the Ruby.MN group:
+### Header Image
+* Download the header background image by entering the following LONG one-line command:
 ```
-  <br><br>
-  <% # BEGIN: MEETUP WIDGET %>
-  <iframe width="200" height="420" src="http://meetu.ps/2Rx1rR" frameborder="0"></iframe>
-  <% # END: MEETUP WIDGET %>
+curl -o app/assets/images/header_background.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/header_background.png
 ```
-* In your browser, refresh the local version of your app.  The Meetup widget should now appear.
+* Edit the file app/views/layouts/_header.html.erb.  Replace the line containing 'link_to "Ruby Users of Minnesota"' with the following:
+```
+    <%= image_tag 'header_background.png' %>
+```
+* In your web browser showing the local version of your app, hit refresh.  Now the header blocks the top of the page.
+* To correct this, edit the file app/assets/stylesheets/custom.scss.  Under the body parameter, change the padding-top value to 260.
+* In your web browser showing the local version of your app, hit refresh.  You should now see the header image.
 
-
-### Twitter Widget
-* In the app/views/static_pages/home.html.erb page, add the following lines after the Meetup Widget:
+### Replacing the Rails logo with the Ruby.MN logo
+* Download the header background image by entering the following LONG one-line command:
 ```
-  <% # BEGIN: TWITTER WIDGET %>
-  <a class="twitter-timeline" data-width="420" data-height="420" href="https://twitter.com/RubyMN?ref_src=twsrc%5Etfw">Tweets by RubyMN</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <% # END: TWITTER WIDGET %>
+curl -o app/assets/images/rumlogo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/rumlogo.png
 ```
-* In your browser, refresh the local version of your app.  The Twitter widget should now appear.
+* Edit the file app/views/static_pages/home.html.erb.  Replace the link_to element containing "rails.png" with the following line:
+```
+  <%= image_tag 'rumlogo.png' %>
+```
+* In your web browser showing the local version of your app, hit refresh.  You should now see the header image.
 
 ### Wrapping Up
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
@@ -32,7 +36,7 @@ Enter the command "git checkout -b 01-04-widgets".
 ```
 git add .
 git commit -m "Added widgets to the home page"
-git push origin 01-04-widgets
+git push origin 01-04-images
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in contiuous integration, accept this pull request to merge it with the master branch.
