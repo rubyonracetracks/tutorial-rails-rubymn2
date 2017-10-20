@@ -6,7 +6,7 @@ In this chapter, you will update the styling of your app.
 ### New Branch
 Enter the command "git checkout -b 01-05-styling".
 
-### Navigation Bar Color
+### Updating the Navigation Bar Color
 * Change the color of the navigation bar from the default black color to dark red.  In the file app/assets/stylesheets/custom.scss, add the following lines to the end of the header section:
 ```
 .navbar-inverse {
@@ -14,6 +14,12 @@ Enter the command "git checkout -b 01-05-styling".
 }
 ```
 * Refresh your web browser's view of the local version of your site.
+
+### Updating the Color of Links in the Navigation Bar
+Keep the text white.
+
+### Highlighting the Selected Link in the Navigation Bar
+Change the background of the selected link instead of the text.
 
 ### Wrapping Up
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
