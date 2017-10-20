@@ -20,6 +20,7 @@ curl -o app/assets/images/header_background.png -OL https://raw.githubuserconten
 * In your web browser showing the local version of your app, hit refresh.  You should now see the header image.
 
 ### Replacing the Rails logo with the Ruby.MN logo
+* Remove the Rails logo graphic file by entering the command "rm app/assets/images/rails.png".
 * Download the header background image by entering the following LONG one-line command:
 ```
 curl -o app/assets/images/rumlogo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/rumlogo.png
