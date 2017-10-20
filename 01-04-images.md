@@ -1,5 +1,5 @@
 # Unit 1
-## Chapter 4: Adding Widgets
+## Chapter 4: Adding Images
 
 In this chapter, you will add images.
 
