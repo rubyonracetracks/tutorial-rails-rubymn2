@@ -1,31 +1,19 @@
 # Unit 1
 ## Chapter 5: Updating the Styling
 
-In this chapter, you will add images to your app's layout.
+In this chapter, you will update the styling of your app.
 
 ### New Branch
 Enter the command "git checkout -b 01-05-styling".
 
-### Removing A Legacy Image
-* Remove the Rails logo at the bottom of the home page, which looks cluttered.
-* Enter the command "rm app/assets/images/rails.png".
-* In the app/views/static_pages/home.html.erb file, remove all code between the Twitter image and the final "</div>".  This removes the Rails logo.
-
-### Header Image
-* Download the header background image by entering the following LONG one-line command:
+### Navigation Bar Color
+* Change the color of the navigation bar from the default black color to dark red.  In the file app/assets/stylesheets/custom.scss, add the following lines to the end of the header section:
 ```
-curl -o app/assets/images/header_background.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/header_background.png
+.navbar-inverse {
+  background-color: #660000;
+}
 ```
-* Edit the file app/views/layouts/_header.html.erb.  Replace the line containing 'link_to "Ruby Users of Minnesota"' with the following:
-```
-    <%= image_tag 'header_background.png' %>
-```
-* In your web browser showing the local version of your app, hit refresh.  Now the header blocks the top of the page.
-* To correct this, edit the file app/assets/stylesheets/custom.scss.  Under the body parameter, change the padding-top value to 260.
-* In your web browser showing the local version of your app, hit refresh.
-
-### Background Color
-
+* Refresh your web browser's view of the local version of your site.
 
 ### Wrapping Up
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
