@@ -6,7 +6,7 @@ In this chapter, you will update the styling of your app.
 ### New Branch
 Enter the command "git checkout -b 01-05-styling".
 
-### Updating the Navigation Bar Color
+### Updating the Navigation Bar
 * Change the color of the navigation bar from the default black color to dark red.  In the file app/assets/stylesheets/custom.scss, add the following lines to the end of the header section:
 ```
 .navbar-inverse {
@@ -16,7 +16,17 @@ Enter the command "git checkout -b 01-05-styling".
 * Refresh your web browser's view of the local version of your site.
 
 ### Updating the Color of Links in the Navigation Bar
-Keep the text white.
+* Unfortunately, the gray text in the navigation bar is less readable with the dark red background than it was with the white background.  The solution is to make the text in the navigation bar always white.
+* Making the text in the navigation bar always white means that the user does not clearly see that it's possible to click on the item and go to a different page on the site.  The solution is to change the background immediately around the text to black.  This makes it much more apparent that clicking on the text leads to a different page.
+* In the file app/assets/stylesheets/custom.scss, add the following lines to the end of the header section:
+```
+.navbar .nav>li>a {
+  color: #FFFFFF;
+  &:hover {
+    background-color: #000000;
+  }
+}
+```
 
 ### Highlighting the Selected Link in the Navigation Bar
 Change the background of the selected link instead of the text.
