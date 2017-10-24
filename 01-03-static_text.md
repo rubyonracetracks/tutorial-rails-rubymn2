@@ -37,20 +37,8 @@ Enter the command "git checkout -b 01-03-static_text".
     Hosting provided by <%= link_to "Heroku", "https://www.heroku.com" %>
 ```
 * Enter the command "test1".  Now the test fails because the text "We are Ruby enthusiasts from the Twin Cities area" is missing from the home page.
-* In the app/views/static_pages/home.html.erb page, add the following lines after the end of the variable section:
-```
-<h2>
-We are Ruby enthusiasts from the Twin Cities area.  On this site, we showcase sponsors, post job openings, showcase our projects, and present our qualifications.  We meet 
-```
-
-* Enter the command "test1".  The test still fails.
-* In the test/integration/static_pages_test.rb file, shorten the string "Ruby Users of Minnesota by Somebody" to "Ruby Users of Minnesota".
-* Enter the command "test1".  All tests should now pass.
 
 ### Adding to the Home Page
-* Enter the command "sh test_app.sh".  One of the tests fails because the home page does not have all of the expected content.
-* Enter the command "alias test1='(command for running failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  The test still fails.
 * In the app/views/static_pages/home.html.erb page, add the following lines after the end of the variable section:
 ```
 <h2>About</h2>
