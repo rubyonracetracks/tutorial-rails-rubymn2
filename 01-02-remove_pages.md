@@ -19,7 +19,7 @@ Enter the command "git checkout -b 01-02-remove_pages".
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Blanking Out the About and Contact Pages
-* Enter the following commands to remove all contents from the about and contact pages and leaving blank pages in their place:
+* Enter the following commands to remove all contents from the about and contact pages and leave blank pages in their place:
 ```
 rm app/views/static_pages/about.html.erb
 touch app/views/static_pages/about.html.erb
