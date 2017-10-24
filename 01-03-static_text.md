@@ -20,23 +20,31 @@ Enter the command "git checkout -b 01-03-static_text".
 ### Adding Integration Tests
 * In the test/integration/static_pages_test.rb file, add the following lines to the end of the "home page has expected content" test:
 ```
-    assert page.has_css?('small', text: "&copy; #{Time.now.year}")
-    assert page.has_link?('Heroku', href: 'https://www.heroku.com/')
+    assert page.has_css?('small', text: "#{Time.now.year}")
+    assert page.has_link?('Heroku', href: 'https://www.heroku.com')
     assert page.has_text?('We are Ruby enthusiasts from the Twin Cities area.')
-    assert page.has_link?('https://groups.google.com/forum/#!forum/rubymn', href: 'https://groups.google.com/forum/#!forum/rubymn')
-    assert page.has_link?('https://www.meetup.com/ruby-mn/', href: 'https://www.meetup.com/ruby-mn/')
+    assert page.has_link?('https://www.meetup.com/ruby-mn', href: 'https://www.meetup.com/ruby-mn')
     assert page.has_link?('https://twitter.com/rubymn', href: 'https://twitter.com/rubymn')
-    assert page.has_link?('https://www.dayblockbrewing.com/', href: 'https://www.dayblockbrewing.com/')
+    assert page.has_link?('https://groups.google.com/forum/#!forum/rubymn', href: 'https://groups.google.com/forum/#!forum/rubymn')
+    assert page.has_link?('https://www.dayblockbrewing.com', href: 'https://www.dayblockbrewing.com')
 ```
+* Enter the command "test1".  The test fails because the copyright statement is missing.
 
 ### Adding to the Footer
-* In the app/views/layouts/_footer.html.erb file, replace the line containing "by Somebody" with the following:
+* In the app/views/layouts/_footer.html.erb file, replace the line containing "Ruby Users of Minnesota" with the following lines:
 ```
     &copy; <%= "#{Time.now.year}" %>
     <%= link_to "Ruby Users of Minnesota", root_path %>
+    <br><br>
+    Hosting provided by <%= link_to "Heroku", "https://www.heroku.com" %>
 ```
-* Enter the command "sh test_app.sh".  You'll see that one of the tests in the static pages test now fails.
-* Enter the command "alias test1='(command for running failed tests minus the TESTOPTS portion)'".
+* Enter the command "test1".  Now the test fails because the text "We are Ruby enthusiasts from the Twin Cities area" is missing from the home page.
+* In the app/views/static_pages/home.html.erb page, add the following lines after the end of the variable section:
+```
+<h2>
+We are Ruby enthusiasts from the Twin Cities area.  On this site, we showcase sponsors, post job openings, showcase our projects, and present our qualifications.  We meet 
+```
+
 * Enter the command "test1".  The test still fails.
 * In the test/integration/static_pages_test.rb file, shorten the string "Ruby Users of Minnesota by Somebody" to "Ruby Users of Minnesota".
 * Enter the command "test1".  All tests should now pass.
@@ -47,7 +55,18 @@ Enter the command "git checkout -b 01-03-static_text".
 * Enter the command "test1".  The test still fails.
 * In the app/views/static_pages/home.html.erb page, add the following lines after the end of the variable section:
 ```
-We are Ruby enthusiasts from the Twin Cities area.  On this site, we showcase sponsors, post job openings, showcase our projects, and present our qualifications.  We meet on the last Monday of the month at <%= link_to 'Day Block Brewery', 'https://www.dayblockbrewing.com/' %>.  For more details, go to the <%= link_to 'Ruby.MN Meetup group', 'https://www.meetup.com/ruby-mn/' %> to register to attend the next meeting.  Our <%= link_to 'ruby.mn Google group', 'https://groups.google.com/forum/#!forum/rubymn' %> is the primary way to discuss Ruby with our members.  To view our full Twitter feed, go to <%= link_to 'Ruby.MN on Twitter', 'https://twitter.com/rubymn' %>.
+<h2>About</h2>
+We are Ruby enthusiasts from the Twin Cities area.
+On this site, we showcase sponsors, post job openings, showcase our projects, and present our qualifications.
+We meet on the last Monday of the month at 6:30PM at Day Block Brewing.  You can RSVP to our events on our Meetup page, read our Tweets on our Twitter page, and discuss Ruby on our Google group.
+
+<h2>Links</h2>
+<ul>
+  <li>Meetup:<%= link_to "https://www.meetup.com/ruby-mn", "https://www.meetup.com/ruby-mn"</li>
+  <li>Twitter:<%= link_to "https://twitter.com/rubymn", "https://twitter.com/rubymn"</li>
+  <li>Google group:<%= link_to "https://groups.google.com/forum/#!forum/rubymn", https://groups.google.com/forum/#!forum/rubymn"</li>
+  <li>Day Block Brewing:<%= link_to "https://www.dayblockbrewing.com", "https://www.dayblockbrewing.com"</li>
+</ul>
 ```
 * Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
