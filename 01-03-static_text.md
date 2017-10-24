@@ -18,7 +18,7 @@ Enter the command "git checkout -b 01-03-static_text".
 ### Adding Integration Tests
 * In the test/integration/static_pages_test.rb file, add the following lines to the end of the "home page has expected content" test:
 ```
-    assert page.has_css?('small', text: "#{Time.now.year}")
+    assert page.has_css?('small', text: Time.now.year.to_s)
     assert page.has_link?('Heroku', href: 'https://www.heroku.com')
     assert page.has_text?('We are Ruby enthusiasts from the Twin Cities area.')
     assert page.has_link?('https://www.meetup.com/ruby-mn', href: 'https://www.meetup.com/ruby-mn')
