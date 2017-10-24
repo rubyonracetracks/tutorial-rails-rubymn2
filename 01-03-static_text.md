@@ -1,9 +1,7 @@
 # Unit 1
 ## Chapter 3: Updating the Static Pages Text
 
-### Objectives
-* Update the footer.
-* Update the home page text.
+In this chapter, you will update the content of the home page and footer.
 
 ### New Branch
 Enter the command "git checkout -b 01-03-static_text".
