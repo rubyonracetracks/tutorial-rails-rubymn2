@@ -49,10 +49,10 @@ You can RSVP to our events on our Meetup page, read our Tweets on our Twitter pa
 
 <h2>Links</h2>
 <ul>
-  <li>Meetup: <%= link_to "https://www.meetup.com/ruby-mn", "https://www.meetup.com/ruby-mn"  %></li>
-  <li>Twitter: <%= link_to "https://twitter.com/rubymn", "https://twitter.com/rubymn" %> </li>
-  <li>Google group: <%= link_to "https://groups.google.com/forum/#!forum/rubymn", https://groups.google.com/forum/#!forum/rubymn" %></li>
-  <li>Day Block Brewing: <%= link_to "https://www.dayblockbrewing.com", "https://www.dayblockbrewing.com" %></li>
+  <li>Meetup: <%= link_to 'https://www.meetup.com/ruby-mn', 'https://www.meetup.com/ruby-mn'  %></li>
+  <li>Twitter: <%= link_to 'https://twitter.com/rubymn', 'https://twitter.com/rubymn' %></li>
+  <li>Google group: <%= link_to 'https://groups.google.com/forum/#!forum/rubymn', 'https://groups.google.com/forum/#!forum/rubymn' %></li>
+  <li>Day Block Brewing: <%= link_to 'https://www.dayblockbrewing.com', 'https://www.dayblockbrewing.com' %></li>
 </ul>
 ```
 * Enter the command "test1".  All tests should now pass.
