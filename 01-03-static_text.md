@@ -8,7 +8,28 @@
 ### New Branch
 Enter the command "git checkout -b 01-03-static_text".
 
-### Footer
+### Removing "by Somebody"
+* In the app/views/layouts/_footer.html.erb file, remove "by Somebody".  (It's a boilerplate placeholder that you'd replace with your own name.  Since Ruby.MN is a team effort, let's just leave it out.)
+* Enter the command "sh test_app.sh".  One test fails.
+* Enter the command "alias test1='(Command to run failed test minus the TESTOPTS portion)'".
+* Enter the command "test1".  The test that fails specifies that the text "by Somebody" be present.
+* In the test/integration/static_pages_test.rb file, replace "Ruby Users of Minnesota by Somebody" with "Ruby Users of Minnesota".
+* Enter the command "test1".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+
+### Adding Integration Tests
+* In the test/integration/static_pages_test.rb file, add the following lines to the end of the "home page has expected content" test:
+```
+    assert page.has_css?('small', text: "&copy; #{Time.now.year}")
+    assert page.has_link?('Heroku', href: 'https://www.heroku.com/')
+    assert page.has_text?('We are Ruby enthusiasts from the Twin Cities area.')
+    assert page.has_link?('https://groups.google.com/forum/#!forum/rubymn', href: 'https://groups.google.com/forum/#!forum/rubymn')
+    assert page.has_link?('https://www.meetup.com/ruby-mn/', href: 'https://www.meetup.com/ruby-mn/')
+    assert page.has_link?('https://twitter.com/rubymn', href: 'https://twitter.com/rubymn')
+    assert page.has_link?('https://www.dayblockbrewing.com/', href: 'https://www.dayblockbrewing.com/')
+```
+
+### Adding to the Footer
 * In the app/views/layouts/_footer.html.erb file, replace the line containing "by Somebody" with the following:
 ```
     &copy; <%= "#{Time.now.year}" %>
@@ -20,13 +41,7 @@ Enter the command "git checkout -b 01-03-static_text".
 * In the test/integration/static_pages_test.rb file, shorten the string "Ruby Users of Minnesota by Somebody" to "Ruby Users of Minnesota".
 * Enter the command "test1".  All tests should now pass.
 
-### Home Page
-* In the test/integration/static_pages_test.rb file, add the following lines to the end of the "home page has expected content" test.
-```
-    assert page.has_link?('ruby.mn Google group', href: 'https://groups.google.com/forum/#!forum/rubymn')
-    assert page.has_link?('Ruby.MN Meetup group', href: 'https://www.meetup.com/ruby-mn/')
-    assert page.has_link?('Ruby.MN on Twitter', href: 'https://twitter.com/rubymn')
-```
+### Adding to the Home Page
 * Enter the command "sh test_app.sh".  One of the tests fails because the home page does not have all of the expected content.
 * Enter the command "alias test1='(command for running failed tests minus the TESTOPTS portion)'".
 * Enter the command "test1".  The test still fails.
