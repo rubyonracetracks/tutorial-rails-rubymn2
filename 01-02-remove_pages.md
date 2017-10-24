@@ -40,13 +40,7 @@ rm app/views/static_pages/contact.html.erb
 * Enter the command "test1".  2 tests should fail.  Both test failures are due to missing templates.  (This is the result of removing the about and contact pages.)
 * In the config/routes.rb file, remove the line containing "get '/about'" and the line containing "get '/contact'".  Enter the command "test1".  Now the 2 tests fail because the about_path and contact_path variables are undefined.
 * In test/integration/static_pages_test.rb file, remove the "about page provides access to the home page" test and the "contact page provides access to the home page" test.  The ONLY test that should remain in this file is "home page has expected content".  Enter the command "test1".  All tests should now pass.
-* Enter the command "sh test_app.sh".  5 of the tests will fail.  2 of the tests are in test/controllers/static_pages_controller_test.rb, 2 of the tests are in test/integration/admin_edit_test.rb, and 1 test is in test/integration/user_edit_test.rb.
-* NOTE: In the future, the template app used by GenericApp will be revised to eliminate the portions of the tests in test/integration/admin_edit_test.rb and test/integration/user_edit_test.rb that depend on the "About" page.
-
-### Updating the Admin Edit Test and User Edit Test
-* In test/integration/user_edit_test.rb, edit the "user can access the page for editing settings" test.  Remove the line "visit about_path" and everything else in the test after this line.
-* In test/integration/admin_edit_test.rb, edit the "super admin can access the page for editing settings" test and "regular admin can access the page for editing settings" test.  Remove the line "visit about_path" and everything else in these tests after this line.
-* Enter the command "sh test_app.sh".  Now the 2 failed tests in test/controllers/static_pages_controller_test.rb are the only ones that should remain.
+* Enter the command "sh test_app.sh".  2 of the tests will fail.  Both of the tests are in test/controllers/static_pages_controller_test.rb.
 
 ### Updating the Static Pages Controller
 * Enter the command "sh testc.sh".  2 tests will fail.  One test will fail because the variable about_path is undefined, and the other test will fail because the variable contact_path is undefined.
