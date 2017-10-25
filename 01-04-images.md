@@ -42,8 +42,9 @@ curl -o app/assets/images/header_background.png -OL https://raw.githubuserconten
 ```
 curl -o app/assets/images/rumlogo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/rumlogo.png
 ```
-* Edit the file app/views/static_pages/home.html.erb.  Replace the link_to element containing "rails.png" with the following line:
+* Edit the file app/views/static_pages/home.html.erb.  Add the following lines just before"</small>":
 ```
+  <br><br>
   <%= image_tag 'rumlogo.png' %>
 ```
 * In your web browser showing the local version of your app, hit refresh.  You should now see the header image.
