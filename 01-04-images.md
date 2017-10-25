@@ -6,6 +6,10 @@ In this chapter, you will add images.
 ### New Branch
 Enter the command "git checkout -b 01-04-images".
 
+### Removing the Rails Logo from the Home Page
+* Remove the Rails logo graphic file by entering the command "rm app/assets/images/rails.png".
+* Refresh your view of the local app in your browser.
+
 ### Header Image
 * Download the header background image by entering the following LONG one-line command:
 ```
