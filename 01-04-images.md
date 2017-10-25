@@ -19,8 +19,8 @@ curl -o app/assets/images/rumlogo.png -OL https://raw.githubusercontent.com/jhsu
 ```
 * Edit the file app/views/layouts/_footer.html.erb.  Add the following just before the line containing "</small>":
 ```
-  <br><br>
-  <%= image_tag 'rumlogo.png' %>
+    <br><br>
+    <%= image_tag 'rumlogo.png' %>
 ```
 * Refresh your view of the local app in your browser.  The Ruby.MN logo will now appear at the bottom of each page.
 
