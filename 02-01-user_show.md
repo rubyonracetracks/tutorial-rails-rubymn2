@@ -6,6 +6,11 @@ In this chapter, you will allow users to view the profiles of other users.
 ### New Branch
 Enter the command "git checkout -b 02-01-user_show".
 
+### Controller Test
+
+
+### Integration Test
+
 ### Wrapping Up
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
