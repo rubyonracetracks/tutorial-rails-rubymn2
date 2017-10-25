@@ -12,7 +12,16 @@ Enter the command "git checkout -b 01-04-images".
 * Edit the file app/views/static_pages/home.html.erb.  Remove the lines containing the link_to element that uses the rails.png file you just deleted.
 * Refresh your view of the local app in your browser.
 
-### Footer Logo
+### Adding the Ruby.MN Logo to the Footer
+* Download the Ruby.MN logo background image by entering the following LONG one-line command:
+```
+curl -o app/assets/images/rumlogo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/rumlogo.png
+```
+* Edit the file app/views/layouts/_footer.html.erb.  Add the following to the end of the file:
+```
+    <%= image_tag 'rumlogo.png' %>
+```
+* Refresh your view of the local app in your browser.  The Ruby.MN logo will now appear at the bottom of each page.
 
 ### Header Image
 * Download the header background image by entering the following LONG one-line command:
