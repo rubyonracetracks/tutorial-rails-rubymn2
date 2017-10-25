@@ -34,9 +34,9 @@ curl -o app/assets/images/header_background.png -OL https://raw.githubuserconten
     <%= image_tag 'header_background.png' %>
     <br>
 ```
-* In your web browser showing the local version of your app, hit refresh.  Now the header blocks the top of the page.
+* In your web browser showing the local version of your app, hit refresh.  The header image now appears, but the header blocks the top of the page.
 * To correct this, edit the file app/assets/stylesheets/custom.scss.  Under the body parameter, change the padding-top value to 300.
-* In your web browser showing the local version of your app, hit refresh.  You should now see the header image.
+* In your web browser showing the local version of your app, hit refresh.  You should now see the header AND the top of the home page.
 
 ### Wrapping Up
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
