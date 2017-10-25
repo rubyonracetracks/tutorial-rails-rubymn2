@@ -35,7 +35,7 @@ curl -o app/assets/images/header_background.png -OL https://raw.githubuserconten
     <br>
 ```
 * In your web browser showing the local version of your app, hit refresh.  Now the header blocks the top of the page.
-* To correct this, edit the file app/assets/stylesheets/custom.scss.  Under the body parameter, change the padding-top value to 260.
+* To correct this, edit the file app/assets/stylesheets/custom.scss.  Under the body parameter, change the padding-top value to 300.
 * In your web browser showing the local version of your app, hit refresh.  You should now see the header image.
 
 ### Wrapping Up
