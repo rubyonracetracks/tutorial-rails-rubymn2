@@ -29,9 +29,10 @@ curl -o app/assets/images/rumlogo.png -OL https://raw.githubusercontent.com/jhsu
 ```
 curl -o app/assets/images/header_background.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/header_background.png
 ```
-* Edit the file app/views/layouts/_header.html.erb.  Before the line containing 'link_to "Ruby Users of Minnesota"', add the following line:
+* Edit the file app/views/layouts/_header.html.erb.  Before the line containing 'link_to "Ruby Users of Minnesota"', add the following lines:
 ```
     <%= image_tag 'header_background.png' %>
+    <br>
 ```
 * In your web browser showing the local version of your app, hit refresh.  Now the header blocks the top of the page.
 * To correct this, edit the file app/assets/stylesheets/custom.scss.  Under the body parameter, change the padding-top value to 260.
