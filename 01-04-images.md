@@ -1,7 +1,7 @@
 # Unit 1
-## Chapter 4: Adding Images
+## Chapter 4: Adding Footer and Header Images
 
-In this chapter, you will add images.
+In this chapter, you will add footer and header images.
 
 ### New Branch
 Enter the command "git checkout -b 01-04-images".
@@ -43,7 +43,7 @@ curl -o app/assets/images/header_background.png -OL https://raw.githubuserconten
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added widgets to the home page"
+git commit -m "Added footer and header images"
 git push origin 01-04-images
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
