@@ -29,7 +29,7 @@ curl -o app/assets/images/rumlogo.png -OL https://raw.githubusercontent.com/jhsu
 ```
 curl -o app/assets/images/header_background.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/header_background.png
 ```
-* Edit the file app/views/layouts/_header.html.erb.  Replace the line containing 'link_to "Ruby Users of Minnesota"' with the following:
+* Edit the file app/views/layouts/_header.html.erb.  Before the line containing 'link_to "Ruby Users of Minnesota"', add the following line:
 ```
     <%= image_tag 'header_background.png' %>
 ```
