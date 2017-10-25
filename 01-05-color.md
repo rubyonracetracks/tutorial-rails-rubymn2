@@ -13,7 +13,7 @@ Enter the command "git checkout -b 01-05-color".
   background-color: #660000;
 }
 ```
-* Refresh your web browser's view of the local version of your site.
+* Refresh your web browser's view of the local version of your site.  Now the header is dark red instead of black.
 
 ### Updating the Color of Links in the Navigation Bar
 * Unfortunately, the gray text in the navigation bar is less readable with the dark red background than it was with the white background.  The solution is to make the text in the navigation bar always white.
@@ -27,6 +27,7 @@ Enter the command "git checkout -b 01-05-color".
   }
 }
 ```
+* Refresh your web browser's view of the local version of your site.  Now you'll see that when you move the mouse over a hyperlink in the navigation bar, the corresponding section turns black.  When you move the mouse away from that hyperlink, the corresponding section turns back to dark red.
 
 ### Wrapping Up
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
