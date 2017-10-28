@@ -56,7 +56,7 @@ Enter the command "git checkout -b 02-01-user_show".
 * Enter the following commands:
 ```
 git add .
-git commit -m "Made user profiles public"
+git commit -m "Allowed users to view other user profiles"
 git push origin 02-01-user_show
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
