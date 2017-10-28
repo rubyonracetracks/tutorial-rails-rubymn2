@@ -17,7 +17,7 @@ Enter the command "git checkout -b 01-04-images".
 ```
 curl -o app/assets/images/rumlogo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/rumlogo.png
 ```
-* Edit the file app/views/layouts/_footer.html.erb.  Add the following just before the line containing "</small>":
+* Edit the file app/views/layouts/_footer.html.erb.  Add the following just after the link to Heroku:
 ```
     <br><br>
     <%= image_tag 'rumlogo.png' %>
