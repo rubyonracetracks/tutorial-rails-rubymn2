@@ -31,9 +31,9 @@ Enter the command "git checkout -b 02-01-user_show".
   * Remove the line designating admin_or_correct_user as a helper method.
   * Replace the definition of may_show_user with the following:
   ```
-  def may_show_user
-    return redirect_to(root_path) unless admin_signed_in? || user_signed_in?
-  end
+    def may_show_user
+      return redirect_to(root_path) unless admin_signed_in? || user_signed_in?
+    end
   ```
 * Enter the command "sh testc.sh".  All tests should now pass.
 
