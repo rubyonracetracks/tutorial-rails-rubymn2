@@ -44,7 +44,6 @@ rails generate migration add_gravatar_email_to_users gravatar_email:string
 * Enter the command "sh testm.sh".
 * Add the following lines to app/models/user.rb just before the end of the public section:
 ```
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\-.]+\.[a-z]+\z/i
   validates :gravatar_email, length: { maximum: 255 },
                              format: { with: VALID_EMAIL_REGEX }
 ```
