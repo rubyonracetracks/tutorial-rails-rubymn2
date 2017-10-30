@@ -48,9 +48,15 @@ rails generate migration add_gravatar_email_to_users gravatar_email:string
                              format: { with: VALID_EMAIL_REGEX }
 ```
 * Enter the command "sh testm.sh".
-* Enter the command "sh git_check.sh".
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Seeding
+* In the db/seeds.rb file, update the "Example User" to have the gravatar email address "example@railstutorial.org".
+* In the db/seeds.rb file, update the random users to have the same gravatar email addresses as their regular email addresses.
+* Stop the local Rails server.  (If you don't, the seeding process will not work.)
+* Enter the command "sh seed.sh".
+* After the seeding process is finished, restart the local Rails server.
+* Use pgAdmin to view the database and verify that the seeding process worked as expected.
 
 ### Wrapping Up
 * Enter the following commands:
