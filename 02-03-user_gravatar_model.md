@@ -45,6 +45,7 @@ rails generate migration add_gravatar_email_to_users gravatar_email:string
 * Add the following lines to app/models/user.rb immediately after the "validates :email" statement:
 ```
   validates :gravatar_email, length: { maximum: 255 },
+                             allow_nil: true,
                              format: { with: VALID_EMAIL_REGEX }
 ```
 * Enter the command "sh testm.sh".  All tests should now pass.
