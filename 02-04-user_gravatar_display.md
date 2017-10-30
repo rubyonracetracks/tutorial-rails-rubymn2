@@ -15,7 +15,7 @@ module UsersHelper
   def gravatar_for(user)
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}"
-    image_tag(gravatar_url, alt: user.name, class: "gravatar")
+    image_tag(gravatar_url, alt: "#{user.first_name} #{user.last_name}", class: "gravatar")
   end
 end
 ```
@@ -23,7 +23,8 @@ end
 ```
     <%= gravatar_for @user %>
 ```
-* 
+* In your web browser, log into your local version of your app, click on "User Index", and view the profiles of the seeded users.  The gravatar should be present on the user profile pages.
+
 
 ### Wrapping Up
 * Enter the following commands:
