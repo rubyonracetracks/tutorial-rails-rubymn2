@@ -41,13 +41,13 @@ rails generate migration add_gravatar_email_to_users gravatar_email:string
     end
   end
 ```
-* Enter the command "sh testm.sh".
+* Enter the command "sh testm.sh".  2 of the user model tests fail.  The tests for screening out invalid gravatar_email addresses and excessively long gravatar_email addresses are the ones that fail.
 * Add the following lines to app/models/user.rb just before the end of the public section:
 ```
   validates :gravatar_email, length: { maximum: 255 },
                              format: { with: VALID_EMAIL_REGEX }
 ```
-* Enter the command "sh testm.sh".
+* Enter the command "sh testm.sh".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Seeding
