@@ -30,6 +30,9 @@ end
     <%= gravatar_for @user %>
 ```
 * In your web browser, log into your local version of your app, click on "User Index", and view the profiles of the seeded users.  The gravatar should be present on the user profile pages.
+* Enter the command "bundle exec brakeman -Aq -w2 --no-pager".  You'll see that Brakeman flags your gravatar_for method as a security issue due to the use of the weak MD5 hashing algorithm.
+* Enter the command "bundle exec brakeman -Aq -w2 --no-pager -I".  Because there is no input file yet, you must continue with an empty config.  When prompted, select the option to inspect all warnings.  When prompted on what to do with your weak MD5 hashing algorithm, select the option to add this warning to the ignore list.
+* Note that the file config/brakeman.ignore has been created and now contains the issue to be ignored.
 
 ### User Index
 * In the file app/views/users/index.html.erb, replace everything between the two "will_paginate" statements with the following:
