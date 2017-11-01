@@ -46,6 +46,8 @@ end
 ```
 * Replace the contents of app/views/users/_user.html.erb with the following:
 ```
+<% require 'email_munger' %>
+
 <hr>
 <table class="user_index_gravatar">
   <tr>
