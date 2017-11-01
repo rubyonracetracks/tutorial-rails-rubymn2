@@ -46,22 +46,30 @@ end
 ```
 * Replace the contents of app/views/users/_user.html.erb with the following:
 ```
-<% require 'email_munger' %>
-
+<hr>
 <table class="user_index_gravatar">
   <tr>
     <td>
       <%= gravatar_for user %>
     </td>
     <td>
-      <%= user.first_name %> <%= user.last_name %></td>
+      <%= user.first_name %> <%= user.last_name %>
       <br>
-      <%= link_to user.username, user %></td>
+      <%= link_to user.username, user %>
       <br>
       <%= link_to raw(EmailMunger.encode(user.email)), user %>
     </td>
   </tr>
 </table>
+```
+* In the file app/assets/stylesheets/custom.scss, add the following lines at the end:
+```
+
+.user_index_gravatar {
+  td {
+    padding: 5px;
+  }
+}
 ```
 
 ### Wrapping Up
