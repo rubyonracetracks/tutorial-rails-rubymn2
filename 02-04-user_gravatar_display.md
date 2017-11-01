@@ -46,7 +46,22 @@ end
 ```
 * Replace the contents of app/views/users/_user.html.erb with the following:
 ```
+<% require 'email_munger' %>
 
+<table class="user_index_gravatar">
+  <tr>
+    <td>
+      <%= gravatar_for user %>
+    </td>
+    <td>
+      <%= user.first_name %> <%= user.last_name %></td>
+      <br>
+      <%= link_to user.username, user %></td>
+      <br>
+      <%= link_to raw(EmailMunger.encode(user.email)), user %>
+    </td>
+  </tr>
+</table>
 ```
 
 ### Wrapping Up
