@@ -1,7 +1,7 @@
 # Unit 2
 ## Chapter 5: User Gravatar Edit
 
-In this chapter, you will allow users to edit their gravatar email addresses or their gravatars themselves.  (Editing the gravatars requires providing a link to do so on the user edit page.)
+In this chapter, you will allow new users to sign up with a gravatar email address and allow existing users to edit their gravatar email addresses or their gravatars themselves.
 
 ### New Branch
 Enter the command "git checkout -b 02-05-user_gravatar_edit".
@@ -14,7 +14,7 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
     login_as(@u1, scope: :user)
     visit root_path
     click_on 'Edit Settings'
-    assert page.has_link?('Edit Gravatar', href: 'http://gravatar.com/email')
+    assert page.has_link?('Edit Gravatar', href: 'http://gravatar.com/emails')
   end
 
   test 'user can edit gravatar_email' do
@@ -45,10 +45,24 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
     page.assert_selector(:xpath, xpath_input_str('tom_selleck@example.com'))
   end
 ```
-* Enter the command "sh test_app.sh".  Both of your new integration tests fail.
+* Enter the command "sh test_app.sh".  All of your new integration tests fail.
 * Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
 
 ### User Edit Page
+* In the file app/views/users/registrations/edit.html.erb, add the following code immediately after the field for entering the email address:
+```
+
+  <div class="field">
+    <%= f.label :gravatar_email %> (OPTIONAL)<br />
+    <%= f.email_field :email %>
+  </div>
+
+```
+* In the file app/views/users/registrations/edit.html.erb, add the following code immediately before the line containing the command "end" (signifying the end of the form):
+```
+  <%= gravatar_for @user %>
+  <a href="http://gravatar.com/emails" target="_blank">Edit Gravatar</a>
+```
 
 ### User Registration Controller
 
