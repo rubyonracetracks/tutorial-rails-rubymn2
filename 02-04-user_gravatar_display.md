@@ -81,7 +81,7 @@ end
 ```
 git add .
 git commit -m "Added the user gravatar displays"
-git push origin 02-03-user_gravatar_display
+git push origin 02-04-user_gravatar_display
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in contiuous integration, accept this pull request to merge it with the master branch.
