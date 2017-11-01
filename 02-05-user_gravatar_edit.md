@@ -22,12 +22,31 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
     login_as(@u1, scope: :user)
     visit root_path
     click_on 'Edit Settings'
-    fill_in('Email', with: g_email)
+    fill_in('Gravatar email', with: g_email)
     click_button('Update')
     assert page.has_text?('Your account has been updated successfully.')
     page.assert_selector(:xpath, xpath_input_str(g_email))
   end
+
+  test 'user can add gravatar_email at signup' do
+    visit root_path
+    click_on 'Sign up now!'
+    fill_in('Last name', with: 'Magnum')
+    fill_in('First name', with: 'Thomas')
+    fill_in('Username', with: 'magnum_pi')
+    fill_in('Email', with: 'tmagnum@example.com')
+    fill_in('Gravatar email', with: 'tom_selleck@example.com')
+    fill_in('Password', with: 'Work the lock!')
+    fill_in('Password confirmation', with: 'Work the lock!')
+    click_button('Sign up')
+    open_email('tmagnum@example.com')
+    current_email.click_link 'Confirm my account'
+    click_on 'Edit Settings'
+    page.assert_selector(:xpath, xpath_input_str('tom_selleck@example.com'))
+  end
 ```
+* Enter the command "sh test_app.sh".  Both of your new integration tests fail.
+* Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
 
 ### User Edit Page
 
