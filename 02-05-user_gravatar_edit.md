@@ -67,7 +67,7 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
 * Enter the command "test1".  Now only 2 of the new integration tests fail.
 
 ### User Registration Controller
-* Edit the file app/controllers/users/registrations_controller.rb.  Add gravatar_email to the list of keys to be permitted within the definitions of the configure_sign_up_params and configure_account_update_params methods.
+* Edit the file app/controllers/users/registrations_controller.rb.  Add ":gravatar_email" to the list of keys to be permitted within the definitions of the configure_sign_up_params and configure_account_update_params methods.
 
 ### Wrapping Up
 * Enter the following commands:
