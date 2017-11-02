@@ -10,6 +10,9 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
 * Enter the command "rails generate integration_test gravatar_edit".
 * Edit the file test/integration/gravatar_edit_test.rb.  Replace everything between the line "class GravatarEditTest < ActionDispatch::IntegrationTest" and the final "end" line with the following:
 ```
+require 'test_helper'
+
+class GravatarEditTest < ActionDispatch::IntegrationTest
   test 'user edit page provides a link to editing the gravatar' do
     login_as(@u1, scope: :user)
     visit root_path
@@ -26,6 +29,7 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
     fill_in('Current password', with: 'Goldfinger')
     click_button('Update')
     assert page.has_text?('Your account has been updated successfully.')
+    click_on 'Edit Settings'
     page.assert_selector(:xpath, xpath_input_str(g_email))
   end
 
@@ -45,6 +49,7 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
     click_on 'Edit Settings'
     page.assert_selector(:xpath, xpath_input_str('tom_selleck@example.com'))
   end
+end
 ```
 * Enter the command "sh test_app.sh".  All 3 of your new integration tests fail.
 * Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
