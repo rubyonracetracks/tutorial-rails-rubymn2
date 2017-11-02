@@ -45,8 +45,9 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
     page.assert_selector(:xpath, xpath_input_str('tom_selleck@example.com'))
   end
 ```
-* Enter the command "sh test_app.sh".  All of your new integration tests fail.
+* Enter the command "sh test_app.sh".  All 3 of your new integration tests fail.
 * Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
+* Enter the command "test1".  The 3 new integration tests fail.
 
 ### User Edit Page
 * In the file app/views/users/registrations/edit.html.erb, add the following code immediately after the field for entering the email address:
@@ -63,8 +64,10 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
   <%= gravatar_for @user %>
   <a href="http://gravatar.com/emails" target="_blank">Edit Gravatar</a>
 ```
+* Enter the command "test1".  Now only 2 of the new integration tests fail.
 
 ### User Registration Controller
+* Edit the file app/controllers/users/registrations_controller.rb.  Add gravatar_email to the list of keys to be permitted within the definitions of the configure_sign_up_params and configure_account_update_params methods.
 
 ### Wrapping Up
 * Enter the following commands:
