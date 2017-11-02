@@ -23,6 +23,7 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
     visit root_path
     click_on 'Edit Settings'
     fill_in('Gravatar email', with: g_email)
+    fill_in('Current password', with: 'Goldfinger')
     click_button('Update')
     assert page.has_text?('Your account has been updated successfully.')
     page.assert_selector(:xpath, xpath_input_str(g_email))
