@@ -55,7 +55,7 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
 
   <div class="field">
     <%= f.label :gravatar_email %> (OPTIONAL)<br />
-    <%= f.email_field :email %>
+    <%= f.email_field :gravatar_email %>
   </div>
 
 ```
