@@ -10,9 +10,6 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
 * Enter the command "rails generate integration_test gravatar_edit".
 * Edit the file test/integration/gravatar_edit_test.rb.  Replace everything between the line "class GravatarEditTest < ActionDispatch::IntegrationTest" and the final "end" line with the following:
 ```
-require 'test_helper'
-
-class GravatarEditTest < ActionDispatch::IntegrationTest
   test 'user edit page provides a link to editing the gravatar' do
     login_as(@u1, scope: :user)
     visit root_path
@@ -34,6 +31,7 @@ class GravatarEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'user can add gravatar_email at signup' do
+    # Signing up
     visit root_path
     click_on 'Sign up now!'
     fill_in('Last name', with: 'Magnum')
@@ -44,12 +42,17 @@ class GravatarEditTest < ActionDispatch::IntegrationTest
     fill_in('Password', with: 'Work the lock!')
     fill_in('Password confirmation', with: 'Work the lock!')
     click_button('Sign up')
+
+    # Confirmation
     open_email('tmagnum@example.com')
     current_email.click_link 'Confirm my account'
+    assert page.has_text?('Your email address has been successfully confirmed.')
+
+    # Logging in after confirmation
+    login_user('magnum_pi', 'Work the lock!', false)
     click_on 'Edit Settings'
     page.assert_selector(:xpath, xpath_input_str('tom_selleck@example.com'))
   end
-end
 ```
 * Enter the command "sh test_app.sh".  All 3 of your new integration tests fail.
 * Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
@@ -74,6 +77,19 @@ end
 
 ### User Registration Controller
 * Edit the file app/controllers/users/registrations_controller.rb.  Add ":gravatar_email" to the list of keys to be permitted within the definitions of the configure_sign_up_params and configure_account_update_params methods.
+* Enter the command "test1".  Now only 1 of the new integration tests should fail.
+
+### User Signup Page
+* In the file app/views/users/registrations/new.html.erb, add the following code immediately after the field for entering the email address:
+```
+
+  <div class="field">
+    <%= f.label :gravatar_email %> (OPTIONAL)<br />
+    <%= f.email_field :gravatar_email %>
+  </div>
+
+```
+* Enter the command "test1".  Now all tests should pass.
 
 ### Wrapping Up
 * Enter the following commands:
