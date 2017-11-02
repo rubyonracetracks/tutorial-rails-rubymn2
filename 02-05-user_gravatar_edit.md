@@ -29,34 +29,10 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
     click_on 'Edit Settings'
     page.assert_selector(:xpath, xpath_input_str(g_email))
   end
-
-  test 'user can add gravatar_email at signup' do
-    # Signing up
-    visit root_path
-    click_on 'Sign up now!'
-    fill_in('Last name', with: 'Magnum')
-    fill_in('First name', with: 'Thomas')
-    fill_in('Username', with: 'magnum_pi')
-    fill_in('Email', with: 'tmagnum@example.com')
-    fill_in('Gravatar email', with: 'tom_selleck@example.com')
-    fill_in('Password', with: 'Work the lock!')
-    fill_in('Password confirmation', with: 'Work the lock!')
-    click_button('Sign up')
-
-    # Confirmation
-    open_email('tmagnum@example.com')
-    current_email.click_link 'Confirm my account'
-    assert page.has_text?('Your email address has been successfully confirmed.')
-
-    # Logging in after confirmation
-    login_user('magnum_pi', 'Work the lock!', false)
-    click_on 'Edit Settings'
-    page.assert_selector(:xpath, xpath_input_str('tom_selleck@example.com'))
-  end
 ```
-* Enter the command "sh test_app.sh".  All 3 of your new integration tests fail.
+* Enter the command "sh test_app.sh".  Both of your new integration tests fail.
 * Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  The 3 new integration tests fail.
+* Enter the command "test1".  Both new integration tests fail.
 
 ### User Edit Page
 * In the file app/views/users/registrations/edit.html.erb, add the following code immediately after the field for entering the email address:
@@ -73,25 +49,14 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
   <%= gravatar_for @user %>
   <a href="http://gravatar.com/emails" target="_blank">Edit Gravatar</a>
 ```
-* Enter the command "test1".  Now only 2 of the new integration tests fail.
+* Enter the command "test1".  Now only 1 new integration test fails.
 
 ### User Registration Controller
-* Edit the file app/controllers/users/registrations_controller.rb.  Add ":gravatar_email" to the list of keys to be permitted within the definitions of the configure_sign_up_params and configure_account_update_params methods.
-* Enter the command "test1".  Now only 1 of the new integration tests should fail.
-
-### User Signup Page
-* In the file app/views/users/registrations/new.html.erb, add the following code immediately after the field for entering the email address:
-```
-
-  <div class="field">
-    <%= f.label :gravatar_email %> (OPTIONAL)<br />
-    <%= f.email_field :gravatar_email %>
-  </div>
-
-```
+* Edit the file app/controllers/users/registrations_controller.rb.  Add ":gravatar_email" to the list of keys to be permitted within the definition of the configure_account_update_params methods.
 * Enter the command "test1".  Now all tests should pass.
 
 ### Wrapping Up
+* ENter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
 git add .
