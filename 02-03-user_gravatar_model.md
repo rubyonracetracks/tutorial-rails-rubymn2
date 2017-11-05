@@ -32,13 +32,14 @@ rails generate migration add_gravatar_email_to_users gravatar_email:string
     end
   end
 ```
+* NOTE: The test for rejecting gravatar email addresses with invalid addresses is NOT included.  Attempts to include such a test resulted in the app refusing a user sign up or edit action due to the lack of a gravatar email address, which is intended to be strictly OPTIONAL.
 * Add the following lines to the end of the file .rubocop.yml:
 ```
 Metrics/ClassLength:
   Exclude:
     - test/models/user_test.rb
 ```
-* Enter the command "sh testm.sh".  2 of the user model tests fail.  The tests for screening out invalid gravatar_email addresses and excessively long gravatar_email addresses are the ones that fail.
+* Enter the command "sh testm.sh".  The test for screening out excessively long gravatar_email addresses is the one that fails.
 * Add the following lines to app/models/user.rb immediately after the "validates :email" statement:
 ```
   validates :gravatar_email, length: { maximum: 255 }
