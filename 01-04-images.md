@@ -13,19 +13,21 @@ Enter the command "git checkout -b 01-04-images".
 * Refresh your view of the local app in your browser.
 
 ### Adding the Logos to the Footer
-* Download the Ruby.MN logo background image by entering the following LONG one-line command:
+* Download the Ruby.MN logo image by entering the following LONG one-line command:
 ```
 curl -o app/assets/images/rumlogo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/rumlogo.png
-* Download the header background image by entering the following LONG one-line command:
 ```
-curl -o app/assets/images/header_background.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/header_background.png
+* Download the footer background image by entering the following LONG one-line command:
 ```
+curl -o app/assets/images/footer_background.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/footer_background.png
 ```
 
 * Edit the file app/views/layouts/_footer.html.erb.  Add the following just after the link to Heroku:
 ```
     <br><br>
     <%= image_tag 'rumlogo.png' %>
+    <br>
+    <%= image_tag 'footer_background.png' %>
 ```
 * Refresh your view of the local app in your browser.  The Ruby.MN logo will now appear at the bottom of each page.
 
