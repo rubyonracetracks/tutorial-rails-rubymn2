@@ -31,15 +31,6 @@ rails generate migration add_gravatar_email_to_users gravatar_email:string
       assert @user.valid?, "#{valid_address.inspect} should be valid"
     end
   end
-
-  test 'gravatar_email validation should reject invalid addresses' do
-    invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
-                           foo@bar_baz.com foo@bar+baz.com]
-    invalid_addresses.each do |invalid_address|
-      @user.gravatar_email = invalid_address
-      assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
-    end
-  end
 ```
 * Add the following lines to the end of the file .rubocop.yml:
 ```
@@ -50,9 +41,7 @@ Metrics/ClassLength:
 * Enter the command "sh testm.sh".  2 of the user model tests fail.  The tests for screening out invalid gravatar_email addresses and excessively long gravatar_email addresses are the ones that fail.
 * Add the following lines to app/models/user.rb immediately after the "validates :email" statement:
 ```
-  validates :gravatar_email, length: { maximum: 255 },
-                             allow_nil: true,
-                             format: { with: VALID_EMAIL_REGEX }
+  validates :gravatar_email, length: { maximum: 255 }
 ```
 * Enter the command "sh testm.sh".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
