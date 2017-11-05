@@ -66,7 +66,7 @@ git commit -m "Updated the text in the static pages"
 git push origin 01-03-static_text
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
-* When you see that your app passes in contiuous integration, accept this pull request to merge it with the master branch.
+* When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
 * Enter the following commands:
 ```
 git checkout master

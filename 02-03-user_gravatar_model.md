@@ -73,7 +73,7 @@ git commit -m "Added the gravatar_email parameter to the user model"
 git push origin 02-03-user_gravatar_model
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
-* When you see that your app passes in contiuous integration, accept this pull request to merge it with the master branch.
+* When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
 * Enter the following commands:
 ```
 git checkout master
