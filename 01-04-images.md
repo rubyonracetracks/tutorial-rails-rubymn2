@@ -29,17 +29,7 @@ curl -o app/assets/images/footer_background.png -OL https://raw.githubuserconten
     <br>
     <%= image_tag 'footer_background.png' %>
 ```
-* Refresh your view of the local app in your browser.  The Ruby.MN logo will now appear at the bottom of each page.
-
-### Header Image
-* Edit the file app/views/layouts/_header.html.erb.  Before the line containing 'link_to "Ruby Users of Minnesota"', add the following lines:
-```
-    <%= image_tag 'header_background.png' %>
-    <br>
-```
-* In your web browser showing the local version of your app, hit refresh.  The header image now appears, but the header blocks the top of the page.
-* To correct this, edit the file app/assets/stylesheets/custom.scss.  Under the body parameter, change the padding-top value to 340.
-* In your web browser showing the local version of your app, hit refresh.  You should now see the header AND the top of the home page.
+* Refresh your view of the local app in your browser.  The Ruby.MN logo and the footer background image will now appear at the bottom of each page.
 
 ### Wrapping Up
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
