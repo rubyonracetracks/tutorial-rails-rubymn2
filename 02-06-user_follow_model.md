@@ -11,15 +11,8 @@ Enter the command "git checkout -b 02-06-follower_model".
 ```
 rails generate model Relationship follower_id:integer followed_id:integer
 ```
-* Edit the file db/migrate/[timestamp]_create_relationships.rb.  Just before the end of the change method, add the following lines:
-```
-    add_index :relationships, :follower_id
-    add_index :relationships, :followed_id
-    add_index :relationships, [:follower_id, :followed_id], unique: true
-```
 * The combination of follower user and followed user will be the defining parameters of each relationship.  These two users are defined by their ID numbers in the database.  No two relationships may have the same combination.
 * Enter the command "rails db:migrate".
-
 
 ### Relationship Model Test
 * Edit the file test/models/relationship_test.rb.  Replace everything between "RelationshipTest < ActiveSupport::TestCase" and the last "end" statement with the following:
@@ -64,6 +57,15 @@ rails generate model Relationship follower_id:integer followed_id:integer
 echo '# empty' > test/fixtures/relationships.yml
 ```
 * Enter the command "sh testm.sh".
+
+### Updating the Relationship Migration Table
+* Edit the file db/migrate/[timestamp]_create_relationships.rb.  Just before the end of the change method, add the following lines:
+```
+    add_index :relationships, :follower_id
+    add_index :relationships, :followed_id
+    add_index :relationships, [:follower_id, :followed_id], unique: true
+```
+
 
 ### Updating the User Model Test
 
