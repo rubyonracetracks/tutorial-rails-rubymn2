@@ -35,13 +35,37 @@ rails generate model Relationship follower_id:integer followed_id:integer
     @relationship.followed_id = nil
     assert_not @relationship.valid?
   end
+
+  test 'should be unique' do
+    @relationship_dup = Relationship.new(follower_id: users(:moore).id,
+                                         followed_id: users(:connery).id)
+    assert_not @relationship_dup.valid?
+  end
 ```
-* Enter the command "sh testm.sh".
+* Enter the command "sh testm.sh".  The first of your new model tests passes, but the other three fail.
 * Edit the file app/models/relationship.rb.  Just before the "end" statement, add the following lines:
 ```
   validates :follower_id, presence: true
   validates :followed_id, presence: true
 ```
+* In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
+* Enter the command "sh testm.sh".  Now only one test should fail, the uniqueness test.
+* Edit the file db/migrate/[timestamp]_create_relationships.rb.  Just before the end of the change method, add the following lines:
+```
+    add_index :relationships, :follower_id
+    add_index :relationships, :followed_id
+    add_index :relationships, [:follower_id, :followed_id], unique: true
+```
+* Enter the command "rails console" to enter the Rails console
+* Enter the command "ActiveRecord::Migration.drop_table(:relationships)".  This erases the relationships table in the database.  (If you neglect this step, the "rails db:migrate" command won't work.)
+* Enter the command "exit" to leave the Rails console.
+* Enter the command "rails db:migrate; sh testm.sh".
+
+
+### Updating the User Model Tests
+
+
+
 * Remove the default relationship test fixtures by entering the following command:
 ```
 echo '# empty' > test/fixtures/relationships.yml
@@ -49,12 +73,6 @@ echo '# empty' > test/fixtures/relationships.yml
 * Enter the command "sh testm.sh".
 
 ### Updating the Relationship Migration Table
-* Edit the file db/migrate/[timestamp]_create_relationships.rb.  Just before the end of the change method, add the following lines:
-```
-    add_index :relationships, :follower_id
-    add_index :relationships, :followed_id
-    add_index :relationships, [:follower_id, :followed_id], unique: true
-```
 
 
 ### Updating the User Model Test
