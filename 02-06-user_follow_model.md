@@ -35,16 +35,6 @@ rails generate model Relationship follower_id:integer followed_id:integer
     @relationship.followed_id = nil
     assert_not @relationship.valid?
   end
-
-  test 'should follow and unfollow a user' do
-    connery = users(:connery)
-    moore  = users(:moore)
-    assert_not connery.following?(moore)
-    connery.follow(moore)
-    assert connery.following?(moore)
-    connery.unfollow(moore)
-    assert_not connery.following?(moore)
-  end
 ```
 * Enter the command "sh testm.sh".
 * Edit the file app/models/relationship.rb.  Just before the "end" statement, add the following lines:
