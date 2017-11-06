@@ -48,8 +48,18 @@ Metrics/ClassLength:
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Seeding
-* In the db/seeds.rb file, update the "Example User" to have the gravatar email address "example@railstutorial.org".
-* In the db/seeds.rb file, update the random users to have the same gravatar email addresses as their regular email addresses.
+* In the db/seeds.rb file, update the "Example User" to have the gravatar_email address "example@railstutorial.org".
+* Add the following lines at the beginning of the "creating users" section:
+```
+email_random = %w[michael@michaelhartl.com emerleite@gmail.com
+                  nobu@ruby-lang.org david@basecamp.com
+                  mike.dalessio@gmail.com bozhidar@batsov.com
+                  flyerhzm@gmail.com nobody@example.com]
+```
+* In the db/seeds.rb file, update the random users to have the following gravatar_email address:
+```
+email_random.weighted_sample([1, 1, 1, 1, 1, 1, 1, 7])
+```
 * Go to the tmux window where the local Rails server is running.  Stop the local Rails server.  (If you don't, the seeding process will not work.)
 * Enter the command "sh kill_spring.sh; sh seed.sh; sh server.sh".  This restarts the Spring server, reseeds the database, and restarts the local server.
 * Use pgAdmin to view the database and verify that the seeding process worked as expected.
