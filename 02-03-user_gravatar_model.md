@@ -51,14 +51,12 @@ Metrics/ClassLength:
 * In the db/seeds.rb file, update the "Example User" to have the gravatar_email address "example@railstutorial.org".
 * Add the following lines at the beginning of the "creating users" section:
 ```
-email_random = %w[michael@michaelhartl.com emerleite@gmail.com
-                  nobu@ruby-lang.org david@basecamp.com
-                  mike.dalessio@gmail.com bozhidar@batsov.com
-                  flyerhzm@gmail.com nobody@example.com]
+email_random = %w[michael@michaelhartl.com nobu@ruby-lang.org
+                  david@basecamp.com nobody@example.com]
 ```
 * In the db/seeds.rb file, update the random users to have the following gravatar_email address:
 ```
-email_random.weighted_sample([1, 1, 1, 1, 1, 1, 1, 7])
+email_random.sample
 ```
 * Go to the tmux window where the local Rails server is running.  Stop the local Rails server.  (If you don't, the seeding process will not work.)
 * Enter the command "sh kill_spring.sh; sh seed.sh; sh server.sh".  This restarts the Spring server, reseeds the database, and restarts the local server.
