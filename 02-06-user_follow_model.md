@@ -12,6 +12,12 @@ Enter the command "git checkout -b 02-06-follower_model".
 rails generate model Relationship follower_id:integer followed_id:integer
 ```
 * The combination of follower user and followed user will be the defining parameters of each relationship.  These two users are defined by their ID numbers in the database.  No two relationships may have the same combination.
+* Edit the file db/migrate/[timestamp]_create_relationships.rb.  Just before the end of the change method, add the following lines:
+```
+    add_index :relationships, :follower_id
+    add_index :relationships, :followed_id
+    add_index :relationships, [:follower_id, :followed_id], unique: true
+```
 * Enter the command "rails db:migrate".
 
 ### Relationship Model Test
@@ -50,12 +56,7 @@ rails generate model Relationship follower_id:integer followed_id:integer
 ```
 * In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
 * Enter the command "sh testm.sh".  Now only one test should fail, the uniqueness test.
-* Edit the file db/migrate/[timestamp]_create_relationships.rb.  Just before the end of the change method, add the following lines:
-```
-    add_index :relationships, :follower_id
-    add_index :relationships, :followed_id
-    add_index :relationships, [:follower_id, :followed_id], unique: true
-```
+
 * Enter the command "rails console" to enter the Rails console
 * Enter the command "ActiveRecord::Migration.drop_table(:relationships)".  This erases the relationships table in the database.  (If you neglect this step, the "rails db:migrate" command won't work.)
 * Enter the command "exit" to leave the Rails console.
