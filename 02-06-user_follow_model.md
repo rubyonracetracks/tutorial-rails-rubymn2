@@ -49,24 +49,27 @@ rails generate model Relationship follower_id:integer followed_id:integer
   end
 ```
 * Enter the command "sh testm.sh".  32 tests fail.
-* Edit the file app/models/relationship.rb.  Just before the "end" statement, add the following lines:
-```
-  validates :follower_id, presence: true
-  validates :followed_id, presence: true
-```
-* In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
 * Edit the file app/models/user.rb.  Add the following lines immediately after the line "class User < ApplicationRecord":
 ```
   has_many :active_relationships, class_name:  'Relationship',
                                   foreign_key: 'follower_id',
                                   dependent:   :destroy
 ```
-* Edit the file app/models/relationship.rb.  Add the following lines immediately after the line "class Relationship < ApplicationRecord":
+* In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
+* In file app/models/relationship.rb, add the following lines immediately after the line "class Relationship < ApplicationRecord":
 ```
-  belongs_to :follower, class_name: 'User'
-  belongs_to :followed, class_name: 'User'
+  belongs_to :follower, class_name: "User"
+  belongs_to :followed, class_name: "User"
+  validates :follower_id, presence: true
+  validates :followed_id, presence: true
 ```
 * Enter the command "sh testm.sh".  Now only one test should fail, the uniqueness test.
+
+
+
+
+
+
 
 * Enter the command "rails console" to enter the Rails console
 * Enter the command "ActiveRecord::Migration.drop_table(:relationships)".  This erases the relationships table in the database.  (If you neglect this step, the "rails db:migrate" command won't work.)
