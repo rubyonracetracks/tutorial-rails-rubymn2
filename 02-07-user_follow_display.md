@@ -87,6 +87,8 @@ before_action :may_show_following, only: [:following]
 * Enter the command "sh git_check.sh".
 
 ### Integration Test
+* Enter the command "rails generate integration_test user_following".
+
 
 
 ### Wrapping Up
