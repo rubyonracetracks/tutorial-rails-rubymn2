@@ -13,31 +13,31 @@ Enter the command "git checkout -b 02-07-follower_display".
 ```
   # BEGIN: following
   test 'should redirect following when not logged in' do
-    visit following_user_path(@u1)
+    get following_user_path(@u1)
     assert_redirected_to root_path
   end
 
   test 'should redirect following when logged in as a different user' do
     sign_in @u2, scope: :user
-    visit following_user_path(@u1)
+    get following_user_path(@u1)
     assert_redirected_to root_path
   end
 
   test 'should not redirect following when logged in as that user' do
     sign_in @u1, scope: :user
-    visit following_user_path(@u1)
+    get following_user_path(@u1)
     assert_response :success
   end
 
   test 'should not redirect following when logged in as a regular admin' do
     sign_in @a4, scope: :admin
-    visit following_user_path(@u1)
+    get following_user_path(@u1)
     assert_response :success
   end
 
   test 'should not redirect following when logged in as a super admin' do
     sign_in @a1, scope: :admin
-    visit following_user_path(@u1)
+    get following_user_path(@u1)
     assert_response :success
   end
   # END: following
