@@ -1,7 +1,7 @@
 # Unit 2
 ## Chapter 6: User Relationship Model
 
-In this chapter, you will add the relationship model that allows users to follow other users.  Please note that the uniqueness of relationship objects is enforced at the controller and view levels instead of the model level.
+In this chapter, you will add the relationship model that allows users to follow other users.  Please note that the uniqueness of relationship objects is enforced at the database migration level instead of at the model level.
 
 ### New Branch
 Enter the command "git checkout -b 02-06-follower_model".
