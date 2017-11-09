@@ -35,7 +35,7 @@ rails generate model Relationship follower_id:integer followed_id:integer
   test 'should allow the opposite relationship to exist as well' do
     @relationship_opp = Relationship.new(follower_id: users(:connery).id,
                                          followed_id: users(:lazenby).id)
-    assert @relationship_opp.valid?          
+    assert @relationship_opp.valid?
   end
 
   test 'should require a follower_id' do
@@ -48,36 +48,29 @@ rails generate model Relationship follower_id:integer followed_id:integer
     assert_not @relationship.valid?
   end
 ```
-* Enter the command "sh testm.sh".  32 tests fail because of the initial relationship test fixtures.
+* Enter the command "sh testm.sh".  32 tests fail because of the initial relationship test fixtures.  Note that in the file test/fixtures/relationships.yml, the follower_id and followed_id in both relationships is 1.  The cascade of failures is to be expected.
+* In the file test/fixtures/relationships.yml, change the value of the followed_id to 2.  (Keep the value of the follower_id at 1.)  Enter the command "sh testm.sh".  The 32 tests should fail again.
+* In the file test/fixtures/relationships.yml, edit the values of the parameters in the relationship "two".  Change the value of the follower_id to 2 and the value of the followed_id to 1.  (This is the inverse of the values of the parameters in the relationship "one".  Enter the command "sh testm.sh".  Now only 2 tests fail, the ones requiring a follower_id and followed_id.  This provides confirmation that the modifications you made in the db/migrate/[timestamp]_create_relationships.rb file work at enforcing the uniqueness of each relationship.
 * Remove the default relationship test fixtures by entering the following command:
 ```
 echo '# empty' > test/fixtures/relationships.yml
 ```
-* Enter the command "sh testm.sh".  2 of the relationship model tests fail.  The "should be valid" test is the only one that passes.
-* Edit the file app/models/user.rb.  Add the following lines to the beginning of the public section:
-```
-  # BEGIN: relationship section
-  has_many :active_relationships, class_name:  'Relationship',
-                                  foreign_key: 'follower_id',
-                                  dependent:   :destroy
-  # END: relationship section
-```
+* Enter the command "sh testm.sh".  The same 2 relationship model tests fail.
 * In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
 * In file app/models/relationship.rb, add the following lines immediately after the line "class Relationship < ApplicationRecord":
 ```
-  belongs_to :follower, class_name: 'User'
-  belongs_to :followed, class_name: 'User'
   validates :follower_id, presence: true
   validates :followed_id, presence: true
 ```
-* Enter the command "sh testm.sh".
+* Enter the command "sh testm.sh".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### User Model Tests
 * Edit the file test/models/user_test.rb
 ```
-  test "should follow and unfollow a user" do
+  test 'should be able to follow and unfollow a user' do
     lazenby = users(:lazenby)
-    connery  = users(:connery)
+    connery = users(:connery)
     assert_not lazenby.following?(connery)
     lazenby.follow(connery)
     assert lazenby.following?(connery)
@@ -86,13 +79,17 @@ echo '# empty' > test/fixtures/relationships.yml
     assert_not lazenby.following?(connery)
   end
 ```
-* In the app/models/user.rb file, add the following lines just before the end of the relationship section:
+* Enter the command "sh testm.sh".  The new test should fail.
+* Edit the file app/models/user.rb.  Add the following lines to the beginning of the public section:
 ```
-  has_many :passive_relationships, class_name:  "Relationship",
-                                   foreign_key: "followed_id",
+  # BEGIN: relationship section
+  has_many :active_relationships,  class_name:  'Relationship',
+                                   foreign_key: 'follower_id',
                                    dependent:   :destroy
-
-  has_many :following, through: :active_relationships, source: :followed
+  has_many :passive_relationships, class_name:  'Relationship',
+                                   foreign_key: 'followed_id',
+                                   dependent:   :destroy
+  has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
   # Follows a user
@@ -109,18 +106,34 @@ echo '# empty' > test/fixtures/relationships.yml
   def following?(other_user)
     following.include?(other_user)
   end
+  # END: relationship section
 ```
+* Edit the file app/models/relationship.rb.  Add the following lines just after the line "class Relationship < ApplicationRecord":
+```
+  belongs_to :follower, class_name: 'User'
+  belongs_to :followed, class_name: 'User'
+```
+* Enter the command "sh testm.sh".  All tests should pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Seeding
 * Add the following code to the end of the db/seeds.rb file:
 ```
-# Following relationships
+###############################
+# BEGIN: creating relationships
+###############################
+
 users = User.all
 user  = users.first
 following = users[2..50]
 followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
+
+##################################
+# FINISHED: creating relationships
+##################################
+
 ```
 * In the tmux window for the local Rails server, stop the server.  Then enter the following command:
 ```
