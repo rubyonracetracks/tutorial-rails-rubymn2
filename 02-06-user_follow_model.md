@@ -20,16 +20,22 @@ rails generate model Relationship follower_id:integer followed_id:integer
 ```
 * Enter the command "rails db:migrate".
 
-### Relationship Model Test
+### Relationship Model Tests
 * Edit the file test/models/relationship_test.rb.  Replace everything between "RelationshipTest < ActiveSupport::TestCase" and the last "end" statement with the following:
 ```
   def setup
-    @relationship = Relationship.new(follower_id: users(:moore).id,
+    @relationship = Relationship.new(follower_id: users(:lazenby).id,
                                      followed_id: users(:connery).id)
   end
 
   test 'should be valid' do
     assert @relationship.valid?
+  end
+
+  test 'should allow the opposite relationship to exist as well'
+    @relationship_opp = Relationship.new(follower_id: users(:connery).id,
+                                         followed_id: users(:lazenby).id)
+    assert @relationship_opp.valid?          
   end
 
   test 'should require a follower_id' do
@@ -41,77 +47,93 @@ rails generate model Relationship follower_id:integer followed_id:integer
     @relationship.followed_id = nil
     assert_not @relationship.valid?
   end
-
-  test 'should be unique' do
-    @relationship_dup = Relationship.new(follower_id: users(:moore).id,
-                                         followed_id: users(:connery).id)
-    assert_not @relationship_dup.valid?
-  end
 ```
-* Enter the command "sh testm.sh".  32 tests fail.
-* Edit the file app/models/user.rb.  Add the following lines immediately after the line "class User < ApplicationRecord":
-```
-  has_many :active_relationships, class_name:  'Relationship',
-                                  foreign_key: 'follower_id',
-                                  dependent:   :destroy
-```
-* In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
-* In file app/models/relationship.rb, add the following lines immediately after the line "class Relationship < ApplicationRecord":
-```
-  belongs_to :follower, class_name: "User"
-  belongs_to :followed, class_name: "User"
-  validates :follower_id, presence: true
-  validates :followed_id, presence: true
-```
-* Enter the command "sh testm.sh".  Now only one test should fail, the uniqueness test.
-
-
-
-
-
-
-
-* Enter the command "rails console" to enter the Rails console
-* Enter the command "ActiveRecord::Migration.drop_table(:relationships)".  This erases the relationships table in the database.  (If you neglect this step, the "rails db:migrate" command won't work.)
-* Enter the command "exit" to leave the Rails console.
-* Enter the command "rails db:migrate; sh testm.sh".
-
-
-### Updating the User Model Tests
-
-
-
+* Enter the command "sh testm.sh".  32 tests fail because of the initial relationship test fixtures.
 * Remove the default relationship test fixtures by entering the following command:
 ```
 echo '# empty' > test/fixtures/relationships.yml
 ```
-* Enter the command "sh testm.sh".
-
-### Updating the Relationship Migration Table
-
-
-### Updating the User Model Test
-
-### Initial Model Updates
-* Edit the file app/models/user.rb.  Just before the end of the public section, add the following lines:
+* Enter the command "sh testm.sh".  2 of the relationship model tests fail.  The "should be valid" test is the only one that passes.
+* Edit the file app/models/user.rb.  Add the following lines to the beginning of the public section:
 ```
+  # BEGIN: relationship section
   has_many :active_relationships, class_name:  'Relationship',
                                   foreign_key: 'follower_id',
                                   dependent:   :destroy
+  # END: relationship section
 ```
-* Note that destroying the user automatically destroys the relationship.
-* Edit the file app/models/relationship.rb.  Just before the "end" command, add the following lines:
+* In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
+* In file app/models/relationship.rb, add the following lines immediately after the line "class Relationship < ApplicationRecord":
 ```
   belongs_to :follower, class_name: 'User'
   belongs_to :followed, class_name: 'User'
+  validates :follower_id, presence: true
+  validates :followed_id, presence: true
 ```
+* Enter the command "sh testm.sh".
+
+### User Model Tests
+* Edit the file test/models/user_test.rb
+```
+  test "should follow and unfollow a user" do
+    lazenby = users(:lazenby)
+    connery  = users(:connery)
+    assert_not lazenby.following?(connery)
+    lazenby.follow(connery)
+    assert lazenby.following?(connery)
+    assert connery.followers.include?(lazenby)
+    lazenby.unfollow(connery)
+    assert_not lazenby.following?(connery)
+  end
+```
+* In the app/models/user.rb file, add the following lines just before the end of the relationship section:
+```
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
+  # Follows a user
+  def follow(other_user)
+    following << other_user
+  end
+
+  # Unfollows a user
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  # Returns true if the current user is following the other user.
+  def following?(other_user)
+    following.include?(other_user)
+  end
+```
+
+### Seeding
+* Add the following code to the end of the db/seeds.rb file:
+```
+# Following relationships
+users = User.all
+user  = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }
+```
+* In the tmux window for the local Rails server, stop the server.  Then enter the following command:
+```
+sh seed.sh; sh server.sh
+```
+* In the tmux window for entering commands, enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
 ```
 git add .
 git commit -m "Added the follower model"
-git push origin 02-04-follower_model
+git push origin 02-06-follower_model
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
