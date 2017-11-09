@@ -32,7 +32,7 @@ rails generate model Relationship follower_id:integer followed_id:integer
     assert @relationship.valid?
   end
 
-  test 'should allow the opposite relationship to exist as well'
+  test 'should allow the opposite relationship to exist as well' do
     @relationship_opp = Relationship.new(follower_id: users(:connery).id,
                                          followed_id: users(:lazenby).id)
     assert @relationship_opp.valid?          
