@@ -13,31 +13,31 @@ Enter the command "git checkout -b 02-06-follower_display".
 ```
   # BEGIN: following
   test 'should redirect following when not logged in' do
-    get following_user_path(@u1)
+    visit following_user_path(@u1)
     assert_redirected_to root_path
   end
 
   test 'should redirect following when logged in as a different user' do
     sign_in @u2, scope: :user
-    get following_user_path(@u1)
+    visit following_user_path(@u1)
     assert_redirected_to root_path
   end
 
   test 'should not redirect following when logged in as that user' do
     sign_in @u1, scope: :user
-    get following_user_path(@u1)
+    visit following_user_path(@u1)
     assert_response :success
   end
 
   test 'should not redirect following when logged in as a regular admin' do
     sign_in @a4, scope: :admin
-    get following_user_path(@u1)
+    visit following_user_path(@u1)
     assert_response :success
   end
 
   test 'should not redirect following when logged in as a super admin' do
     sign_in @a1, scope: :admin
-    get following_user_path(@u1)
+    visit following_user_path(@u1)
     assert_response :success
   end
   # END: following
@@ -88,6 +88,10 @@ before_action :may_show_following, only: [:following]
 
 ### Integration Test
 * Enter the command "rails generate integration_test user_following".
+* Edit the resulting test/integration/user_following_test.rb.  Replace the text between the line "class UserFollowingTest < ActionDispatch::IntegrationTest" and the last "end" line with the following:
+```
+
+```
 
 
 
