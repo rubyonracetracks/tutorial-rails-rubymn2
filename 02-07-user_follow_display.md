@@ -11,11 +11,38 @@ Enter the command "git checkout -b 02-06-follower_display".
 ### User Controller Test
 * Edit the file test/controllers/users_controller_test.rb and add the following code just before the final "end" statement:
 ```
+  # BEGIN: following
   test 'should redirect following when not logged in' do
-    get following_user_path(@user)
-    assert_redirected_to login_url
+    get following_user_path(@u1)
+    assert_redirected_to root_path
   end
+
+  test 'should redirect following when logged in as a different user' do
+    sign_in @u2, scope: :user
+    get following_user_path(@u1)
+    assert_redirected_to root_path
+  end
+
+  test 'should not redirect following when logged in as that user' do
+    sign_in @u1, scope: :user
+    get following_user_path(@u1)
+    assert_response :success
+  end
+
+  test 'should not redirect following when logged in as a regular admin' do
+    sign_in @a4, scope: :admin
+    get following_user_path(@u1)
+    assert_response :success
+  end
+
+  test 'should not redirect following when logged in as a super admin' do
+    sign_in @a1, scope: :admin
+    get following_user_path(@u1)
+    assert_response :success
+  end
+  # END: following
 ```
+* Enter the command "sh testc.sh".  5 tests fail because following_user_path is undefined.
 * Add the following code just before the end of the user section in config/routes.rb:
 ```
   resources :users do
@@ -24,6 +51,7 @@ Enter the command "git checkout -b 02-06-follower_display".
     end
   end
 ```
+* Enter the command "sh testc.sh".  Now the 5 tests fail because the following action is not defined in the user controller.
 * In the file app/controllers/users_controller.rb, add the following code just before the end of the action section:
 ```
   def following
@@ -33,6 +61,30 @@ Enter the command "git checkout -b 02-06-follower_display".
     render 'show_follow'
   end
 ```
+* In the file app/controllers/users_controller.rb, add the following code just before the end of the before_action section:
+```
+before_action :may_show_following, only: [:following]
+```
+* In the file app/controllers/users_controller.rb, add the following code just before the end of the private section:
+```
+  def correct_user
+    current_user == User.find(params[:id])
+  end
+
+  def admin_or_correct_user
+    correct_user || admin_signed_in?
+  end
+  helper_method :admin_or_correct_user
+
+  def may_show_following
+    return redirect_to(root_path) unless admin_or_correct_user
+  end
+  helper_method :may_show_following
+```
+* Enter the command "sh test.sh".  Now 3 tests fail due to a missing template.
+* Enter the command "touch app/views/users/show_follow.html.erb".
+* Enter the command "sh testc.sh".  All tests should now pass.
+* Enter the command "sh git_check.sh".
 
 ### Integration Test
 
