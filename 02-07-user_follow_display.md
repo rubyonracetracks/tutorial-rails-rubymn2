@@ -6,7 +6,7 @@ In this chapter, you will update the user profile page to show which users are b
 The profile page lists the number of other users being followed and a link to another page listing all of these other users.
 
 ### New Branch
-Enter the command "git checkout -b 02-06-follower_display".
+Enter the command "git checkout -b 02-07-follower_display".
 
 ### User Controller Test
 * Edit the file test/controllers/users_controller_test.rb and add the following code just before the final "end" statement:
@@ -100,7 +100,7 @@ before_action :may_show_following, only: [:following]
 ```
 git add .
 git commit -m "Added the follower display"
-git push origin 02-08-follower_display
+git push origin 02-07-follower_display
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
