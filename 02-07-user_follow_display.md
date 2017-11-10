@@ -127,6 +127,7 @@ before_action :may_show_following, only: [:following]
   test 'user can view own list of users followed' do
     login_as(@u5, scope: :user)
     visit following_user_path(@u5)
+    assert page.has_css?('h1', text: 'Users You Are Following')
     can_view_users_following
   end
 
@@ -135,6 +136,7 @@ before_action :may_show_following, only: [:following]
     visit user_path(@u5)
     assert page.has_link?('Following 4 users', href: following_user_path(@u5))
     click_on 'Following 4 users'
+    assert page.has_css?('h1', text: 'Users Followed By Pierce Brosnan')
     can_view_users_following
   end
 
@@ -143,6 +145,7 @@ before_action :may_show_following, only: [:following]
     visit user_path(@u5)
     assert page.has_link?('Following 4 users', href: following_user_path(@u5))
     click_on 'Following 4 users'
+    assert page.has_css?('h1', text: 'Users Followed By Pierce Brosnan')
     can_view_users_following
   end
 ```
