@@ -123,17 +123,22 @@ echo '# empty' > test/fixtures/relationships.yml
 # BEGIN: creating relationships
 ###############################
 
-users = User.all
-user  = users.first
-following = users[2..50]
-followers = users[3..40]
-following.each { |followed| user.follow(followed) }
-followers.each { |follower| follower.follow(user) }
+def create_relationships(u)
+  users = User.all
+  puts '----------------------------------------'
+  puts "creating relationships for #{u.username}"
+  following = users[4..50]
+  followers = users[5..40]
+  following.each { |followed| u.follow(followed) }
+  followers.each { |follower| follower.follow(u) }
+end
+
+create_relationships User.first
+create_relationships User.second
 
 ##################################
 # FINISHED: creating relationships
 ##################################
-
 ```
 * In the tmux window for the local Rails server, stop the server.  Then enter the following command:
 ```
