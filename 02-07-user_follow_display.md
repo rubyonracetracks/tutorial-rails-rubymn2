@@ -184,36 +184,23 @@ five:
 ```
 * Give the now-blank app/views/users/show_follow.html.erb file the following content:
 ```
-<% provide(:title, @title) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <%= gravatar_for @user %>
-      <h1><%= @user.name %></h1>
-      <span><%= link_to "view my profile", @user %></span>
-      <span><b>Microposts:</b> <%= @user.microposts.count %></span>
-    </section>
-    <section class="stats">
-      <%= render 'shared/stats' %>
-      <% if @users.any? %>
-        <div class="user_avatars">
-          <% @users.each do |user| %>
-            <%= link_to gravatar_for(user, size: 30), user %>
-          <% end %>
-        </div>
-      <% end %>
-    </section>
-  </aside>
-  <div class="col-md-8">
-    <h3><%= @title %></h3>
-    <% if @users.any? %>
-      <ul class="users follow">
-        <%= render @users %>
-      </ul>
-      <%= will_paginate %>
-    <% end %>
-  </div>
-</div>
+<% provide(:title, 'Following') %>
+
+<%= gravatar_for @user %>
+<br>
+<% if current_user == @user %>
+  <h1>You are following:</h1>
+<% elsif admin_signed_in? %>
+  <h1>Users followed by <%= link_to "#{@user.first_name} #{@user.last_name}", @user %>:</h1>
+<% end %>
+
+<%= will_paginate %>
+
+<%= render @users %>
+<hr>
+
+<%= will_paginate %>
+
 ```
 
 ### Wrapping Up
