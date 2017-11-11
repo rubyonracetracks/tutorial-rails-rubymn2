@@ -83,7 +83,7 @@ before_action :may_show_following, only: [:following]
 * Enter the command "sh test.sh".  Now 3 tests fail due to a missing template.
 * Enter the command "touch app/views/users/show_follow.html.erb".
 * Enter the command "sh testc.sh".  All tests should now pass.
-* Enter the command "sh git_check.sh".
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Integration Test
 * Enter the command "rails generate integration_test user_following".
