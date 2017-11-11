@@ -89,12 +89,14 @@ before_action :may_show_following, only: [:following]
 * Enter the command "rails generate integration_test user_following".
 * Edit the resulting test/integration/user_following_test.rb.  Replace the text between the line "class UserFollowingTest < ActionDispatch::IntegrationTest" and the last "end" line with the following:
 ```
+  # rubocop:disable Metrics/AbcSize
   def can_view_users_following
-    assert page.has_link?('Sean Connery', href: user_path(@u1))
-    assert page.has_link?('George Lazenby', href: user_path(@u2))
-    assert page.has_link?('Roger Moore', href: user_path(@u3))
-    assert page.has_link?('Timothy Dalton', href: user_path(@u4))
+    assert page.has_link?('sconnery', href: user_path(@u1))
+    assert page.has_link?('glazenby', href: user_path(@u2))
+    assert page.has_link?('rmoore', href: user_path(@u3))
+    assert page.has_link?('tdalton', href: user_path(@u4))
   end
+  # rubocop:enable Metrics/AbcSize
 
   test 'visitors cannot view the user following page' do
     visit following_user_path(@u1)
@@ -120,7 +122,6 @@ before_action :may_show_following, only: [:following]
   test 'user following other users can access own following page through home page' do
     login_as(@u5, scope: :user)
     visit root_path
-    click_on 'Your Profile'
     assert page.has_text?('Following: 4')
     assert page.has_link?('Following: 4', href: following_user_path(@u5))
   end
@@ -157,9 +158,9 @@ before_action :may_show_following, only: [:following]
     can_view_users_following
   end
 ```
-* Enter the command "sh test_app.sh".  The last 4 new integration tests fail.
+* Enter the command "sh test_app.sh".  The last 5 new integration tests fail.
 * Enter the command "alias test1='(Command for running the failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  The same 4 tests fail again because the expected content is missing.
+* Enter the command "test1".  The same 5 tests fail again because the expected content is missing.
 * Edit the file test/fixtures/relationships.yml.  Replace the entire contents with the following:
 ```
 one:
@@ -182,6 +183,15 @@ five:
   follower: connery
   followed: blofeld
 ```
+* Update the test/test_helper.rb file.  Add the following lines to the end of the definition of setup_universal:
+```
+
+  @relationship1 = relationships(:one)
+  @relationship2 = relationships(:two)
+  @relationship3 = relationships(:three)
+  @relationship4 = relationships(:four)
+  @relationship5 = relationships(:five)
+```
 * Give the now-blank app/views/users/show_follow.html.erb file the following content:
 ```
 <% provide(:title, 'Following') %>
@@ -189,9 +199,9 @@ five:
 <%= gravatar_for @user %>
 <br>
 <% if current_user == @user %>
-  <h1>You are following:</h1>
+  <h1>Users You Are Following:</h1>
 <% elsif admin_signed_in? %>
-  <h1>Users followed by <%= link_to "#{@user.first_name} #{@user.last_name}", @user %>:</h1>
+  <h1>Users Followed By <%= link_to "#{@user.first_name} #{@user.last_name}", @user %>:</h1>
 <% end %>
 
 <%= will_paginate %>
@@ -202,6 +212,25 @@ five:
 <%= will_paginate %>
 
 ```
+* Enter the command "test1".  Now 4 of the tests still fail.  The show_follow page passes all tests, but links to this page are missing.
+* Update the file app/views/users/show.html.erb.  Just before the delete button section, add the following code:
+```
+    <% # BEGIN: link to users followed %>
+    <% if current_user == @user || admin_signed_in? %>
+      <%= link_to "Following: #{@user.following.count}", following_user_path(@user) %>
+    <% end %>
+    <% # END: link to users followed %>
+```
+* Enter the command "test1".  Now just one test still fails, because the user does not get a direct link to his/her followed users on the home page.
+* Edit the file app/views/static_pages/home.html.erb. Add the following lines just before the end of the user section:
+```
+    <br>
+    <% if current_user.following.any? %>
+      <%= link_to "Following: #{current_user.following.count}", following_user_path(current_user) %>
+    <% end %>
+```
+* Enter the command "test1".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should now pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
