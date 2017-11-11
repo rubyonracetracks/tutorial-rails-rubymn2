@@ -114,14 +114,22 @@ before_action :may_show_following, only: [:following]
   test "user does not get link to another user's following page" do
     login_as(@u2, scope: :user)
     visit following_user_path(@u1)
-    assert_not page.has_link?('Following users', href: following_user_path(@u1))
+    assert_not page.has_text('Following', href: following_user_path(@u1))
+  end
+
+  test 'user following other users can access own following page through home page' do
+    login_as(@u5, scope: :user)
+    visit root_path
+    click_on 'Your Profile'
+    assert page.has_text('Following: 4')
+    assert page.has_link?('Following: 4', href: following_user_path(@u5))
   end
 
   test 'user can access own following page through own profile page' do
     login_as(@u5, scope: :user)
     visit root_path
     click_on 'Your Profile'
-    assert page.has_link?('Following 4 users', href: following_user_path(@u5))
+    assert page.has_link?('Following: 4', href: following_user_path(@u5))
   end
 
   test 'user can view own list of users followed' do
@@ -134,8 +142,8 @@ before_action :may_show_following, only: [:following]
   test 'regular admin can see the list of users followed' do
     login_as(@a4, scope: :admin)
     visit user_path(@u5)
-    assert page.has_link?('Following 4 users', href: following_user_path(@u5))
-    click_on 'Following 4 users'
+    assert page.has_link?('Following: 4', href: following_user_path(@u5))
+    click_on 'Following: 4'
     assert page.has_css?('h1', text: 'Users Followed By Pierce Brosnan')
     can_view_users_following
   end
@@ -143,8 +151,8 @@ before_action :may_show_following, only: [:following]
   test 'super admin can see the list of users followed' do
     login_as(@a1, scope: :admin)
     visit user_path(@u5)
-    assert page.has_link?('Following 4 users', href: following_user_path(@u5))
-    click_on 'Following 4 users'
+    assert page.has_link?('Following: 4', href: following_user_path(@u5))
+    click_on 'Following: 4'
     assert page.has_css?('h1', text: 'Users Followed By Pierce Brosnan')
     can_view_users_following
   end
@@ -169,6 +177,10 @@ three:
 four:
   follower: brosnan
   followed: dalton
+
+five:
+  follower: connery
+  followed: blofeld
 ```
 * Give the now-blank app/views/users/show_follow.html.erb file the following content:
 ```
