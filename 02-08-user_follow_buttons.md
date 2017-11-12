@@ -75,7 +75,7 @@ Enter the command "git checkout -b 02-08-follower_buttons".
 ```
 * Create the file app/views/users/_follow_form.html.erb and give it the following content:
 ```
-<% unless current_user?(@user) %>
+<% unless current_user == @user %>
   <div id="follow_form">
   <% if current_user.following?(@user) %>
     <%= render 'unfollow' %>
