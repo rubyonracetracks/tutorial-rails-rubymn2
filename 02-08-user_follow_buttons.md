@@ -99,6 +99,8 @@ Enter the command "git checkout -b 02-08-follower_buttons".
   <%= f.submit "Unfollow", class: "btn" %>
 <% end %>
 ```
+* Enter the command "test1".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
