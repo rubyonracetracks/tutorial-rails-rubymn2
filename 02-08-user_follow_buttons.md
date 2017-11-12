@@ -68,36 +68,26 @@ Enter the command "git checkout -b 02-08-follower_buttons".
 * Enter the command "sh test_app.sh".  The new integration test fails.
 * Enter the command "alias test1='(Command to run failed test minus the TESTOPTS portion)'".
 * Enter the command "test1".  The test fails because the Follow button is missing.
-* Edit the app/views/users/show.html.erb file.  Add the following line just before the delete button:
+* Edit the app/views/users/show.html.erb file.  Add the following code just before the delete button:
 ```
-    <%= render 'follow_form' if user_signed_in? %>
-    <br>
-```
-* Create the file app/views/users/_follow_form.html.erb and give it the following content:
-```
-<% unless current_user == @user %>
-  <div id="follow_form">
-  <% if current_user.following?(@user) %>
-    <%= render 'unfollow' %>
-  <% else %>
-    <%= render 'follow' %>
-  <% end %>
-  </div>
-<% end %>
-```
-* Create the file app/views/users/_follow.html.erb and give it the following content:
-```
-<%= form_for(current_user.active_relationships.build) do |f| %>
-  <div><%= hidden_field_tag :followed_id, @user.id %></div>
-  <%= f.submit "Follow", class: "btn btn-primary" %>
-<% end %>
-```
-* Create the file app/views/users/_unfollow.html.erb and give it the following content:
-```
-<%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
-             html: { method: :delete }) do |f| %>
-  <%= f.submit "Unfollow", class: "btn" %>
-<% end %>
+    <% # BEGIN: follow/unfollow button %>
+    <% if user_signed_in? && current_user != @user %>
+      <% if current_user.following?(@user) %>
+        <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
+                     html: { method: :delete }) do |f| %>
+          <%= f.submit "Unfollow", class: "btn" %>
+        <% end %>
+        <br>
+      <% else %>
+        <%= form_for(current_user.active_relationships.build) do |f| %>
+          <div><%= hidden_field_tag :followed_id, @user.id %></div>
+          <%= f.submit "Follow", class: "btn btn-primary" %>
+        <% end %>
+        <br>
+      <% end %>
+      </div>
+    <% end %>
+    <% # END: follow/unfollow button %>
 ```
 * Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
