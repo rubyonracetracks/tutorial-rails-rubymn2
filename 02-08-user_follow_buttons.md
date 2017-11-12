@@ -24,6 +24,7 @@ Enter the command "git checkout -b 02-08-follower_buttons".
     assert_redirected_to new_user_session_path
   end
 ```
+* Enter the command "sh testc.sh".  Both new controller tests fail because relationships_path is not defined.
 * Edit the app/controllers/relationships_controller.rb file.  Add the line "#" just before the line "class RelationshipsController < ApplicationController".
 * Edit the app/controllers/relationships_controller.rb file.  Between the line "class RelationshipsController < ApplicationController" and "end", insert the following lines:
 ```
@@ -46,6 +47,7 @@ Enter the command "git checkout -b 02-08-follower_buttons".
   resources :relationships, only: [:create, :destroy]
 ```
 * Enter the command "rm app/helpers/relationships_helper.rb".
+* Enter the command "sh testc.sh".  All tests should pass.  (No, there is no need to define relationships_path.)
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Integration Test
