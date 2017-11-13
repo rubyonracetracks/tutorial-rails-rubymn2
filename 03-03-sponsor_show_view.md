@@ -6,8 +6,10 @@ In this chapter, you will add sponsor profile pages.
 ### New Branch
 Enter the command "git checkout -b 03-03-sponsor_show_view".
 
-### Procedure
+### Integration Test
 * Enter the command "rails generate integration_test sponsor_show".
+* Edit the file test/integration/sponsor_show_test.rb.  Just before the line "class SponsorShowTest < ActionDispatch::IntegrationTest", add the line "# rubocop:disable Metrics/BlockLength".
+* Edit the file test/integration/sponsor_show_test.rb.  After the last "end" statement, add the line "# rubocop:enable Metrics/BlockLength".
 * Edit the file test/integration/sponsor_show_test.rb.  Replace everything between the line "class SponsorShowTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
   test 'displays the sponsor profile pages' do
@@ -47,6 +49,8 @@ Enter the command "git checkout -b 03-03-sponsor_show_view".
 * Enter the command "sh test_app.sh".  One test fails.
 * Enter the command "alias test1='(Command to run failed tests minus the TESTOPTS portion)'".
 * Enter the command "test1".  The same test fails because the expected content is not present.
+
+### Updating the View
 * Edit the blank app/views/sponsors/show.html.erb file.  Give it the following content:
 ```
 <% provide(:title, @sponsor.name) %>
@@ -65,6 +69,7 @@ URL: <%= link_to @sponsor.contact_url, @sponsor.contact_url %>
 <%= @sponsor.description %>
 ```
 * Enter the command "test1".  All tests should pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
