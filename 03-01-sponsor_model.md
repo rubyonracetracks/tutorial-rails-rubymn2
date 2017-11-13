@@ -119,6 +119,7 @@ end
 ########################
 ```
 * Go to the tmux window containing your local Rails server.  Press Ctrl-C to stop the server, and then enter the command "sh seed.sh; sh server.sh".
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
