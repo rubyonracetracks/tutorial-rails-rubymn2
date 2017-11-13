@@ -82,7 +82,7 @@ flag:
   # END: action section
 ```
 * Enter the command "sh testc.sh".  The controller test fails because of a missing template.
-* Enter the command "touch app/views/sponsors/show.html.erb" to provide the template (albeit blank).
+* Enter the command "touch app/views/sponsors/show.html.erb" to provide the template.  (You'll add content to it later.)
 * Enter the command "sh testc.sh".  All tests should now pass.
 * Enter the command "rm app/helpers/sponsors_helper.rb".
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
