@@ -10,7 +10,7 @@ Enter the command "git checkout -b 03-02-sponsor_show_controller".
 * Enter the command "rails generate controller Sponsors".
 * Edit the file test/controllers/sponsors_controller_test.rb.  Replace everything between the line "class SponsorsControllerTest < ActionDispatch::IntegrationTest" and the last "end" command with the following:
 ```
-  test 'shows sponsor profile pages' do
+  test 'sponsor show action' do
     get sponsor_path(@sponsor1)
     assert_response :success
     get sponsor_path(@sponsor2)
