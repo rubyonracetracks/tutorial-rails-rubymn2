@@ -91,7 +91,7 @@ def create_sponsor(i_sponsor, status_current)
   p1 = Faker::PhoneNumber.phone_number
   c1 = status_current
   d1 = "SPONSOR DESCRIPTION #{i_sponsor}: "
-  d1 += "#{Faker::Company.catch_phrase}"
+  d1 += Faker::Company.catch_phrase.to_s
   e1 = Faker::Internet.email
   u1 = Faker::Internet.url
   Sponsor.create!(name: n1, phone: p1,
