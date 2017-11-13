@@ -8,8 +8,9 @@ Enter the command "git checkout -b 03-03-sponsor_show_view".
 
 ### Integration Test
 * Enter the command "rails generate integration_test sponsor_show".
-* 
+* Edit the file test/integration/sponsor_show_test.rb.  Replace everything between the line "class SponsorShowTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
+  test 'displays the sponsor profile pages' do
     visit sponsor_path(@sponsor1)
     assert page.has_css?('title', text: full_title('Blessed Buy'), visible: false)
     assert page.has_css?('h1', text: 'Blessed Buy')
@@ -43,6 +44,7 @@ Enter the command "git checkout -b 03-03-sponsor_show_view".
     assert_text 'We built Kitt.  Michael Knight and Kitt solve crimes.'
     assert_text 'devon_miles@flag.org'
     assert_text 'http://www.flag.org'
+  end
 ```
 
 ### Wrapping Up
