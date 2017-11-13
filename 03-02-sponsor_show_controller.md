@@ -18,7 +18,6 @@ Enter the command "git checkout -b 03-02-sponsor_show_controller".
     assert_response :success
     get sponsor_path(@sponsor4)
     assert_response :success
-  end
 ```
 * Enter the command "sh testc.sh".  The new controller test fails because sponsor_path is undefined.
 
