@@ -78,7 +78,9 @@ flag:
 * Edit the file app/controllers/sponsors_controller.rb.  Insert the following lines between "class SponsorsController < ApplicationController" and "end".
 ```
   # BEGIN: action section
-  def show; end
+  def show
+    @sponsor = Sponsor.find(params[:id])
+  end
   # END: action section
 ```
 * Enter the command "sh testc.sh".  The controller test fails because of a missing template.
