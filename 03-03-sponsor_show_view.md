@@ -36,7 +36,6 @@ Enter the command "git checkout -b 03-03-sponsor_show_view".
     assert_text 'tc@islandhoppers.com'
     assert_text 'http://www.islandhoppers.com'
     
-
     visit sponsor_path(@sponsor4)
     assert page.has_css?('title', text: full_title('Foundation for Law and Government'), visible: false)
     assert page.has_css?('h1', text: 'Foundation for Law and Government')
