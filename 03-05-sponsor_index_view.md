@@ -24,6 +24,7 @@ Enter the command "git checkout -b 03-05-sponsor_index_view".
   end
 
   test 'The home page lists the current sponsors' do
+    visit root_path
     assert page.has_link?('Blessed Buy', href: sponsor_path(@sponsor1))
     assert page.has_link?('Sky Store', href: sponsor_path(@sponsor2))
   end
