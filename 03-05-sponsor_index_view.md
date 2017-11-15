@@ -38,7 +38,7 @@ Enter the command "git checkout -b 03-05-sponsor_index_view".
 ```
 <% provide(:title, 'Sponsors') %>
 
-<h1>Current Sponsors</h1>
+<h2>Current Sponsors</h2>
 <div class="sponsors_current">
   <% @sponsors_current.each do |s| %>
     <li>
@@ -47,12 +47,13 @@ Enter the command "git checkout -b 03-05-sponsor_index_view".
   <% end %>
 </div>
 
+
+<h2>Past Sponsors</h2>
 <div class="sponsors_past">
-  <h1>Past Sponsors</h1>
   <% @sponsors_past.each do |s| %>
-  <li>
-    <%= link_to s.name, s %>
-  </li>
+    <li>
+      <%= link_to s.name, s %>
+    </li>
   <% end %>
 </div>
 ```
