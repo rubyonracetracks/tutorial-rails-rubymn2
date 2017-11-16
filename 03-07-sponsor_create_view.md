@@ -76,13 +76,13 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
 ### Sponsor Index Page
 * Edit the file app/views/sponsors/index.html.erb.  Immediately after the h1 heading near the top of the page, add the following code:
 ```
-  <% # BEGIN: add sponsor button %>
-  <% if admin_signed_in? && current_admin.super %>
-    <%= link_to "Add Sponsor", new_sponsor_path,
-                class: "btn btn-lg btn-primary"
-      %>
-  <% end %>
-  <% # END: add sponsor button %>
+<% # BEGIN: add sponsor button %>
+<% if admin_signed_in? && current_admin.super %>
+  <%= link_to "Add Sponsor", new_sponsor_path,
+              class: "btn btn-lg btn-primary"
+    %>
+<% end %>
+<% # END: add sponsor button %>
 ```
 * Enter the command "test1".  Only 1 test should fail.  
 
