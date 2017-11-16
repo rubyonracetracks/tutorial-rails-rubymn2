@@ -48,7 +48,7 @@ Enter the command "git checkout -b 03-06-sponsor_create_controller".
 ### Routing
 * Edit the file config/routes.rb.  Replace the line containing "resources :sponsors" with the following:
 ```
-  resources :sponsors, only: [:show, :index, :create]
+  resources :sponsors, only: [:show, :index, :create, :new]
 ```
 * Enter the command "sh testc.sh".  All 4 controller tests fail because the create action is missing from the sponsor controller.
 
