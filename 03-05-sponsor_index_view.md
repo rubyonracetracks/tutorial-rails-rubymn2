@@ -12,6 +12,9 @@ Enter the command "git checkout -b 03-05-sponsor_index_view".
 ```
   test 'The sponsor index page has the expected content' do
     visit sponsors_path
+    assert page.has_css?('title', text: full_title('Sponsor Index'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'Sponsor Index')
     assert page.has_link?('Blessed Buy', href: sponsor_path(@sponsor1))
     assert page.has_link?('Sky Store', href: sponsor_path(@sponsor2))
     assert page.has_link?('Island Hoppers', href: sponsor_path(@sponsor3))
@@ -36,7 +39,9 @@ Enter the command "git checkout -b 03-05-sponsor_index_view".
 ### Index Page
 * Edit the blank file app/views/sponsors/index.html.erb.  Give it the following content:
 ```
-<% provide(:title, 'Sponsors') %>
+<% provide(:title, 'Sponsor Index') %>
+
+<h1>Sponsor Index</h1>
 
 <h2>Current Sponsors</h2>
 <div class="sponsors_current">
