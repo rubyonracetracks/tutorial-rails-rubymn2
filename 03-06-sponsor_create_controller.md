@@ -97,10 +97,6 @@ Enter the command "git checkout -b 03-06-sponsor_create_controller".
   end
 ```
 * Enter the command "sh testc.sh".  One test fails, because a missing template stops the process of creating a new sponsor.
-
-### View
-* Enter the command "touch app/views/sponsors/new.html.erb".
-* Enter the command "sh testc.sh".  All tests should now pass.
 * ENter the command "sh git_check.sh".  All tests should now pass, and there should be no offenses.
 
 ### Wrapping Up
