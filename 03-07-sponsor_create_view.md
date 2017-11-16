@@ -84,7 +84,7 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
 <% end %>
 <% # END: add sponsor button %>
 ```
-* Enter the command "test1".  Only 1 test should fail.  
+* Enter the command "test1".  Now only one test fails.  The reason is a missing template.
 
 ### Add Sponsor Page
 * Add the file app/views/sponsors/new.html.erb and give it the following content:
