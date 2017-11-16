@@ -41,6 +41,9 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
     
     # Add current sponsor
     click_on 'Add Sponsor'
+    assert page.has_css?('title', text: full_title('Add Sponsor'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'Add Sponsor')
     fill_in('Name', with: 'Richmond & Woods Law Offices')
     fill_in('Phone', with: '202-555-0111')
     fill_in('Description', with: 'Sassy and smart!')
@@ -53,6 +56,9 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
 
     # Add past sponsor
     click_on 'Add Sponsor'
+    assert page.has_css?('title', text: full_title('Add Sponsor'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'Add Sponsor')
     fill_in('Name', with: 'Scrooge & Marley')
     fill_in('Phone', with: '020 7946 0123')
     fill_in('Description', with: 'Greedy misers!')
