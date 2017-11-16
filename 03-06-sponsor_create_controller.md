@@ -10,7 +10,7 @@ Enter the command "git checkout -b 03-06-sponsor_create_controller".
 * Edit the file test/controllers/sponsors_controller_test.rb.  Add the following code immediately after the line "class SponsorsControllerTest < ActionDispatch::IntegrationTest":
 ```
   def create_sponsor
-    post sponsors_path, params: { sponsor: { content: 'Pear Computer' } }
+    post sponsors_path, params: { sponsor: { name: 'Pear Computer' } }
   end
 
   def create_sponsor_disabled
@@ -100,6 +100,8 @@ Enter the command "git checkout -b 03-06-sponsor_create_controller".
 
 ### View
 * Enter the command "touch app/views/sponsors/new.html.erb".
+* Enter the command "sh testc.sh".  All tests should now pass.
+* ENter the command "sh git_check.sh".  All tests should now pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
