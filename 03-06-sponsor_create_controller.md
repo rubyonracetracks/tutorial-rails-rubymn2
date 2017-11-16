@@ -95,6 +95,10 @@ Enter the command "git checkout -b 03-06-sponsor_create_controller".
       render 'new'
     end
   end
+
+  def new
+    @sponsor = Sponsor.new
+  end
 ```
 * Enter the command "sh testc.sh".  One test fails, because a missing template stops the process of creating a new sponsor.
 * ENter the command "sh git_check.sh".  All tests should now pass, and there should be no offenses.
