@@ -1,4 +1,86 @@
 # Unit 3
-## Chapter 4: Creating Sponsors
+## Chapter 7: Form For Creating Sponsors
 
-In this chapter, you will give super admins the ability to add sponsors.  Regular admins, users, and the general public will NOT have this ability.
+In this chapter, you will provide the pages needed to add new sponsors.
+
+### New Branch
+Enter the command "git checkout -b 03-07-sponsor_create_view".
+
+### Integration Test
+* Enter the command "rails generate integration_test sponsor_create".
+* In the file test/integration/sponsor_create_test.rb, replace everything between the line "class SponsorCreateTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
+```
+  def check_no_create_button
+    visit sponsors_path
+    assert page.has_no_link?('Add Sponsor', href: sponsors_path)
+  end
+
+  test 'visitor does not get button to add sponsor' do
+    check_no_create_button
+  end
+
+  test 'user does not get button to add sponsor' do
+    login_as(@u1, scope: :user)
+    check_no_create_button
+  end
+
+  test 'regular admin does not get button to add sponsor' do
+    login_as(@a4, scope: :admin)
+    check_no_create_button
+  end
+
+  test 'super admin gets button to add sponsor' do
+    login_as(@a1, scope: :admin)
+    visit sponsors_path
+    assert page.has_link?('Add Sponsor', href: sponsors_path)
+  end
+
+  test 'super admin can successfully add sponsor' do
+    login_as(@a1, scope: :admin)
+    visit sponsors_path
+    
+    # Add current sponsor
+    click_on 'Add Sponsor'
+    fill_in('Name', with: 'Richmond & Woods Law Offices')
+    fill_in('Phone', with: '202-555-0111')
+    fill_in('Description', with: 'Sassy and smart!')
+    fill_in('Email', with: 'info@richmondwoods.com')
+    fill_in('URL', with: 'http://www.richmondwoods.com')
+    check('Current')
+    click_button('Submit')
+    click_on 'Richmond & Woods Law Offices'
+    assert page.has_css?('h1', text: 'Current Sponsor: Richmond & Woods Law Offices')
+
+    # Add past sponsor
+    click_on 'Add Sponsor'
+    fill_in('Name', with: 'Scrooge & Marley')
+    fill_in('Phone', with: '020 7946 0123')
+    fill_in('Description', with: 'Greedy misers!')
+    fill_in('Email', with: 'ebenezer@scroogeandmarley.com')
+    fill_in('URL', with: 'http://www.scroogeandmarley.com')
+    click_button('Submit')
+    click_on 'Scrooge & Marley'
+    assert page.has_css?('h1', text: 'Past Sponsor: Richmond & Woods Law Offices')
+  end
+```
+* Enter the command "sh test_app.sh".  The last two tests fail.
+* Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
+* Enter the command "test1".  The same two tests fail.
+
+### Sponsor Index Page
+
+### Wrapping Up
+* Enter the following commands:
+```
+git add .
+git commit -m "Added the sponsor addition form"
+git push origin 03-07-sponsor_create_view
+```
+* Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
+* When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
+* Enter the following commands:
+```
+git checkout master
+git pull
+```
+* Enter the command "sh heroku.sh". 
