@@ -32,7 +32,7 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
   test 'super admin gets button to add sponsor' do
     login_as(@a1, scope: :admin)
     visit sponsors_path
-    assert page.has_link?('Add Sponsor', href: sponsors_path)
+    assert page.has_link?('Add Sponsor', href: new_sponsor_path)
   end
 
   test 'super admin can successfully add sponsor' do
@@ -68,6 +68,69 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
 * Enter the command "test1".  The same two tests fail.
 
 ### Sponsor Index Page
+* Immediately after the h1 heading near the top of the page, add the following code:
+```
+  <% # BEGIN: add sponsor button %>
+  <br>
+  <% if admin_signed_in? && current_admin.super %>
+    <%= link_to "Add Sponsor", new_sponsor_path,
+                class: "btn btn-lg btn-primary"
+      %>
+  <% end %>
+  <% # END: add sponsor button %>
+```
+
+### New Sponsor Page
+* Add the file app/views/sponsors/new.html.erb and give it the following content:
+```
+<% provide(:title, 'Add Sponsor') %>
+
+<h1>Add Sponsor</h1>
+
+<%= form_for(@sponsor) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+
+  <div class="field">
+    <%= f.text_area :description, placeholder: "Describe the sponsor here..." %>
+  </div>
+
+  <%= f.label :phone %>
+  <%= f.text_field :contact_email, class: 'form-control' %>
+
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>
+
+
+<%= form_for(@user) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.label :description %>
+  <%= f.text_field :description, class: 'form-control' %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+      <%= f.submit "Create my account", class: "btn btn-primary" %>
+<% end %>
+```
 
 ### Wrapping Up
 * Enter the following commands:
