@@ -35,10 +35,11 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
     assert page.has_link?('Add Sponsor', href: new_sponsor_path)
   end
 
-  test 'super admin can successfully add sponsor' do
+  # rubocop:disable Metrics/BlockLength
+  test 'super admin can successfully add sponsors' do
     login_as(@a1, scope: :admin)
     visit sponsors_path
-    
+
     # Add current sponsor
     click_on 'Add Sponsor'
     assert page.has_css?('title', text: full_title('Add Sponsor'),
@@ -53,8 +54,11 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
     click_button('Submit')
     click_on 'Richmond & Woods Law Offices'
     assert page.has_css?('h1', text: 'Current Sponsor: Richmond & Woods Law Offices')
+    click_on 'Home'
+    assert page.has_text?('Richmond & Woods Law Offices')
 
     # Add past sponsor
+    click_on 'Sponsors'
     click_on 'Add Sponsor'
     assert page.has_css?('title', text: full_title('Add Sponsor'),
                                   visible: false)
@@ -66,8 +70,11 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
     fill_in('URL', with: 'http://www.scroogeandmarley.com')
     click_button('Submit')
     click_on 'Scrooge & Marley'
-    assert page.has_css?('h1', text: 'Past Sponsor: Richmond & Woods Law Offices')
+    assert page.has_css?('h1', text: 'Past Sponsor: Scrooge & Marley')
+    click_on 'Home'
+    assert_not page.has_text?('Scrooge & Marley')
   end
+  # rubocop:enable Metrics/BlockLength
 ```
 * Enter the command "sh test_app.sh".  The last two tests fail.
 * Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
@@ -93,44 +100,48 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
 
 <h1>Add Sponsor</h1>
 
-<%= form_for(@sponsor) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@sponsor) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+      </div>
 
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
-  </div>
+      <div class="field">
+        <%= f.label :phone %><br />
+        <%= f.text_field :phone %>
+      </div>
 
-  <div class="field">
-    <b>Description</b>
-    <%= f.text_area :description, placeholder: "Describe the sponsor here..." %>
-  </div>
+      <div class="field">
+        <%= f.label :contact_email, 'Sponsor Email' %><br />
+        <%= f.text_field :contact_email %>
+      </div>
 
-  <div class="field">
-    <b>Sponsor Email Contact</b><br />
-    <%= f.text_field :contact_email %>
-  </div>
+      <div class="field">
+        <%= f.label :contact_url, 'Sponsor URL' %><br />
+        <%= f.text_field :contact_url %>
+      </div>
 
-  <div class="field">
-    <b>Sponsor URL</b><br />
-    <%= f.text_field :contact_url %>
-  </div>
+      <div class="field">
+        <%= f.label :description %><br />
+        <%= f.text_area :description, placeholder: "Describe the sponsor here...", rows: 15 %>
+      </div>
 
-  <div class="field">
-    <%= f.label :current, class: "checkbox inline" do %>
-      <%= f.check_box :current %>
-      <br>
-      <span>Current sponsor? (check the above box)</span>
+      <div class="field">
+        <%= f.label :current, class: "checkbox inline" do %>
+          <%= f.check_box :current %>
+          <br>
+          <span>Current sponsor? (check the above box)</span>
+        <% end %>
+      </div>
+
+      <%= f.submit "Submit", class: "btn btn-primary" %>
     <% end %>
   </div>
-
-  <%= f.submit "Submit", class: "btn btn-primary" %>
-<% end %>
+</div>
 ```
 * Enter the command "test1".  The test fails because the shared error template is missing.
 
