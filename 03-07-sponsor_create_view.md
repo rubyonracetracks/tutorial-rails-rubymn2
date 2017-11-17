@@ -107,25 +107,25 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
   </div>
 
   <div class="field">
-    Description
+    <b>Description</b>
     <%= f.text_area :description, placeholder: "Describe the sponsor here..." %>
   </div>
 
   <div class="field">
-    Contact Email<br />
+    <b>Sponsor Email Contact</b><br />
     <%= f.text_field :contact_email %>
   </div>
 
   <div class="field">
-    Contact URL<br />
+    <b>Sponsor URL</b><br />
     <%= f.text_field :contact_url %>
   </div>
 
   <div class="field">
     <%= f.label :current, class: "checkbox inline" do %>
-      <%= f.check_box :remember_me %>
+      <%= f.check_box :current %>
       <br>
-      <span>Remember me on this computer (check the above box)</span>
+      <span>Current sponsor? (check the above box)</span>
     <% end %>
   </div>
 
