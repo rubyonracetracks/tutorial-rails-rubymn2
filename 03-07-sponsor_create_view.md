@@ -107,34 +107,52 @@ Enter the command "git checkout -b 03-07-sponsor_create_view".
   </div>
 
   <div class="field">
+    Description
     <%= f.text_area :description, placeholder: "Describe the sponsor here..." %>
   </div>
 
-  <%= f.label :phone %>
-  <%= f.text_field :contact_email, class: 'form-control' %>
+  <div class="field">
+    Contact Email<br />
+    <%= f.text_field :contact_email %>
+  </div>
+
+  <div class="field">
+    Contact URL<br />
+    <%= f.text_field :contact_url %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current, class: "checkbox inline" do %>
+      <%= f.check_box :remember_me %>
+      <br>
+      <span>Remember me on this computer (check the above box)</span>
+    <% end %>
+  </div>
 
   <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>
+```
+* Enter the command "test1".  The test fails because the shared error template is missing.
 
-
-<%= form_for(@user) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <%= f.label :name %>
-  <%= f.text_field :name, class: 'form-control' %>
-
-  <%= f.label :description %>
-  <%= f.text_field :description, class: 'form-control' %>
-
-      <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
-
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
-
-      <%= f.submit "Create my account", class: "btn btn-primary" %>
+### Add Error Messages
+* Enter the following commands:
+```
+mkdir app/views/shared
+touch app/views/shared/_error_messages.html.erb
+```
+* Add the file app/views/shared/_error_messages.html.erb and give it the following content:
+```
+<% if object.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      The form contains <%= pluralize(object.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% object.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
 <% end %>
 ```
 
