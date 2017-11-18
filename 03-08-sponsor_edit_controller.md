@@ -61,7 +61,7 @@ Enter the command "git checkout -b 03-08-sponsor_edit_controller".
   def update
     @sponsor = Sponsor.find(params[:id])
     if @sponsor.update_attributes(sponsor_params)
-      flash[:success] = "Sponsor updated"
+      flash[:success] = 'Sponsor updated'
     else
       render 'edit'
     end
