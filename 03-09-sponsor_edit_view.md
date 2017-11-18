@@ -40,38 +40,43 @@ Enter the command "git checkout -b 03-09-sponsor_edit_view".
     visit sponsor_path(@sponsor1)
 
     # Edit current sponsor
-    click_on 'Add Sponsor'
+    click_on 'Edit Sponsor'
     assert page.has_css?('title', text: full_title('Edit Sponsor'),
                                   visible: false)
     assert page.has_css?('h1', text: 'Edit Sponsor')
-    fill_in('Name', with: 'Richmond & Woods Law Offices')
-    fill_in('Phone', with: '202-555-0111')
-    fill_in('Description', with: 'Sassy and smart!')
-    fill_in('Email', with: 'info@richmondwoods.com')
-    fill_in('URL', with: 'http://www.richmondwoods.com')
+    fill_in('Name', with: 'King Kamehameha Club')
+    fill_in('Phone', with: '808-555-0111')
+    fill_in('Description', with: 'The beach club in _Magnum P.I._!')
+    fill_in('Email', with: 'rick_wright@kingkamehamehaclub.com')
+    fill_in('URL', with: 'http://www.kingkamehamehaclub.com')
+    uncheck('Current')
+    click_button('Submit')
+    click_on 'King Kamehameha Club'
+    assert page.has_css?('h1', text: 'Past Sponsor: King Kamehameha Club')
+    assert page.has_text?('808-555-0111')
+    assert page.has_text?('The beach club in _Magnum P.I._!')
+    assert page.has_text?('rick_wright@kingkamehamehaclub.com')
+    assert page.has_text?('http://www.kingkamehamehaclub.com')
+
+    # Edit past sponsor
+    visit sponsor_path(@sponsor3)
+    click_on 'Edit Sponsor'
+    assert page.has_css?('title', text: full_title('Edit Sponsor'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'Edit Sponsor')
+    fill_in('Name', with: 'Coop's Beer')
+    fill_in('Phone', with: '888-555-0111')
+    fill_in('Description', with: "parody of Coor's Beer")
+    fill_in('Email', with: 'info@coopsbeer.com')
+    fill_in('URL', with: 'http://www.coopsbeer.com')
     check('Current')
     click_button('Submit')
-    click_on 'Richmond & Woods Law Offices'
-    assert page.has_css?('h1', text: 'Current Sponsor: Richmond & Woods Law Offices')
-    click_on 'Home'
-    assert page.has_text?('Richmond & Woods Law Offices')
-
-    # Add past sponsor
-    click_on 'Sponsors'
-    click_on 'Add Sponsor'
-    assert page.has_css?('title', text: full_title('Add Sponsor'),
-                                  visible: false)
-    assert page.has_css?('h1', text: 'Add Sponsor')
-    fill_in('Name', with: 'Scrooge & Marley')
-    fill_in('Phone', with: '020 7946 0123')
-    fill_in('Description', with: 'Greedy misers!')
-    fill_in('Email', with: 'ebenezer@scroogeandmarley.com')
-    fill_in('URL', with: 'http://www.scroogeandmarley.com')
-    click_button('Submit')
-    click_on 'Scrooge & Marley'
-    assert page.has_css?('h1', text: 'Past Sponsor: Scrooge & Marley')
-    click_on 'Home'
-    assert_not page.has_text?('Scrooge & Marley')
+    click_on "Coop's Beer"
+    assert page.has_css?('h1', text: "Current Sponsor: Coop's Beer")
+    assert page.has_text?('888-555-0111')
+    assert page.has_text?('parody of Coor's Beer')
+    assert page.has_text?('info@coopsbeer.com')
+    assert page.has_text?('http://www.coopsbeer.com')
   end
   # rubocop:enable Metrics/BlockLength
 ```
