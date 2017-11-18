@@ -56,7 +56,7 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
 * Enter the command "test1".  Now all tests should pass.
 
 ### Wrapping Up
-* ENter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
 git add .
