@@ -3,7 +3,7 @@
 In this chapter, you will give super admins the ability to edit sponsor information at the controller level.  Again, only super admins may do this.
 
 ### New Branch
-Enter the command "git checkout -b 03-07-sponsor_edit".
+Enter the command "git checkout -b 03-05-sponsor_edit".
 
 ### Part A: Controller Level
 
@@ -227,7 +227,7 @@ Enter the command "git checkout -b 03-07-sponsor_edit".
 ```
 git add .
 git commit -m "Added the ability to edit sponsors"
-git push origin 03-07-sponsor_edit
+git push origin 03-05-sponsor_edit
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.

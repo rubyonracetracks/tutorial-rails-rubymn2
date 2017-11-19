@@ -1,12 +1,47 @@
 # Unit 3
-## Chapter 5: Sponsor Index
+## Chapter 3: Sponsor Index Controller
 
-In this chapter, you will create a sponsor index page and list the current sponsors on the home page.
+In this chapter, you will add the sponsor index.
 
 ### New Branch
-Enter the command "git checkout -b 03-05-sponsor_index_view".
+Enter the command "git checkout -b 03-03-sponsor_index".
 
-### Integration Test
+### Part A: Controller Level
+
+#### Controller Test
+* Edit the file test/controllers/sponsors_controller_test.rb.  Add the following lines before the last "end" statement:
+```
+  test 'sponsor index action' do
+    get sponsors_path
+    assert_response :success
+  end
+```
+* Enter the command "sh testc.sh".  Your new sponsor controller test fails because sponsors_path is undefined.
+
+#### Routing
+* Edit the file config/routes.rb.  Replace the line containing "resources :sponsors" with the following:
+```
+  resources :sponsors, only: [:show, :index]
+```
+* Enter the command "sh testc.sh".  The same test now fails because the index action is not provided by the sponsor controller.
+
+#### Controller
+* Edit the file app/controllers/sponsors_controller.rb.  Just before the end of the action section, add the following lines:
+```
+  def index
+    @sponsors_current = Sponsor.where('current=?', true)
+    @sponsors_past = Sponsor.where('current!=?', true)
+  end
+```
+* Enter the command "sh testc.sh".  The test fails because of a missing template.
+
+#### Blank View
+* Enter the command "touch app/views/sponsors/index.html.erb".
+* Enter the command "sh testc.sh".  All tests should now pass.
+
+### Part B: View Level
+
+#### Integration Test
 * Enter the command "rails generate integration_test sponsor_index".
 * Edit the file test/integration/sponsor_index_test.rb.  Replace everything between "class SponsorIndexTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
@@ -36,7 +71,7 @@ Enter the command "git checkout -b 03-05-sponsor_index_view".
 * Enter the command "alias test1='(command to run the failed tests minus the TESTOPTS portion)'".
 * Enter the command "test1".  The same 3 integration tests fail again.
 
-### Index Page
+#### Index Page
 * Edit the blank file app/views/sponsors/index.html.erb.  Give it the following content:
 ```
 <% provide(:title, 'Sponsor Index') %>
@@ -65,14 +100,14 @@ Enter the command "git checkout -b 03-05-sponsor_index_view".
 * NOTE: The sponsors_current and sponsors_past classes are not relevant yet but will be relevant when company logos are added.
 * Enter the command "test1".  One of the new integration tests now passes because the sponsor index page has the expected content.  The other two tests still fail.
 
-### Header
+#### Header
 * Edit the file app/views/layouts/_header.html.erb. Just before the beginning of the variable section, add the following line:
 ```
         <li><%= link_to "Sponsors", sponsors_path %></li>
 ```
 * Enter the command "test1".  Now just one test still fails.
 
-### Home Page
+#### Home Page
 * Displaying the current sponsors on the home page requires updating the home action in the static pages controller to acquire the list of current sponsors.
 * Edit the file app/controllers/static_pages_controller.rb.  Replace the definition of home with the following:
 ```
@@ -95,11 +130,12 @@ Enter the command "git checkout -b 03-05-sponsor_index_view".
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the sponsor index views"
-git push origin 03-05-sponsor_index_view
+git commit -m "Added the sponsor index capability"
+git push origin 03-03-sponsor_index
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.

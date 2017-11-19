@@ -4,7 +4,7 @@
 In this chapter, you will give super admins the ability to add sponsors.  Regular admins, users, and the general public will NOT have this ability.
 
 ### New Branch
-Enter the command "git checkout -b 03-06-sponsor_create".
+Enter the command "git checkout -b 03-04-sponsor_create".
 
 ### Part A: Controller Level
 
@@ -280,7 +280,7 @@ touch app/views/shared/_error_messages.html.erb
 ```
 git add .
 git commit -m "Added the ability to add sponsors at the view level"
-git push origin 03-06-sponsor_create
+git push origin 03-04-sponsor_create
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
