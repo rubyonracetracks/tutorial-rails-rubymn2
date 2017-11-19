@@ -38,8 +38,7 @@ Enter the command "git checkout -b 03-05-sponsor_edit".
 
   test 'should not redirect edit when logged in as a super admin' do
     sign_in @a1, scope: :admin
-    edit_sponsor
-    assert_response :success
+    assert_equal @sponsor1.description, 'parody of Best Buy'
   end
 ```
 * Enter the command "sh testc.sh".  The last test fails because of a missing route.
