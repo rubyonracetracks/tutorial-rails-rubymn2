@@ -64,6 +64,7 @@ Enter the command "git checkout -b 03-07-sponsor_edit".
     @sponsor = Sponsor.find(params[:id])
     if @sponsor.update_attributes(sponsor_params)
       flash[:success] = 'Sponsor updated'
+      redirect_to sponsor_path(@sponsor)
     else
       render 'edit'
     end
