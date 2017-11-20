@@ -77,6 +77,11 @@ Enter the command "git checkout -b 03-05-sponsor_edit".
 ```
 * Enter the command "sh testc.sh".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should now pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Added sponsor edit (controller only)"
+```
 
 ### Part B: View Level
 
