@@ -101,18 +101,18 @@ git commit -m "Added sponsor edit (controller level)"
     assert page.has_no_link?('Edit Sponsor', href: sponsor_path(@sponsor1))
   end
 
-  test 'visitor does not get button to edit sponsor' do
+  test 'visitor may not edit sponsor' do
     check_redirect_edit
     check_no_edit_button
   end
 
-  test 'user does not get button to add sponsor' do
+  test 'user may not edit sponsor' do
     login_as(@u1, scope: :user)
     check_redirect_edit
     check_no_edit_button
   end
 
-  test 'regular admin does not get button to add sponsor' do
+  test 'regular admin may not edit sponsor' do
     login_as(@a4, scope: :admin)
     check_redirect_edit
     check_no_edit_button
@@ -167,7 +167,7 @@ git commit -m "Added sponsor edit (controller level)"
     assert page.has_text?('http://www.coopsbeer.com')
   end
   # rubocop:enable Metrics/BlockLength
-  ```
+```
   * Enter the command "sh test_app.sh".  The last two new integration tests fail.
   * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
   * Enter the command "test1".  The same two integration tests fail.
