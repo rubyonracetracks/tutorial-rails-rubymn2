@@ -80,7 +80,7 @@ Enter the command "git checkout -b 03-05-sponsor_edit".
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added sponsor edit (controller only)"
+git commit -m "Added sponsor edit (controller level)"
 ```
 
 ### Part B: View Level
