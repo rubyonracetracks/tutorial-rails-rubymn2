@@ -42,6 +42,7 @@ Enter the command "git checkout -b 03-05-sponsor_edit".
     assert_redirected_to sponsor_path(@sponsor1)
   end
 ```
+* NOTE: The controller test does NOT check to make sure that the edit was successful.  Using the "assert_response :success" command did not pan out due to the redirection.  Checking the value of @sponsor1.description did not pan out.  Making sure that the edit was successfully made will be covered in the integration test.
 * Enter the command "sh testc.sh".  All 4 new tests fail because of a missing route.
 
 #### Routing
@@ -83,38 +84,47 @@ Enter the command "git checkout -b 03-05-sponsor_edit".
 * Enter the command "rails generate integration_test sponsor_edit".
 * In the file test/integration/sponsor_edit_test.rb, replace everything between the line "class SponsorEditTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
+  def check_redirect_edit
+    visit edit_sponsor_path(@sponsor1)
+    assert page.has_css?('title', text: full_title('Home'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'Home')
+  end
+
   def check_no_edit_button
     visit sponsor_path(@sponsor1)
     assert page.has_no_link?('Edit Sponsor', href: sponsor_path(@sponsor1))
   end
 
   test 'visitor does not get button to edit sponsor' do
+    check_redirect_edit
     check_no_edit_button
   end
 
   test 'user does not get button to add sponsor' do
     login_as(@u1, scope: :user)
+    check_redirect_edit
     check_no_edit_button
   end
 
   test 'regular admin does not get button to add sponsor' do
     login_as(@a4, scope: :admin)
+    check_redirect_edit
     check_no_edit_button
   end
 
   test 'super admin gets button to add sponsor' do
     login_as(@a1, scope: :admin)
     visit sponsor_path(@sponsor1)
-    assert page.has_link?('Edit Sponsor', href: sponsor_path(@sponsor1))
+    assert page.has_link?('Edit Sponsor', href: edit_sponsor_path(@sponsor1))
   end
 
   # rubocop:disable Metrics/BlockLength
   test 'super admin can successfully edit sponsors' do
     login_as(@a1, scope: :admin)
-    visit sponsor_path(@sponsor1)
+    visit edit_sponsor_path(@sponsor1)
 
     # Edit current sponsor
-    click_on 'Edit Sponsor'
     assert page.has_css?('title', text: full_title('Edit Sponsor'),
                                   visible: false)
     assert page.has_css?('h1', text: 'Edit Sponsor')
@@ -133,8 +143,7 @@ Enter the command "git checkout -b 03-05-sponsor_edit".
     assert page.has_text?('http://www.kingkamehamehaclub.com')
 
     # Edit past sponsor
-    visit sponsor_path(@sponsor3)
-    click_on 'Edit Sponsor'
+    visit edit_sponsor_path(@sponsor3)
     assert page.has_css?('title', text: full_title('Edit Sponsor'),
                                   visible: false)
     assert page.has_css?('h1', text: 'Edit Sponsor')
