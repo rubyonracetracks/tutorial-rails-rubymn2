@@ -16,39 +16,40 @@ Enter the command "git checkout -b 03-05-sponsor_edit".
   end
 
   def edit_sponsor_disabled
-    create_sponsor
+    edit_sponsor
     assert_redirected_to root_path
   end
 ```
 * Edit the file test/controllers/sponsors_controller_test.rb.  Add the following code just before the last "end" statement:
 ```
-  test 'should redirect edit when not logged in' do
-    create_sponsor_disabled
+  test 'should redirect edit to root when not logged in' do
+    edit_sponsor_disabled
   end
 
-  test 'should redirect edit when logged in as a user' do
+  test 'should redirect edit to root when logged in as a user' do
     sign_in @u1, scope: :user
-    create_sponsor_disabled
+    edit_sponsor_disabled
   end
 
-  test 'should redirect edit when logged in as a regular admin' do
+  test 'should redirect edit to root when logged in as a regular admin' do
     sign_in @a4, scope: :admin
-    create_sponsor_disabled
+    edit_sponsor_disabled
   end
 
-  test 'should not redirect edit when logged in as a super admin' do
+  test 'should redirect edit to show when logged in as a super admin' do
     sign_in @a1, scope: :admin
-    assert_equal @sponsor1.description, 'parody of Best Buy'
+    edit_sponsor
+    assert_redirected_to sponsor_path(@sponsor1)
   end
 ```
-* Enter the command "sh testc.sh".  The last test fails because of a missing route.
+* Enter the command "sh testc.sh".  All 4 new tests fail because of a missing route.
 
 #### Routing
 * Edit the file config/routes.rb.  Replace the line containing "resources :sponsors" with the following:
 ```
   resources :sponsors, only: [:show, :index, :create, :new, :update, :edit]
 ```
-* Enter the command "sh testc.sh".  The test fails because the update action is not provided in the sponsor controller.
+* Enter the command "sh testc.sh".  The same 4 tests fail because the update action is not provided in the sponsor controller.
 
 #### Sponsor Controller
 * In app/controllers/sponsors_controller.rb, replace the before_action statement with the following:
