@@ -1,5 +1,5 @@
 # Unit 3
-## Chapter 6: Creating Sponsors
+## Chapter 4: Creating Sponsors
 
 In this chapter, you will give super admins the ability to add sponsors.  Regular admins, users, and the general public will NOT have this ability.  Please note that the process of adding sponsors requires TWO actions.  The first action is "new", which provides the form (app/views/sponsors/new.html.erb) for adding sponsors.  The second action is "create", which controls what happens when the "Submit" button on this form is clicked.
 
