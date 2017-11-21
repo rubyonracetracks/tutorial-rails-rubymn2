@@ -1,6 +1,6 @@
 # Unit 3
-## Chapter 7: Editing Sponsors in the Controller
-In this chapter, you will give super admins the ability to edit sponsor information at the controller level.  Again, only super admins may do this.
+## Chapter 7: Editing Sponsors
+In this chapter, you will give super admins the ability to edit sponsor information.  Again, only super admins may do this.
 
 ### New Branch
 Enter the command "git checkout -b 03-05-sponsor_edit".
