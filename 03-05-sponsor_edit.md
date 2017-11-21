@@ -1,6 +1,6 @@
 # Unit 3
 ## Chapter 5: Editing Sponsors
-In this chapter, you will give super admins the ability to edit sponsor information.  Again, only super admins may do this.
+In this chapter, you will give super admins the ability to edit sponsor information.  Again, only super admins may do this.  Please note that the process of editing sponsors requires TWO actions.  The first action is "edit", which provides the form (app/views/sponsors/edit.html.erb) for editing sponsor parameters.  The second action is "update", which defines what happens when the "Submit" button on this form is clicked.
 
 ### New Branch
 Enter the command "git checkout -b 03-05-sponsor_edit".
