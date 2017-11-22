@@ -89,9 +89,6 @@ git commit -m "Added sponsor edit (controller level)"
 * Enter the command "rails generate integration_test sponsor_edit".
 * In the file test/integration/sponsor_edit_test.rb, replace everything between the line "class SponsorEditTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
-require 'test_helper'
-
-class SponsorEditTest < ActionDispatch::IntegrationTest
   def check_no_edit_button
     visit sponsor_path(@sponsor1)
     assert page.has_no_link?('Edit Sponsor', href: sponsor_path(@sponsor1))
@@ -158,7 +155,6 @@ class SponsorEditTest < ActionDispatch::IntegrationTest
     assert page.has_text?('http://www.coopsbeer.com')
   end
   # rubocop:enable Metrics/BlockLength
-end
 ```
   * Enter the command "sh test_app.sh".  The last two new integration tests fail.
   * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
