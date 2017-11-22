@@ -76,7 +76,7 @@ git add .
 git commit -m "Added the picture uploader"
 ```
 
-### Adding the Picture Parameter to the User Model
+### Adding the Picture Parameter to the Sponsor Model
 * Enter the following commands:
 ```
 rails generate migration add_picture_to_sponsors picture:string
