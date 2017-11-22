@@ -77,9 +77,61 @@ git commit -m "Added sponsor delete (controller level)"
 ### Part B: View Level
 
 #### Integration Test
+* Enter the command "rails generate integration_test sponsor_delete".
+* In the file test/integration/sponsor_delete_test.rb, replace everything between the line "class SponsorDeleteTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
+```
+  def check_no_delete_button
+    visit sponsor_path(@sponsor1)
+    assert page.has_no_link?('Delete Sponsor', href: sponsor_path(@sponsor1))
+  end
 
-#### Sponsor Profile Page
+  test 'visitor may not delete sponsor' do
+    check_no_delete_button
+  end
 
+  test 'user may not delete sponsor' do
+    login_as(@u1, scope: :user)
+    check_no_delete_button
+  end
+
+  test 'regular admin may not delete sponsor' do
+    login_as(@a4, scope: :admin)
+    check_no_delete_button
+  end
+
+  test 'super admin gets button to delete sponsor' do
+    login_as(@a1, scope: :admin)
+    visit sponsor_path(@sponsor1)
+    assert page.has_link?('Delete Sponsor', href: sponsor_path(@sponsor1))
+  end
+
+  test 'super admin can successfully delete sponsors' do
+    login_as(@a1, scope: :admin)
+    visit sponsor_path(@sponsor1)
+
+    assert_difference 'Sponsor.count', -1 do
+      click_on 'Delete Sponsor'
+    end
+
+    assert page.has_link?('Sky Store', href: sponsor_path(@sponsor2))
+    assert page.has_link?('Island Hoppers', href: sponsor_path(@sponsor3))
+    assert page.has_link?('Foundation for Law and Government', href: sponsor_path(@sponsor4))
+  end
+  ```
+  * Enter the command "sh test_app.sh".  The last 2 new integration tests fail.
+  * Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
+  * Enter the command "test1".  The same 2 tests fail again because the "Delete Sponsor" button is missing.
+
+#### Delete Sponsor Button
+* Edit the file app/views/sponsors/show.html.erb. In the section for the edit and delete sponsor buttons, add the following code immediately after the "Edit Sponsor" button:
+```
+  <%= link_to "Delete Sponsor", @sponsor, method: :delete,
+                            data: { confirm: "Are you sure you wish to delete this sponsor?" },
+                            class: "btn btn-lg btn-primary"
+  %>
+```
+* Enter the command "test1".  All tests should pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
