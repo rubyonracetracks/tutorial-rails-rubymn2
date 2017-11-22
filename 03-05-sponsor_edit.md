@@ -108,7 +108,7 @@ git commit -m "Added sponsor edit (controller level)"
     check_no_edit_button
   end
 
-  test 'super admin gets button to add sponsor' do
+  test 'super admin gets button to edit sponsor' do
     login_as(@a1, scope: :admin)
     visit sponsor_path(@sponsor1)
     assert page.has_link?('Edit Sponsor', href: edit_sponsor_path(@sponsor1))
