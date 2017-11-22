@@ -168,6 +168,7 @@ git commit -m "Added sponsor edit (controller level)"
   <%= link_to "Edit Sponsor", edit_sponsor_path(@sponsor),
               class: "btn btn-lg btn-primary"
     %>
+  <br>
 <% end %>
 <% # END: edit sponsor button %>
 ```
