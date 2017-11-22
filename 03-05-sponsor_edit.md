@@ -89,32 +89,25 @@ git commit -m "Added sponsor edit (controller level)"
 * Enter the command "rails generate integration_test sponsor_edit".
 * In the file test/integration/sponsor_edit_test.rb, replace everything between the line "class SponsorEditTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
-  def check_redirect_edit
-    visit edit_sponsor_path(@sponsor1)
-    assert page.has_css?('title', text: full_title('Home'),
-                                  visible: false)
-    assert page.has_css?('h1', text: 'Home')
-  end
+require 'test_helper'
 
+class SponsorEditTest < ActionDispatch::IntegrationTest
   def check_no_edit_button
     visit sponsor_path(@sponsor1)
     assert page.has_no_link?('Edit Sponsor', href: sponsor_path(@sponsor1))
   end
 
   test 'visitor may not edit sponsor' do
-    check_redirect_edit
     check_no_edit_button
   end
 
   test 'user may not edit sponsor' do
     login_as(@u1, scope: :user)
-    check_redirect_edit
     check_no_edit_button
   end
 
   test 'regular admin may not edit sponsor' do
     login_as(@a4, scope: :admin)
-    check_redirect_edit
     check_no_edit_button
   end
 
@@ -140,7 +133,6 @@ git commit -m "Added sponsor edit (controller level)"
     fill_in('URL', with: 'http://www.kingkamehamehaclub.com')
     uncheck('Current')
     click_button('Submit')
-    click_on 'King Kamehameha Club'
     assert page.has_css?('h1', text: 'Past Sponsor: King Kamehameha Club')
     assert page.has_text?('808-555-0111')
     assert page.has_text?('The beach club in _Magnum P.I._!')
@@ -159,7 +151,6 @@ git commit -m "Added sponsor edit (controller level)"
     fill_in('URL', with: 'http://www.coopsbeer.com')
     check('Current')
     click_button('Submit')
-    click_on "Coop's Beer"
     assert page.has_css?('h1', text: "Current Sponsor: Coop's Beer")
     assert page.has_text?('888-555-0111')
     assert page.has_text?("parody of Coor's Beer")
@@ -167,6 +158,7 @@ git commit -m "Added sponsor edit (controller level)"
     assert page.has_text?('http://www.coopsbeer.com')
   end
   # rubocop:enable Metrics/BlockLength
+end
 ```
   * Enter the command "sh test_app.sh".  The last two new integration tests fail.
   * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
