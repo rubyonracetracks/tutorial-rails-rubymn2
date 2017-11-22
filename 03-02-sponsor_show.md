@@ -146,12 +146,15 @@ git commit -m "Added the sponsor show capability (controller level)"
 * Edit the blank app/views/sponsors/show.html.erb file.  Give it the following content:
 ```
 <% provide(:title, @sponsor.name) %>
+
+<% # BEGIN: h1 header section %>
 <% if @sponsor.current == true %>
   <h1>Current Sponsor: <%= @sponsor.name %></h1>
 <% else %>
   <h1>Past Sponsor: <%= @sponsor.name %></h1>
 <% end %>
-<br>
+<% # END: h1 header section %>
+
 Email: <%= raw(EmailMunger.encode(@sponsor.contact_email)) %>
 <br>
 Phone: <%= @sponsor.phone %>
