@@ -38,10 +38,9 @@ git commit -m "Keep uploaded and seeded pictures out of the source code"
 
 ## Adding the Picture Uploader
 * Enter the command "rails generate uploader Picture".
-* Replace the contents of the app/uploaders/picture_uploader.rb file with the following:
+* In the file app/uploaders/picture_uploader.rb, add the line "#" immediately before the line "class PictureUploader < CarrierWave::Uploader::Base".
+* In the file app/uploaders/picture_uploader.rb, replace everything between the line "class PictureUploader < CarrierWave::Uploader::Base" and the last "end" statement with the following:
 ```
-#
-class PictureUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -67,7 +66,6 @@ class PictureUploader < CarrierWave::Uploader::Base
   def extension_whitelist
     %w[jpg jpeg gif png]
   end
-end
 ```
 * Enter the command "sh git_check.sh".
 * Enter the following commands:
