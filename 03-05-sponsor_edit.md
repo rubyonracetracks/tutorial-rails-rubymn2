@@ -224,12 +224,14 @@ git commit -m "Added sponsor edit (controller level)"
   </div>
 </div>
 ```
+* Enter the command "test1".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should now pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the ability to edit sponsors"
+git commit -m "Added sponsor edit (view level)"
 git push origin 03-05-sponsor_edit
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
