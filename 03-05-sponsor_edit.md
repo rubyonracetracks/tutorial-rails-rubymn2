@@ -163,14 +163,14 @@ git commit -m "Added sponsor edit (controller level)"
 #### Edit Sponsor Button
 * Edit the file app/views/sponsors/show.html.erb.  After the h1 header section, add the following code:
 ```
-<% # BEGIN: edit sponsor button %>
+<% # BEGIN: edit and delete sponsor buttons %>
 <% if admin_signed_in? && current_admin.super %>
   <%= link_to "Edit Sponsor", edit_sponsor_path(@sponsor),
               class: "btn btn-lg btn-primary"
     %>
   <br>
 <% end %>
-<% # END: edit sponsor button %>
+<% # END: edit and delete sponsor buttons %>
 ```
 * Enter the command "test1".  Now only one integration test fails.  It's time to provide a page for editing the sponsor.
 
