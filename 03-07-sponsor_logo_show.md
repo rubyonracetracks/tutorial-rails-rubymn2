@@ -67,7 +67,7 @@ git commit -m "Keep uploaded and seeded pictures out of the source code"
     %w[jpg jpeg gif png]
   end
 ```
-* Enter the command "sh git_check.sh".
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
 git add .
@@ -80,6 +80,7 @@ git commit -m "Added the picture uploader"
 rails generate migration add_picture_to_sponsors picture:string
 bin/rails db:migrate RAILS_ENV=test
 rails db:migrate
+
 ```
 * Enter the command "sh testm.sh".  All tests should pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
@@ -87,8 +88,20 @@ rails db:migrate
 ```
 git add .
 git commit -m "Added the picture parameter to the sponsor model"
+```
 
 ### Updating the Sponsor Model
+* Edit the file app/models/sponsor.rb.  Add the following line immediately before the last "end" statement:
+```
+  # Allows the file uploading process to fill in the picture parameter
+  mount_uploader :picture, PictureUploader
+```
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Allowed the file uploading process to fill in the picture parameter of the sponsor model"
+```
 
 ### Seeding the Database
 
