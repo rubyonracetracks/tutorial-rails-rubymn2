@@ -96,6 +96,7 @@ git commit -m "Added the picture parameter to the sponsor model"
   # Allows the file uploading process to fill in the picture parameter
   mount_uploader :picture, PictureUploader
 ```
+* Enter the command "sh kill_spring.sh; sh testm.sh".  All tests should pass.  NOTE: If you do NOT kill the Spring server, you may get an error message telling you that Sponsor::PictureUploader is an uninitialized constant.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
@@ -104,6 +105,49 @@ git commit -m "Allowed the file uploading process to fill in the picture paramet
 ```
 
 ### Seeding the Database
+* Edit the file db/seeds.rb.  In the "Sponsor.create!" statement, add the parameter "remote_picture_url" with the value "Faker::Company.logo".
+* Go to the tmux window containing the Rails server.  Stop the server, and then enter the command "sh seed.sh; sh server.sh".
+* Use pgAdmin to view the sponsors in the database.  For the picture parameter, you should see the *.png file names of each sponsor logo.  These files are stored in the public/uploads/sponsor/picture/ directory.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Successfully seeds sponsor logos"
+```
+
+### Displaying the Sponsor Logos
+* Edit the app/views/sponsors/show.html.erb file.  Add the following code to the end of the file:
+```
+<br><br>
+<% if @sponsor.picture? %>
+  <%= image_tag @sponsor.picture.url %>
+<% end %>
+```
+* In your browser view of the local site, go to the profile page of any sponsor.  The logo should now appear.
+* Edit the app/views/sponsors/index.html.erb file.  For the current sponsors and past sponsors sections, add the following code on the line immediately after "<%= link_to s.name, s %>":
+```
+      <% if s.picture? %>
+        <br>
+        <p style="margin-left: 40px">
+        <%= image_tag s.picture.url(:thumb) %>
+      <% end %>
+```
+* In your browser view of the local site, go to the sponsor index page.  Thumbnail versions of the logos should now appear.
+* Edit the file app/views/static_pages/home.html.erb.  In the "Current Sponsors" section,  add the following code on the line immediately after "<%= link_to s.name, s %>":
+```
+      <% if s.picture? %>
+        <br>
+        <p style="margin-left: 40px">
+        <%= image_tag s.picture.url(:thumb) %>
+      <% end %>
+```
+* In your browser view of the local site, go to the home page.  Thumbnail versions of the logos should now appear.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Displays sponsor logos"
+```
 
 ### Wrapping Up
 * Enter the command "git push origin 03-07-sponsor_logo_show".
