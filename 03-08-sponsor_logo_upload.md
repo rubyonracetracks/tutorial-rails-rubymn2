@@ -6,6 +6,14 @@ In this chapter, you will enable super admins to upload a logo when creating or 
 ### New Branch
 Enter the command "git checkout -b 03-08-sponsor_logo_upload".
 
+### Integration Test
+* Enter the command "rails generate integration_test sponsor_logo_upload".
+* Edit the test/integration/sponsor_logo_upload_test.rb file.  Replace everything between the line "class SponsorLogoUploadTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
+```
+
+```
+
+
 ### Wrapping Up
 * Enter the command "git push origin 03-08-sponsor_logo_upload".
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
