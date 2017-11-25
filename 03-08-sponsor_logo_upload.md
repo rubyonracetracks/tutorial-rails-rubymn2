@@ -6,6 +6,16 @@ In this chapter, you will enable super admins to upload a logo when creating or 
 ### New Branch
 Enter the command "git checkout -b 03-08-sponsor_logo_upload".
 
+### Downloading Sponsor Logos
+* Download the Debian Linux logo image by entering the following LONG one-line command:
+```
+curl -o app/assets/images/debian_logo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/debian_logo.png
+```
+* Download the Best Buy logo image by entering the following LONG one-line command:
+```
+curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/Best_Buy_Logo.png
+```
+
 ### Integration Test
 * Enter the command "rails generate integration_test sponsor_logo_upload".
 * Edit the test/integration/sponsor_logo_upload_test.rb file.  Replace everything between the line "class SponsorLogoUploadTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
