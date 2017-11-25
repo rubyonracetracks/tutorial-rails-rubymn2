@@ -11,6 +11,10 @@ Enter the command "git checkout -b 03-08-sponsor_logo_upload".
 ```
 curl -o app/assets/images/debian_logo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/debian_logo.png
 ```
+* Download the Big Buy logo image by entering the following LONG one-line command:
+```
+curl -o app/assets/images/big_buy_logo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/big_buy_logo.png
+```
 * Download the Best Buy logo image by entering the following LONG one-line command:
 ```
 curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.com/jhsu802701/tutorial_rails_rubymn2/master/images/Best_Buy_Logo.png
