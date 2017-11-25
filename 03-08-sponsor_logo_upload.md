@@ -41,7 +41,7 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
     visit sponsor_path(@sponsor1)
     click_on 'Edit Sponsor'
     find('form input[type="file"]').set(Rails.root + fn)
-    click_button('Update')
+    click_button('Submit')
 
     assert page.has_text?('Sponsor updated')
     url = "/uploads/sponsor/picture/#{uo.id}/#{basename}"
