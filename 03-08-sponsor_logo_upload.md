@@ -36,7 +36,7 @@ class UsersPictureUploadTest < ActionDispatch::IntegrationTest
 
   # uo: user object
   # fn: filename of image file
-  def edit_picture(fn, pd)
+  def edit_logo(fn, pd)
     basename = File.basename fn
     login_as(@a1, scope: :admin)
     visit sponsor_path(@sponsor1)
@@ -65,10 +65,13 @@ class UsersPictureUploadTest < ActionDispatch::IntegrationTest
     fill_in('URL', with: 'http://www.debian.org')
     check('Current')
     click_button('Submit')
-    click_on 'Richmond & Woods Law Offices'
-    assert page.has_css?('h1', text: 'Current Sponsor: Richmond & Woods Law Offices')
-    click_on 'Home'
-    assert page.has_text?('Richmond & Woods Law Offices')
+    
+    click_on 'Debian Linux'
+    assert page.has_css?('h1', text: 'Current Sponsor: Debian Linux')
+
+    s = Sponsor.find_by(name: 'Debian Linux')
+    url = "/uploads/sponsor/picture/#{s.id}/debian_logo.png"
+    page.assert_selector(:xpath, xpath_input_img(url))
   end
 
   test 'user can edit profile picture' do
