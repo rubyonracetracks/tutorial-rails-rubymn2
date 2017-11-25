@@ -24,11 +24,6 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
 * Enter the command "rails generate integration_test sponsor_logo_upload".
 * Edit the test/integration/sponsor_logo_upload_test.rb file.  Replace everything between the line "class SponsorLogoUploadTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
-require 'test_helper'
-
-class UsersPictureUploadTest < ActionDispatch::IntegrationTest
   # Xpath string used for testing for images
   def xpath_input_img(url)
     str1 = './/img[@src="'
@@ -85,8 +80,6 @@ class UsersPictureUploadTest < ActionDispatch::IntegrationTest
     edit_logo(f2)
   end
 end
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
 ```
 
 ### Sponsor Controller
