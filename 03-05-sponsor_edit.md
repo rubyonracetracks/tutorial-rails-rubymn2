@@ -40,6 +40,7 @@ Enter the command "git checkout -b 03-05-sponsor_edit".
     sign_in @a1, scope: :admin
     edit_sponsor
     assert_redirected_to sponsor_path(@sponsor1)
+    assert page.has_text?('Sponsor updated')
   end
 ```
 * NOTE: The controller test ONLY tests for the expected redirection and does NOT check to make sure that the edit was successful.  Using the "assert_response :success" command did not pan out due to the redirection.  Checking the value of @sponsor1.description did not pan out.  Making sure that the edit was successfully made will be covered in the integration test.
