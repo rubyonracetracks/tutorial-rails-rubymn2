@@ -87,12 +87,12 @@ Edit the file app/controllers/sponsors_controller.rb. In the sponsor_params defi
 ### Edit Sponsor Page
 * In the app/views/sponsors/edit.html.erb file, add the following lines immediately before the Submit button:
 ```
-  <div class="field">
-    <span class="picture">
-      <b>OPTIONAL: Upload sponsor logo</b>
-      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-    </span>
-  </div>
+      <div class="field">
+        <span class="picture">
+          <b>OPTIONAL: Upload sponsor logo</b>
+          <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+        </span>
+      </div>
 ```
 
 ### Add Sponsor Page
