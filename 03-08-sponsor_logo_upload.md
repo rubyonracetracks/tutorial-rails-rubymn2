@@ -78,17 +78,41 @@ class UsersPictureUploadTest < ActionDispatch::IntegrationTest
     page.assert_selector(:xpath, xpath_input_img(url))
   end
 
-  test 'user can edit profile picture' do
+  test 'super admin can edit the sponsor logo' do
     f1 = 'app/assets/images/big_buy.'
-    edit_picture(f1)
+    edit_logo(f1)
     f2 = 'test/fixtures/files/connery2.jpg'
-    edit_picture(f2)
+    edit_logo(f2)
   end
 end
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
 ```
 
+### Sponsor Controller
+Edit the file app/controllers/sponsors_controller.rb. In the sponsor_params definition, add ":picture" to the list of keys.
+
+### Edit Sponsor Page
+* In the app/views/sponsors/edit.html.erb file, add the following lines immediately before the Submit button:
+```
+  <div class="field">
+    <span class="picture">
+      <b>OPTIONAL: Upload sponsor logo</b>
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+    </span>
+  </div>
+```
+
+### Add Sponsor Page
+In the app/views/sponsors/new.html.erb file, add the following lines immediately before the Submit button:
+```
+  <div class="field">
+    <span class="picture">
+      <b>OPTIONAL: Upload sponsor logo</b>
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+    </span>
+  </div>
+```
 
 ### Wrapping Up
 * Enter the command "git push origin 03-08-sponsor_logo_upload".
