@@ -74,12 +74,11 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
   end
 
   test 'super admin can edit the sponsor logo' do
-    f1 = 'app/assets/images/big_buy.'
+    f1 = 'app/assets/images/big_buy_logo.png'
     edit_logo(f1)
-    f2 = 'test/fixtures/files/connery2.jpg'
+    f2 = 'app/assets/images/Best_Buy_Logo.png'
     edit_logo(f2)
   end
-end
 ```
 
 ### Sponsor Controller
