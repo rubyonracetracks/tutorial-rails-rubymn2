@@ -34,17 +34,17 @@ class UsersPictureUploadTest < ActionDispatch::IntegrationTest
     output
   end
 
-  # uo: user object
   # fn: filename of image file
-  def edit_logo(fn, pd)
+  def edit_logo(fn)
     basename = File.basename fn
+    
     login_as(@a1, scope: :admin)
     visit sponsor_path(@sponsor1)
     click_on 'Edit Sponsor'
     find('form input[type="file"]').set(Rails.root + fn)
     click_button('Update')
-    assert page.has_text?('Your account has been updated successfully.')
-    click_on 'Your Profile'
+
+    assert page.has_text?('Sponsor updated')
     url = "/uploads/sponsor/picture/#{uo.id}/#{basename}"
     page.assert_selector(:xpath, xpath_input_img(url))
   end
@@ -75,10 +75,10 @@ class UsersPictureUploadTest < ActionDispatch::IntegrationTest
   end
 
   test 'user can edit profile picture' do
-    f1 = 'test/fixtures/files/connery1.jpg'
-    edit_picture(@u1, f1, 'Goldfinger')
+    f1 = 'app/assets/images/big_buy.'
+    edit_picture(f1)
     f2 = 'test/fixtures/files/connery2.jpg'
-    edit_picture(@u1, f2, 'Goldfinger')
+    edit_picture(f2)
   end
 end
 # rubocop:enable Metrics/AbcSize
