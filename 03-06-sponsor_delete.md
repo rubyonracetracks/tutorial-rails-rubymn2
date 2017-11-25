@@ -128,6 +128,7 @@ git commit -m "Added sponsor delete (controller level)"
   <%= link_to "Delete Sponsor", @sponsor, method: :delete,
                             data: { confirm: "Are you sure you wish to delete this sponsor?" },
                             class: "btn btn-lg btn-primary"
+  <br>
   %>
 ```
 * Enter the command "test1".  All tests should pass.
