@@ -63,6 +63,10 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
     fill_in('Email', with: 'info@debian.org')
     fill_in('URL', with: 'http://www.debian.org')
     check('Current')
+
+    filename = 'app/assets/images/debian_logo.png'
+    find('form input[type="file"]').set(Rails.root + filename)
+
     click_button('Submit')
     
     click_on 'Debian Linux'
