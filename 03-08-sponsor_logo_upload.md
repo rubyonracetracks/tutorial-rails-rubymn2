@@ -44,7 +44,7 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
     click_button('Submit')
 
     assert page.has_text?('Sponsor updated')
-    url = "/uploads/sponsor/picture/#{uo.id}/#{basename}"
+    url = "/uploads/sponsor/picture/#{@sponsor1.id}/#{basename}"
     page.assert_selector(:xpath, xpath_input_img(url))
   end
 
