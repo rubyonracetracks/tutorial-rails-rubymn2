@@ -123,7 +123,7 @@ git commit -m "Added sponsor delete (controller level)"
   * Enter the command "test1".  The same 2 tests fail again because the "Delete Sponsor" button is missing.
 
 #### Delete Sponsor Button
-* Edit the file app/views/sponsors/show.html.erb. In the section for the edit and delete sponsor buttons, add the following code immediately after the "Edit Sponsor" button:
+* Edit the file app/views/sponsors/show.html.erb. Immediately before the "end" statement in the section for the edit/delete sponsor buttons, add the following code:
 ```
   <%= link_to "Delete Sponsor", @sponsor, method: :delete,
                             data: { confirm: "Are you sure you wish to delete this sponsor?" },
