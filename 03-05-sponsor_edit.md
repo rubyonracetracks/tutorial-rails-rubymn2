@@ -170,6 +170,7 @@ git commit -m "Added sponsor edit (controller level)"
               class: "btn btn-lg btn-primary"
     %>
   <br>
+  <br>
 <% end %>
 <% # END: edit and delete sponsor buttons %>
 ```
