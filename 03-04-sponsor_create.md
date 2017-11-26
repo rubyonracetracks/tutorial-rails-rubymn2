@@ -177,7 +177,10 @@ git commit -m "Added the create action in the sponsor controller"
     fill_in('Description', with: 'Greedy misers!')
     fill_in('Email', with: 'ebenezer@scroogeandmarley.com')
     fill_in('URL', with: 'http://www.scroogeandmarley.com')
+
     click_button('Submit')
+    assert page.has_text?('Sponsor added')
+
     click_on 'Scrooge & Marley'
     assert page.has_css?('h1', text: 'Past Sponsor: Scrooge & Marley')
     click_on 'Home'
