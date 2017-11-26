@@ -129,7 +129,7 @@ git commit -m "Added sponsor delete (controller level)"
                             data: { confirm: "Are you sure you wish to delete this sponsor?" },
                             class: "btn btn-lg btn-primary"
   %>
-  <br>
+  <br><br>
 ```
 * Enter the command "test1".  All tests should pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
