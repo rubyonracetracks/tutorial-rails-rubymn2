@@ -157,7 +157,10 @@ git commit -m "Added the create action in the sponsor controller"
     fill_in('Email', with: 'info@richmondwoods.com')
     fill_in('URL', with: 'http://www.richmondwoods.com')
     check('Current')
+
     click_button('Submit')
+    assert page.has_text?('Sponsor added')
+
     click_on 'Richmond & Woods Law Offices'
     assert page.has_css?('h1', text: 'Current Sponsor: Richmond & Woods Law Offices')
     click_on 'Home'
