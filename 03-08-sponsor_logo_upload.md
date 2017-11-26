@@ -33,10 +33,11 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
     output
   end
 
+  # rubocop:disable Metrics/AbcSize
   # fn: filename of image file
   def edit_logo(fn)
     basename = File.basename fn
-    
+
     login_as(@a1, scope: :admin)
     visit sponsor_path(@sponsor1)
     click_on 'Edit Sponsor'
@@ -47,6 +48,7 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
     url = "/uploads/sponsor/picture/#{@sponsor1.id}/#{basename}"
     page.assert_selector(:xpath, xpath_input_img(url))
   end
+  # rubocop:enable Metrics/AbcSize
 
   test 'super admin can add logo when creating sponsor' do
     login_as(@a1, scope: :admin)
@@ -68,7 +70,8 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
     find('form input[type="file"]').set(Rails.root + filename)
 
     click_button('Submit')
-    
+    assert page.has_text?('Sponsor added')
+
     click_on 'Debian Linux'
     assert page.has_css?('h1', text: 'Current Sponsor: Debian Linux')
 
@@ -84,11 +87,11 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
     edit_logo(f2)
   end
 ```
+* Enter the command "sh test_app.sh".  Both new integration tests fail.
+* Enter the command "alias test1='(command to run failed tests minus the TESTOPTS portion)'".
+* Enter the command "test1".  The same two tests fail because the forms do not include the expected file input.
 
-### Sponsor Controller
-Edit the file app/controllers/sponsors_controller.rb. In the sponsor_params definition, add ":picture" to the list of keys.
-
-### Edit Sponsor Page
+### Sponsor Forms
 * In the app/views/sponsors/edit.html.erb file, add the following lines immediately before the Submit button:
 ```
       <div class="field">
@@ -98,9 +101,7 @@ Edit the file app/controllers/sponsors_controller.rb. In the sponsor_params defi
         </span>
       </div>
 ```
-
-### Add Sponsor Page
-In the app/views/sponsors/new.html.erb file, add the following lines immediately before the Submit button:
+* In the app/views/sponsors/new.html.erb file, add the following lines immediately before the Submit button:
 ```
       <div class="field">
         <span class="picture">
@@ -109,6 +110,16 @@ In the app/views/sponsors/new.html.erb file, add the following lines immediately
         </span>
       </div>
 ```
+* Enter the command "test1".  Both tests fail because the logos do not appear after the Submit button is pressed.
+
+### Sponsor Controller
+* Edit the file app/controllers/sponsors_controller.rb. In the sponsor_params definition, add ":picture" to the list of keys.
+* Enter the command "test1".  All tests should now pass.
+* 
+
+### Edit Sponsor Page
+
+### Add Sponsor Page
 
 ### Wrapping Up
 * Enter the command "git push origin 03-08-sponsor_logo_upload".
