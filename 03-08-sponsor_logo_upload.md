@@ -115,13 +115,15 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
 ### Sponsor Controller
 * Edit the file app/controllers/sponsors_controller.rb. In the sponsor_params definition, add ":picture" to the list of keys.
 * Enter the command "test1".  All tests should now pass.
-* 
-
-### Edit Sponsor Page
-
-### Add Sponsor Page
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
+* Enter the following commands:
+```
+git add .
+git commit -m "Super admin can upload a logo when creating or editing a sponsor"
+git push origin 03-08-sponsor_logo_upload
+```
 * Enter the command "git push origin 03-08-sponsor_logo_upload".
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * Accept this pull request to merge it with the master branch, but do NOT delete this branch.
