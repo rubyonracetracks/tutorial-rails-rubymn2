@@ -125,7 +125,6 @@ git commit -m "Added sponsor delete (controller level)"
 #### Delete Sponsor Button
 * Edit the file app/views/sponsors/show.html.erb. In the section for the edit and delete sponsor buttons, add the following code immediately after the "Edit Sponsor" button:
 ```
-  <br>
   <%= link_to "Delete Sponsor", @sponsor, method: :delete,
                             data: { confirm: "Are you sure you wish to delete this sponsor?" },
                             class: "btn btn-lg btn-primary"
