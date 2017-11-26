@@ -118,8 +118,8 @@ git commit -m "Successfully seeds sponsor logos"
 ### Displaying the Sponsor Logos
 * Edit the app/views/sponsors/show.html.erb file.  Add the following code to the end of the file:
 ```
-<br><br>
 <% if @sponsor.picture? %>
+  <br><br>
   <%= image_tag @sponsor.picture.url %>
 <% end %>
 ```
