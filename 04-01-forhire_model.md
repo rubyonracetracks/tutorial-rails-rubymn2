@@ -26,17 +26,17 @@ rails generate model for_hire blurb:text email:string title:string user:referenc
   end
 
   test 'must have blurb' do
-    @forhire.blurb = ''
+    @for_hire.blurb = ''
     assert_not @for_hire.valid?
   end
 
   test 'must have email' do
-    @forhire.email = ''
+    @for_hire.email = ''
     assert_not @for_hire.valid?
   end
 
   test 'must have title' do
-    @forhire.title = ''
+    @for_hire.title = ''
     assert_not @for_hire.valid?
   end
 
@@ -68,6 +68,10 @@ rails generate model for_hire blurb:text email:string title:string user:referenc
                               user_id: @user.id)
     assert_not @for_hire_2.valid?
   end
+
+  test "order should be most recent first" do
+    assert_equal microposts(:most_recent), Micropost.first
+  end
 ```
 * Enter the command "echo '# Empty test fixture' > test/fixtures/for_hires.yml".  This gives us blank test fixtures.  (You'll fill them in later.)  Neglecting this step means a long cascade of test failures, because the users specified are not valid.
 * Enter the command "sh testm.sh".  The last 6 new model tests fail.
@@ -77,6 +81,10 @@ rails generate model for_hire blurb:text email:string title:string user:referenc
   validates :blurb, presence: true, length: { maximum: 4095 }
   validates :email, presence: true, length: { maximum: 255 }
   validates :title, presence: true, length: { maximum: 255 }
+```
+* Edit the app/models/user.rb file.  Add the following line to the end of the public section:
+```
+  has_one :for_hire, :dependent => :destroy
 ```
 
 ### Wrapping Up
