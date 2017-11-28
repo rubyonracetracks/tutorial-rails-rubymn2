@@ -11,6 +11,49 @@ rails generate model for_hire blurb:text email:string title:string user:referenc
 ```
 * Note that the "user:references" portion of the above command connects this object to a user object.
 * Enter the command "rails db:migrate".
+* Edit the file test/fixtures/for_hires.yml.  Replace the default test fixtures with the following content:
+```
+bond_lazenby:
+  blurb: 'I was James Bond for one movie.'
+  email: 'george_lazenby@rubyonracetracks.com'
+  title: 'James Bond 1969'
+  user: lazenby
+  created_at: <%= Time.new(1910, 1, 1) %>
+  updated_at: <%= Time.new(1969, 12, 18) %>
+
+bond_moore:
+  blurb: 'I made James Bond campier.'
+  email: 'roger_moore@rubyonracetracks.com'
+  title: 'James Bond 1973-1985'
+  user: moore
+  created_at: <%= Time.new(1909, 1, 1) %>
+  updated_at: <%= Time.new(1985, 5, 22) %>
+
+bond_dalton:
+  blurb: 'I brought gritty realism to the Bond series.'
+  email: 'timothy_dalton@rubyonracetracks.com'
+  title: 'James Bond 1987-1989'
+  user: dalton
+  created_at: <%= Time.new(1908, 1, 1) %>
+  updated_at: <%= Time.new(1989, 6, 13) %>
+
+bond_brosnan:
+  blurb: 'James Bond moved beyond the Cold War Era on my watch.'
+  email: 'pierce_brosnan@rubyonracetracks.com'
+  title: 'James Bond 1995-2002'
+  user: dalton
+  created_at: <%= Time.new(1907, 1, 1) %>
+  updated_at: <%= Time.new(2002, 11, 20) %>
+
+bond_craig:
+  blurb: 'I rebooted James Bond.'
+  email: 'daniel_craig@rubyonracetracks.com'
+  title: 'James Bond 2006-'
+  user: dalton
+  created_at: <%= Time.new(1906, 1, 1) %>
+  updated_at: <%= Time.now %>
+```
+
 * Edit the file test/models/for_hire_test.rb.  Replace everything between the line "class ForHireTest < ActiveSupport::TestCase" and the last "end" statement with the following:
 ```
   def setup
@@ -69,8 +112,11 @@ rails generate model for_hire blurb:text email:string title:string user:referenc
     assert_not @for_hire_2.valid?
   end
 
-  test "order should be most recent first" do
-    assert_equal microposts(:most_recent), Micropost.first
+  test 'order should be correct' do
+    assert_equal ForHire(:most_recent), ForHire.first
+  end
+
+  test "deleting a user should delete that user's for_hire object" do
   end
 ```
 * Enter the command "echo '# Empty test fixture' > test/fixtures/for_hires.yml".  This gives us blank test fixtures.  (You'll fill them in later.)  Neglecting this step means a long cascade of test failures, because the users specified are not valid.
