@@ -53,7 +53,6 @@ bond_craig:
   created_at: <%= Time.new(1906, 1, 1) %>
   updated_at: <%= Time.now %>
 ```
-
 * Edit the file test/models/for_hire_test.rb.  Replace everything between the line "class ForHireTest < ActiveSupport::TestCase" and the last "end" statement with the following:
 ```
   def setup
@@ -61,7 +60,9 @@ bond_craig:
     @for_hire = ForHire.new(blurb: 'I stopped Blofeld 4 times!',
                             email: 'first_bond@rubyonracetracks.com',
                             title: 'James Bond 1962-1971',
-                            user_id: @user.id)
+                            user_id: @user.id,
+                            confirmed_at: Time.new(1962, 10, 5),
+                            updated_at: Time.new(1971, 12, 14))
   end
 
   test 'should be valid' do
@@ -113,14 +114,11 @@ bond_craig:
   end
 
   test 'order should be correct' do
-    assert_equal ForHire(:most_recent), ForHire.first
-  end
-
-  test "deleting a user should delete that user's for_hire object" do
+    assert_equal ForHire(:bond_lazenby), ForHire.first
+    assert_equal ForHire(:bond_craig), ForHire.last
   end
 ```
-* Enter the command "echo '# Empty test fixture' > test/fixtures/for_hires.yml".  This gives us blank test fixtures.  (You'll fill them in later.)  Neglecting this step means a long cascade of test failures, because the users specified are not valid.
-* Enter the command "sh testm.sh".  The last 6 new model tests fail.
+* Enter the command "sh testm.sh".  The last 8 new model tests fail.
 * Edit the app/models/for_hire.rb file.  Add the line "#" just before the line "class ForHire < ApplicationRecord".
 * Edit the app/models/for_hire.rb file.  Just before the "end" statement, add the following code:
 ```
