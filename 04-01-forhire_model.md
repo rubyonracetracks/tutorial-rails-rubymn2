@@ -61,7 +61,7 @@ bond_craig:
                             email: 'first_bond@rubyonracetracks.com',
                             title: 'James Bond 1962-1971',
                             user_id: @user.id,
-                            confirmed_at: Time.new(1962, 10, 5),
+                            created_at: Time.new(1962, 10, 5),
                             updated_at: Time.new(1971, 12, 14))
   end
 
@@ -84,7 +84,7 @@ bond_craig:
     assert_not @for_hire.valid?
   end
 
-  test 'blurb should be no more than 4095 characters long' do
+  test 'blurb should be too long' do
     @for_hire.blurb = 'a' * 4096
     assert_not @for_hire.valid?
     @for_hire.blurb = 'a' * 4095
