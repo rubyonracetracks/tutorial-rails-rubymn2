@@ -9,7 +9,7 @@ Enter the command "git checkout -b 04-01-forhire_model".
 ```
 rails generate model for_hire blurb:text email:string title:string user:references
 ```
-* Note that the "user:references" portion of the above command connects this object to a user object.
+* Note that the "user:references" portion of the above command connects the new for_hire object to a user object.  (The for_hire object belongs to the user object.)
 * Enter the command "rails db:migrate".
 * Edit the file test/fixtures/for_hires.yml.  Replace the default test fixtures with the following content:
 ```
