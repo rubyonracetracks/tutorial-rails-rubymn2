@@ -11,8 +11,7 @@ rails generate model for_hire blurb:text email:string title:string user:referenc
 ```
 * Note that the "user:references" portion of the above command connects the new for_hire object to a user object.  (The for_hire object belongs to the user object.)
 * Enter the command "rails db:migrate".
-* Enter the command "sh testm.sh; sh testm.sh".  Yes, you should run the tests twice, because you may get different results the second time.  The second time you run the tests, you will get a long cascade of error messages about PostgreSQL foreign key violations.
-* There is a long cascade of error messages, because the for_hire objects in the initial test fixtures belong to users that do not exist.
+* Enter the command "sh testm.sh".  You will get a long cascade of error messages about PostgreSQL foreign key violations.  Part of the problem is the default test fixtures of the for_hire object, which belong to user objects that are not provided in the user test fixtures.
 * Edit the file test/fixtures/for_hires.yml.  Replace the default test fixtures with the following content:
 ```
 bond_lazenby:
@@ -43,7 +42,7 @@ bond_brosnan:
   blurb: 'James Bond moved beyond the Cold War Era on my watch.'
   email: 'pierce_brosnan@rubyonracetracks.com'
   title: 'James Bond 1995-2002'
-  user: dalton
+  user: brosnan
   created_at: <%= Time.new(1907, 1, 1) %>
   updated_at: <%= Time.new(2002, 11, 20) %>
 
@@ -51,10 +50,11 @@ bond_craig:
   blurb: 'I rebooted James Bond.'
   email: 'daniel_craig@rubyonracetracks.com'
   title: 'James Bond 2006-'
-  user: dalton
+  user: craig
   created_at: <%= Time.new(1906, 1, 1) %>
   updated_at: <%= Time.now %>
 ```
+* Enter the command "sh testm.sh; sh testm.sh".  Yes, you should run the model tests twice.  While all tests may pass the first time, the long cascade of error messages about PostgreSQL foreign key violations will return the second time.  While the test fixtures are no longer an issue, the models are.  (The for_hire object is not yet specified as belonging to the user_object in the user model.)
 * Edit the file app/models/user.rb.  At the end of the public section, add the following line:
 ```
   has_one :for_hires, dependent: :destroy
