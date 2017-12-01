@@ -4,13 +4,15 @@
 ### New Branch
 Enter the command "git checkout -b 04-01-forhire_model".
 
-### Model Test
+### Adding the ForHire Object
 * Enter the following command:
 ```
 rails generate model for_hire blurb:text email:string title:string user:references
 ```
 * Note that the "user:references" portion of the above command connects the new for_hire object to a user object.  (The for_hire object belongs to the user object.)
 * Enter the command "rails db:migrate".
+* Enter the command "sh testm.sh; sh testm.sh".  Yes, you should run the tests twice, because you may get different results the second time.  The second time you run the tests, you will get a long cascade of error messages about PostgreSQL foreign key violations.
+* There is a long cascade of error messages, because the for_hire objects in the initial test fixtures belong to users that do not exist.
 * Edit the file test/fixtures/for_hires.yml.  Replace the default test fixtures with the following content:
 ```
 bond_lazenby:
@@ -53,6 +55,15 @@ bond_craig:
   created_at: <%= Time.new(1906, 1, 1) %>
   updated_at: <%= Time.now %>
 ```
+* Edit the file app/models/user.rb.  At the end of the public section, add the following line:
+```
+  has_one :for_hires, dependent: :destroy
+```
+
+
+* Enter the command "sh testm.sh".  All tests should now pass.
+
+### Model Test
 * Edit the file test/models/for_hire_test.rb.  Replace everything between the line "class ForHireTest < ActiveSupport::TestCase" and the last "end" statement with the following:
 ```
   def setup
@@ -63,6 +74,7 @@ bond_craig:
                             user_id: @user.id,
                             created_at: Time.new(1962, 10, 5),
                             updated_at: Time.new(1971, 12, 14))
+    @user
   end
 
   test 'should be valid' do
@@ -119,6 +131,8 @@ bond_craig:
   end
 ```
 * Enter the command "sh testm.sh".  The last 8 new model tests fail.
+
+### Updating the Model
 * Edit the app/models/for_hire.rb file.  Add the line "#" just before the line "class ForHire < ApplicationRecord".
 * Edit the app/models/for_hire.rb file.  Just before the "end" statement, add the following code:
 ```
