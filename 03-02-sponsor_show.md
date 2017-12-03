@@ -76,6 +76,8 @@ flag:
   @sponsor4 = sponsors(:flag)
 ```
 * Enter the command "sh testc.sh".  The controller test fails because the "show" action is not in the sponsor controller yet.
+
+#### Controller and Template
 * Edit the file app/controllers/sponsors_controller.rb.  Just before the line "class SponsorsController < ApplicationController", add the line "#".
 * Edit the file app/controllers/sponsors_controller.rb.  Insert the following lines between "class SponsorsController < ApplicationController" and "end".
 ```
