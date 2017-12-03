@@ -1,28 +1,32 @@
 # Unit 4
 ## Chapter 4: For Hire Model
 
+### Special Note
+In this app, there should be only one For Hire profile per user.  This limit will be enforced at the controller level in a later chapter.  I was unable to get the has_one association to work and could not find any good examples on how to do this.  Thus, I was forced to use the tried-and-true has_many association instead.  Attempts to limit the number of For Hire profiles per user at the model level did not pan out even though old StackOverflow posts suggested that this was possible.
+
 ### New Branch
 Enter the command "git checkout -b 04-01-forhire_model".
 
 ### Adding the ForHire Object
 * Enter the following command:
 ```
-rails generate model for_hire blurb:text email:string title:string user:references
+rails generate model forhire blurb:text email:string title:string user:references
 ```
 * Note that the "user:references" portion of the above command connects the new for_hire object to a user object.  (The for_hire object belongs to the user object.)
-* In the db/migrate/[timestamp]_create_for_hires.rb file, add the following line just before the second to last "end" statement (after the create_table loop):
+* In the db/migrate/[timestamp]_create_forhires.rb file, add the following line just before the second to last "end" statement (after the create_table loop):
 ```
-    add_index :for_hires, [:user_id, :created_at]
+    add_index :forhires, [:user_id, :created_at]
 ```
-* Please note that the above migration uses the combination of the creation time and the ID of the associated user to index the for_hires objects.  If you neglect to add this, you will be bombarded with a long cascade of cryptic error messages about foreign key violations.
+* Please note that the above migration uses the combination of the creation time and the ID of the associated user to index the for_hires objects.
+* Please note that if you don't do things right, you will be bombarded with a long cascade of cryptic error messages about PostgreSQL foreign key violations.  Neglecting the above change in the migration script is one factor that will lead to this.
 * Enter the command "rails db:migrate".
-* Enter the command "sh testm.sh".  You will get a long cascade of error messages about PostgreSQL foreign key violations.  Part of the problem is the default test fixtures of the for_hire object, which belong to user objects that are not provided in the user test fixtures.
+* Enter the command "sh testm.sh".  You will get a long cascade of error messages about PostgreSQL foreign key violations.  The other factor that leads to this is the initial default test fixtures of the for_hire class, which belong to user objects that are not provided in the user test fixtures.
 * Blank out the for_hires test fixtures by entering the following command:
 ```
-echo '' > test/fixtures/for_hires.yml
+echo '' > test/fixtures/forhires.yml
 ```
-* You'll fill in the test fixtures later.
-* Enter the command "sh testm.sh".  All tests should pass.
+* Edit the app/models/forhire.rb file.  Add the line "#" just before the line "class ForHire < ApplicationRecord".
+* Enter the command "sh testm.sh".  All tests should pass.  You'll fill in the test fixtures later.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
@@ -31,143 +35,82 @@ git commit -m "Added the for_hire object"
 ```
 
 ### Model Test
-* Edit the file test/models/for_hire_test.rb.  Replace everything between the line "class ForHireTest < ActiveSupport::TestCase" and the last "end" statement with the following:
+* Edit the file test/models/forhire_test.rb.  Replace everything between the line "class ForhireTest < ActiveSupport::TestCase" and the last "end" statement with the following:
 ```
   def setup
     @user = users(:connery)
-    @for_hire = ForHire.new(blurb: 'I stopped Blofeld 4 times!',
-                            email: 'first_bond@rubyonracetracks.com',
-                            title: 'James Bond 1962-1971',
-                            user_id: @user.id,
-                            created_at: Time.new(1962, 10, 5),
-                            updated_at: Time.new(1971, 12, 14))
-    @user
+    @fh = @user.forhires.create(blurb: 'I stopped Blofeld 4 times!',
+                                email: 'first_bond@rubyonracetracks.com',
+                                title: 'James Bond 1962-1971')
   end
 
   test 'should be valid' do
-    assert @for_hire.valid?
+    assert @fh.valid?
   end
 
   test 'must have blurb' do
-    @for_hire.blurb = ''
-    assert_not @for_hire.valid?
+    @fh.blurb = ''
+    assert_not @fh.valid?
   end
 
   test 'must have email' do
-    @for_hire.email = ''
-    assert_not @for_hire.valid?
+    @fh.email = ''
+    assert_not @fh.valid?
   end
 
   test 'must have title' do
-    @for_hire.title = ''
-    assert_not @for_hire.valid?
+    @fh.title = ''
+    assert_not @fh.valid?
   end
 
   test 'blurb should be too long' do
-    @for_hire.blurb = 'a' * 4096
-    assert_not @for_hire.valid?
-    @for_hire.blurb = 'a' * 4095
-    assert @for_hire.valid?
+    @fh.blurb = 'a' * 4096
+    assert_not @fh.valid?
+    @fh.blurb = 'a' * 4095
+    assert @fh.valid?
   end
 
   test 'email should not be too long' do
-    @for_hire.email = 'a' * 244 + '@example.com'
-    assert_not @for_hire.valid?
-    @for_hire.email = 'a' * 243 + '@example.com'
-    assert @for_hire.valid?
+    @fh.email = 'a' * 244 + '@example.com'
+    assert_not @fh.valid?
+    @fh.email = 'a' * 243 + '@example.com'
+    assert @fh.valid?
   end
 
   test 'title should not be too long' do
-    @for_hire.title = 'a' * 256
-    assert_not @for_hire.valid?
-    @for_hire.title = 'a' * 255
-    assert @for_hire.valid?
+    @fh.title = 'a' * 256
+    assert_not @fh.valid?
+    @fh.title = 'a' * 255
+    assert @fh.valid?
   end
 
-  test 'user may have only one for_hire object' do
-    @for_hire_2 = ForHire.new(blurb: 'I stopped Largo twice!',
-                              email: 'nsna@example.com',
-                              title: 'James Bond 1983',
-                              user_id: @user.id)
-    assert_not @for_hire_2.valid?
-  end
-
-  test 'order should be correct' do
-    assert_equal ForHire(:bond_lazenby), ForHire.first
-    assert_equal ForHire(:bond_craig), ForHire.last
+  test 'deleting the user should delete the associated forhires' do
+    assert_difference 'Forhire.count', -1 do
+      @user.destroy
+    end
   end
 ```
-* Enter the command "sh testm.sh".  The last 8 new model tests fail.
-
-### Updating Models
-* Edit the app/models/for_hire.rb file.  Add the line "#" just before the line "class ForHire < ApplicationRecord".
+* Enter the command "sh testm.sh".  All 9 tests fail because forhires is undefined.
 * Edit the app/models/for_hire.rb file.  Just before the "end" statement, add the following code:
 ```
+  validates :user_id, presence: true
   validates :blurb, presence: true, length: { maximum: 4095 }
   validates :email, presence: true, length: { maximum: 255 }
   validates :title, presence: true, length: { maximum: 255 }
 ```
 * Edit the file app/models/user.rb.  At the end of the public section, add the following line:
 ```
-  has_one :for_hires, dependent: :destroy
+  has_many :forhires, dependent: :destroy
 ```
 
-
-### Test Fixtures
-* Edit the file test/fixtures/for_hires.yml.  Replace the default test fixtures with the following content:
-```
-bond_lazenby:
-  blurb: 'I was James Bond for one movie.'
-  email: 'george_lazenby@rubyonracetracks.com'
-  title: 'James Bond 1969'
-  user: lazenby
-  created_at: <%= Time.new(1910, 1, 1) %>
-  updated_at: <%= Time.new(1969, 12, 18) %>
-
-bond_moore:
-  blurb: 'I made James Bond campier.'
-  email: 'roger_moore@rubyonracetracks.com'
-  title: 'James Bond 1973-1985'
-  user: moore
-  created_at: <%= Time.new(1909, 1, 1) %>
-  updated_at: <%= Time.new(1985, 5, 22) %>
-
-bond_dalton:
-  blurb: 'I brought gritty realism to the Bond series.'
-  email: 'timothy_dalton@rubyonracetracks.com'
-  title: 'James Bond 1987-1989'
-  user: dalton
-  created_at: <%= Time.new(1908, 1, 1) %>
-  updated_at: <%= Time.new(1989, 6, 13) %>
-
-bond_brosnan:
-  blurb: 'James Bond moved beyond the Cold War Era on my watch.'
-  email: 'pierce_brosnan@rubyonracetracks.com'
-  title: 'James Bond 1995-2002'
-  user: brosnan
-  created_at: <%= Time.new(1907, 1, 1) %>
-  updated_at: <%= Time.new(2002, 11, 20) %>
-
-bond_craig:
-  blurb: 'I rebooted James Bond.'
-  email: 'daniel_craig@rubyonracetracks.com'
-  title: 'James Bond 2006-'
-  user: craig
-  created_at: <%= Time.new(1906, 1, 1) %>
-  updated_at: <%= Time.now %>
-```
-* Enter the command "sh testm.sh; sh testm.sh".  Yes, you should run the model tests twice.  While all tests may pass the first time, the long cascade of error messages about PostgreSQL foreign key violations will return the second time.  While the test fixtures are no longer an issue, the models are.  (The for_hire object is not yet specified as belonging to the user_object in the user model.)
-
-
-
-
-### Updating the Model
+* Enter the command "sh testm.sh".  All tests should pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no violations.
 
 ### Wrapping Up
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the for hire model"
+git commit -m "Added the for hire model its model tests"
 git push origin 04-01-forhire_model
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
