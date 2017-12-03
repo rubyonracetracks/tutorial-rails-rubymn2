@@ -79,7 +79,7 @@ flag:
 
 #### Controller and Template
 * Edit the file app/controllers/sponsors_controller.rb.  Just before the line "class SponsorsController < ApplicationController", add the line "#".
-* Edit the file app/controllers/sponsors_controller.rb.  Insert the following lines between "class SponsorsController < ApplicationController" and "end".
+* Edit the file app/controllers/sponsors_controller.rb.  Insert the following lines between "class SponsorsController < ApplicationController" and "end":
 ```
   # BEGIN: action section
   def show
