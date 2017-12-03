@@ -1,7 +1,7 @@
 # Unit 3
-## Chapter 2: Sponsor Show Controller
+## Chapter 2: Sponsor Show Method
 
-In this chapter, you will add the show method in the sponsor controller.
+In this chapter, you will add the show method for the sponsor object.
 
 ### New Branch
 Enter the command "git checkout -b 03-02-sponsor_show".
