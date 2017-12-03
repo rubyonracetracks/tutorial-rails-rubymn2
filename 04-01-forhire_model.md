@@ -146,14 +146,15 @@ end
 # END: creating forhires
 ########################
 ```
-* Go to the tmux window containing your local Rails server. Press Ctrl-C to stop the server, and then enter the command "sh seed.sh; sh server.sh".
+* Go to the tmux window containing your local Rails server. Press Ctrl-C to stop the server, and then enter the command "sh seed.sh; sh server.sh".  Wait for these scripts to finish executing.
+* Use pgAdmin or the Rails sandbox to verify that the database has been seeded with the for hire profiles.
 * Enter the command "sh git_check.sh". All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
 ```
 git add .
-git commit -m "Updated the seeding script to add forhires"
+git commit -m "Updated the seeding script to add for hire profiles"
 git push origin 04-01-forhire_model
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
