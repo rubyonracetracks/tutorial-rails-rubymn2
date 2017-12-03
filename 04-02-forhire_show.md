@@ -1,4 +1,9 @@
+# Unit 4
+## Chapter 2: Forhire Show Method
+In this chapter, you will add the show method for the forhire object.
 
+### New Branch
+Enter the command "git checkout -b 04-02-forhire_show".
 
 ### Test Fixtures
 * Edit the file test/fixtures/for_hires.yml.  Replace the default test fixtures with the following content:
@@ -43,3 +48,19 @@ bond_craig:
   created_at: <%= Time.new(1906, 1, 1) %>
   updated_at: <%= Time.now %>
 ```
+
+### Wrapping Up
+* Enter the following commands:
+```
+git add .
+git commit -m "Added the forhire show capability"
+git push origin 04-02-forhire_show
+```
+* Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
+* When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
+* Enter the following commands:
+```
+git checkout master
+git pull
+```
+* Enter the command "sh heroku.sh".
