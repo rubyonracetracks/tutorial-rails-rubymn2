@@ -31,7 +31,7 @@ echo '' > test/fixtures/forhires.yml
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the for_hire object"
+git commit -m "Added the forhire object"
 ```
 
 ### Model Test
@@ -105,12 +105,55 @@ git commit -m "Added the for_hire object"
 
 * Enter the command "sh testm.sh".  All tests should pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no violations.
+* Enter the following commands:
+```
+git add .
+git commit -m "Passes the forehire model tests"
+```
+
+### Seeding
+* Edit the file db/seeds.rb.  Add the following code to the end of the script:
+```
+# DEFINE USERS
+user1 = User.first # First user
+users = User.all # All users
+
+##########################
+# BEGIN: creating forhires
+##########################
+puts 'Creating forhires'
+def create_forhire(user_n, n)
+  t = "Title #{n}: #{Faker::Name.title}"
+  e = Faker::Internet.email
+  b = "Blurb #{n}: #{Faker::Lorem.paragraph}"
+  @fh = user_n.forhires.create(title: t, email: e, blurb: b)
+end
+
+title1 = 'Galactic Traveler'
+email1 = 'ellie_arroway@projectargus.org'
+blurb1 = 'I traveled around the galaxy in a dodecahedron.'
+user1.forhires.create(title: title1, email: email1, blurb: blurb1)
+
+# Other users
+n = 0
+users.each do |u|
+  n += 1
+  next if rand < 0.7 || u == users.first
+  @fh1 = create_forhire(u, n)
+end
+
+########################
+# END: creating forhires
+########################
+```
+* Go to the tmux window containing your local Rails server. Press Ctrl-C to stop the server, and then enter the command "sh seed.sh; sh server.sh".
+* Enter the command "sh git_check.sh". All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the for hire model its model tests"
+git commit -m "Updated the seeding script to add forhires"
 git push origin 04-01-forhire_model
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
