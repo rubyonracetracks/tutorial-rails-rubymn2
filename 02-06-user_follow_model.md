@@ -47,15 +47,27 @@ rails generate model Relationship follower_id:integer followed_id:integer
     @relationship.followed_id = nil
     assert_not @relationship.valid?
   end
+
+  test 'deleting the follower deletes the relationship' do
+    assert_difference 'Relationship.count', -1 do
+      users(:lazenby).destroy
+    end
+  end
+
+  test 'deleting the followed deletes the relationship' do
+    assert_difference 'Relationship.count', -1 do
+      users(:connery).destroy
+    end
+  end
 ```
-* Enter the command "sh testm.sh".  32 tests fail because of the initial relationship test fixtures.  Note that in the file test/fixtures/relationships.yml, the follower_id and followed_id in both relationships is 1.  The cascade of failures is to be expected.
-* In the file test/fixtures/relationships.yml, change the value of the followed_id to 2.  (Keep the value of the follower_id at 1.)  Enter the command "sh testm.sh".  The 32 tests should fail again.
-* In the file test/fixtures/relationships.yml, edit the values of the parameters in the relationship "two".  Change the value of the follower_id to 2 and the value of the followed_id to 1.  (This is the inverse of the values of the parameters in the relationship "one".  Enter the command "sh testm.sh".  Now only 2 tests fail, the ones requiring a follower_id and followed_id.  This provides confirmation that the modifications you made in the db/migrate/[timestamp]_create_relationships.rb file work at enforcing the uniqueness of each relationship.
+* Enter the command "sh testm.sh".  34 tests fail because of the initial relationship test fixtures.  Note that in the file test/fixtures/relationships.yml, the follower_id and followed_id in both relationships is 1.  The cascade of failures is to be expected.
+* In the file test/fixtures/relationships.yml, change the value of the followed_id to 2.  (Keep the value of the follower_id at 1.)  Enter the command "sh testm.sh".  The 34 tests should fail again.
+* In the file test/fixtures/relationships.yml, edit the values of the parameters in the relationship "two".  Change the value of the follower_id to 2 and the value of the followed_id to 1.  (This is the inverse of the values of the parameters in the relationship "one".  Enter the command "sh testm.sh".  Now only 4 tests fail, the ones requiring a follower_id and followed_id.  This provides confirmation that the modifications you made in the db/migrate/[timestamp]_create_relationships.rb file work at enforcing the uniqueness of each relationship.
 * Remove the default relationship test fixtures by entering the following command:
 ```
 echo '# empty' > test/fixtures/relationships.yml
 ```
-* Enter the command "sh testm.sh".  The same 2 relationship model tests fail.
+* Enter the command "sh testm.sh".  The same 4 relationship model tests fail.
 * In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
 * In file app/models/relationship.rb, add the following lines immediately after the line "class Relationship < ApplicationRecord":
 ```
