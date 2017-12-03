@@ -90,7 +90,12 @@ git commit -m "Added the forhire object"
     end
   end
 ```
-* Enter the command "sh testm.sh".  All 9 tests fail because forhires is undefined.
+* Enter the command "sh testm.sh".  All 8 tests fail because forhires is undefined.
+* Edit the file app/models/user.rb.  At the end of the public section, add the following line:
+```
+  has_many :forhires, dependent: :destroy
+```
+* Enter the command "sh testm.sh".  The first and last tests now pass, but the other 6 still fail.
 * Edit the app/models/for_hire.rb file.  Just before the "end" statement, add the following code:
 ```
   validates :user_id, presence: true
@@ -98,11 +103,6 @@ git commit -m "Added the forhire object"
   validates :email, presence: true, length: { maximum: 255 }
   validates :title, presence: true, length: { maximum: 255 }
 ```
-* Edit the file app/models/user.rb.  At the end of the public section, add the following line:
-```
-  has_many :forhires, dependent: :destroy
-```
-
 * Enter the command "sh testm.sh".  All tests should pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no violations.
 * Enter the following commands:
