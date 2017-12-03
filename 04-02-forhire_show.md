@@ -1,12 +1,42 @@
 # Unit 4
 ## Chapter 2: Forhire Show Method
-In this chapter, you will add the show method for the forhire object.
+In this chapter, you will add the show method for the forhire object.  Please note that only the first forhire object of a given is shown.  (As mentioned before, the number of forehire objects per user will be limited to one in a later chapter.)
 
 ### New Branch
 Enter the command "git checkout -b 04-02-forhire_show".
 
-### Test Fixtures
-* Edit the file test/fixtures/for_hires.yml.  Replace the default test fixtures with the following content:
+### Part A: Controller Level
+
+### Controller Test
+* Enter the command "rails generate controller Forhires".
+* Edit the file test/controllers/forhires_controller_test.rb.  Replace everything between the line "class ForhiresControllerTest < ActionDispatch::IntegrationTest" and the last "end" command with the following:
+```
+  test 'forhire show action' do
+    get forhire_path(@fh_connery)
+    assert_response :success
+    get forhire_path(@fh_lazenby)
+    assert_response :success
+    get forhire_path(@fh_moore)
+    assert_response :success
+    get forhire_path(@fh_dalton)
+    assert_response :success
+    get forhire_path(@fh_brosnan)
+    assert_response :success
+    get forhire_path(@fh_craig)
+    assert_response :success
+  end
+```
+* Enter the command "sh testc.sh".  The new controller test fails because forhire_path is undefined.
+
+#### Routing
+* Edit the config/routes.rb file.  Just before the last "end" statement, add the following line:
+```
+  resources :forhires, only: [:show]
+```
+* Enter the command "sh testc.sh".  The new controller test fails because of missing routes.  (The forhire objects are not yet provided.)
+
+#### Test Fixtures and Helper
+* Add the following lines to the end of the file test/fixtures/for_hires.yml:
 ```
 bond_connery:
   blurb: 'I was the original James Bond.'
@@ -56,6 +86,40 @@ bond_craig:
   created_at: <%= Time.new(2006, 11, 14) %>
   updated_at: <%= Time.now %>
 ```
+* Edit the file test/test_helper.rb.  Just before the end of the definition of setup_universal, add the following lines:
+```
+
+  @fh_connery = forhires(:bond_connery)
+  @fh_lazenby = forhires(:bond_lazenby)
+  @fh_moore = forhires(:bond_moore)
+  @fh_dalton = forhires(:bond_dalton)
+  @fh_brosnan = forhires(:bond_brosnan)
+  @fh_craig = forhires(:bond_craig)
+```
+* Enter the command "sh testc.sh".  The controller test fails because the "show" action is not in the sponsor controller yet.
+
+#### Controller
+* Edit the file app/controllers/forhires_controller.rb. Just before the line "class ForhiresController < ApplicationController", add the line "#".
+* Edit the file app/controllers/forhires_controller.rb. Insert the following lines between "class ForhiresController < ApplicationController" and "end":
+```
+  # BEGIN: action section
+  def show
+    @forhire = Forhire.find(params[:id])
+  end
+  # END: action section
+```
+* Enter the command "sh testc.sh". The controller test fails because of a missing template.
+* Enter the command "touch app/views/forhires/show.html.erb" to provide the template. (You'll add content to it later.)
+* Enter the command "sh testc.sh". All tests should now pass.
+* Enter the command "rm app/helpers/forhires_helper.rb".
+* Enter the command "sh git_check.sh". All tests should pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Added the forhire show capability (controller level)"
+```
+
+### Part B: View Level
 
 ### Wrapping Up
 * Enter the following commands:
