@@ -96,7 +96,7 @@ bond_craig:
   @fh_brosnan = forhires(:bond_brosnan)
   @fh_craig = forhires(:bond_craig)
 ```
-* Enter the command "sh testc.sh".  The controller test fails because the "show" action is not in the sponsor controller yet.
+* Enter the command "sh testc.sh".  The controller test fails because the "show" action is not in the forhire controller yet.
 
 #### Controller
 * Edit the file app/controllers/forhires_controller.rb. Just before the line "class ForhiresController < ApplicationController", add the line "#".
@@ -120,6 +120,12 @@ git commit -m "Added the forhire show capability (controller level)"
 ```
 
 ### Part B: View Level
+* Enter the command "rails generate integration_test forhire_show".
+* Edit the file test/integration/forhire_show_test.rb.  Just before the line "class ForhireShowTest < ActionDispatch::IntegrationTest", add the line "# rubocop:disable Metrics/BlockLength".
+* Edit the file test/integration/forhire_show_test.rb.  After the last "end" statement, add the line "# rubocop:enable Metrics/BlockLength".
+* Edit the file test/integration/forhire_show_test.rb.  Replace everything between the line "class ForhireShowTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
+```
+```
 
 ### Wrapping Up
 * Enter the following commands:
