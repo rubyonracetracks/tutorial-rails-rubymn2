@@ -96,7 +96,28 @@ bond_craig:
   @fh_brosnan = forhires(:bond_brosnan)
   @fh_craig = forhires(:bond_craig)
 ```
-* Enter the command "sh testc.sh".  The controller test fails because the "show" action is not in the forhire controller yet.
+* Enter the command "sh testc.sh".  
+
+#### Database Cleaner
+* Add the following lines to the end of the Gemfile:
+```
+group :test do
+  gem 'database_cleaner'
+end
+```
+* NOTE: The changes in test/test_helper.rb are from https://github.com/appelier/bigtuna/blob/master/test/test_helper.rb .
+* Edit the test/test_helper.rb file.  Add the following line just after the "require" statements at the beginning:
+```
+DatabaseCleaner.strategy = :truncation
+```
+* In the test/test_helper.rb file, add the following line to the beginning of the definition of setup (within class ActionDispatch::IntegrationTest):
+```
+    DatabaseCleaner.start
+```
+* In the test/test_helper.rb file, add the following line to the beginning of the definition of teardown (within class ActionDispatch::IntegrationTest):
+```
+    DatabaseCleaner.clean
+```
 
 #### Controller
 * Edit the file app/controllers/forhires_controller.rb. Just before the line "class ForhiresController < ApplicationController", add the line "#".
