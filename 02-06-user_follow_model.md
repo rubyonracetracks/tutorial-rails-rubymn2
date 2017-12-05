@@ -55,7 +55,7 @@ rails generate model Relationship follower_id:integer followed_id:integer
   end
 
   test 'deleting the followed deletes the relationship' do
-    assert_difference 'Relationship.count', -1 do
+    assert_difference 'Relationship.count', -2 do
       users(:connery).destroy
     end
   end
