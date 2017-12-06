@@ -36,7 +36,7 @@ Enter the command "git checkout -b 04-02-forhire_show".
 * Enter the command "sh testc.sh".  The new controller test fails because of missing routes.  (The forhire objects are not yet provided.)
 
 #### Test Fixtures and Helper
-* Add the following lines to the end of the file test/fixtures/for_hires.yml:
+* Replace the contents of the file test/fixtures/for_hires.yml with the following code:
 ```
 bond_connery:
   blurb: 'I was the original James Bond.'
@@ -96,27 +96,50 @@ bond_craig:
   @fh_brosnan = forhires(:bond_brosnan)
   @fh_craig = forhires(:bond_craig)
 ```
-* Enter the command "sh testc.sh".  
+* Enter the command "sh testc.sh".  The controller test fails because the show action is missing.
+* Enter the command "sh testc.sh".  You now get a long cascade of referential integrity errors.
+* What's the problem?  Because each forhire object belongs to a user object, deleting the user object before deleting the associated forhire object causes chaos.  During the process of deleting objects between tests, this is basically what happens when you use PostgreSQL as your database in the test environment.
+* Enter the command "sh testm.sh".  You get the same long cascade of referential integrity errors.
+* Enter the command "sh test_app.sh".  The same long cascade of referential integrity errors appears again.
+* Enter the command "sh testh.sh".  There's only one referential integrity error, but that's because there's only one helper test.
+* Enter the command "rails db:test:prepare; sh testc.sh".  You now get the expected result.  The controller test fails because the show action is missing.
+* Enter the command "rails db:test:prepare; sh testm.sh".  All model tests should pass.
+* Enter the command "rails db:test:prepare; sh testm.sh".  Your helper test should pass.
+* Enter the command "rails db:test:prepare; sh test_app.sh".  The controller test fails because the show action is missing.
+* In other words, this app now requires you to execute the command "rails db:test:prepare" before running any "rails test" command in order to prevent the referential integrity error.  To execute this action on autopilot, testing scripts must be updated to include this corrective action.
+* NOTE: I tried using the database_cleaner gem, but the truncation mode that worked severely slowed down the tests.  For example, the controller tests that should have taken only about 3 seconds to execute instead took over a minute.
 
-#### Database Cleaner
-* Add the following lines to the end of the Gemfile:
+#### Updating the Bash Scripts For Testing
+* Edit the file testc.sh.  Immediately after the comments, insert the following code:
 ```
-group :test do
-  gem 'database_cleaner'
-end
+echo '---------------------'
+echo 'rails db:test:prepare'
+rails db:test:prepare
 ```
-* NOTE: The changes in test/test_helper.rb are from https://github.com/appelier/bigtuna/blob/master/test/test_helper.rb .
-* Edit the test/test_helper.rb file.  Add the following line just after the "require" statements at the beginning:
+* Enter the command "sh testc.sh".  There should be just one error.
+* Edit the file testm.sh.  Immediately after the comments, insert the following code:
 ```
-DatabaseCleaner.strategy = :truncation
+echo '---------------------'
+echo 'rails db:test:prepare'
+rails db:test:prepare
 ```
-* In the test/test_helper.rb file, add the following line to the beginning of the definition of setup (within class ActionDispatch::IntegrationTest):
+* Enter the command "sh testm.sh".  All tests should pass.
+* Edit the file testh.sh.  Immediately after the comments, insert the following code:
 ```
-    DatabaseCleaner.start
+echo '---------------------'
+echo 'rails db:test:prepare'
+rails db:test:prepare
 ```
-* In the test/test_helper.rb file, add the following line to the beginning of the definition of teardown (within class ActionDispatch::IntegrationTest):
+* Enter the command "sh testh.sh".  The test should pass.
+* Enter the command "sh test_app.sh".  Just before the "rails test" section, insert the following code:
 ```
-    DatabaseCleaner.clean
+echo '---------------------'
+echo 'rails db:test:prepare'
+rails db:test:prepare
+```
+* Edit the file test/test_helper.rb.  In the line that begins with "reporter_options", change the value of rerun_prefix to the following:
+```
+rm -f log/test.log; rails db:test:prepare; bundle exec
 ```
 
 #### Controller
