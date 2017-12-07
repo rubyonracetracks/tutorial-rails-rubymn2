@@ -120,7 +120,7 @@ git commit -m "Added the forhire show capability (controller level)"
   # rubocop:disable Metrics/MethodLength
   def check_forhire_pages
     visit forhire_path(@fh_connery)
-    assert page.has_css?('title', 
+    assert page.has_css?('title',
                          text: full_title('Sean Connery: James Bond 1962-1971'),
                          visible: false)
     assert page.has_css?('h1', text: 'For Hire')
@@ -129,7 +129,7 @@ git commit -m "Added the forhire show capability (controller level)"
     assert_text 'James Bond 1962-1971'
 
     visit forhire_path(@fh_lazenby)
-    assert page.has_css?('title', 
+    assert page.has_css?('title',
                          text: full_title('George Lazenby: James Bond 1969'),
                          visible: false)
     assert page.has_css?('h1', text: 'For Hire')
@@ -181,7 +181,7 @@ git commit -m "Added the forhire show capability (controller level)"
     check_forhire_pages
     check_user_pages
   end
-  ```
+```
 * Enter the command "sh test_app.sh".  All 5 new integration tests fail.
 * Enter the command "alias test1='Command to run failed tests minus the TESTOPTS portion'".
 * Enter the command "test1".  The same 5 integration tests fail because the forhire profile page does not have the expected content.
