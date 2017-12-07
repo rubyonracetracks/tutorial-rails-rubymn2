@@ -7,7 +7,7 @@ Enter the command "git checkout -b 04-02-forhire_show".
 
 ### Part A: Controller Level
 
-### Controller Test
+### Controller Testing
 * Enter the command "rails generate controller Forhires".
 * Enter the command "rm app/helpers/forhires_helper.rb".
 * Edit the file test/controllers/forhires_controller_test.rb.  Replace everything between the line "class ForhiresControllerTest < ActionDispatch::IntegrationTest" and the last "end" command with the following:
@@ -96,7 +96,7 @@ end
   # BEGIN: action section
   def show
     @forhire = Forhire.find(params[:id])
-    @user = User.where("id=#{@forhire.user_id}")
+    @user = User.where("id=#{@forhire.user_id}").first
   end
   # END: action section
 ```
@@ -111,12 +111,101 @@ git commit -m "Added the forhire show capability (controller level)"
 ```
 
 ### Part B: View Level
+
+#### Integration Testing
 * Enter the command "rails generate integration_test forhire_show".
-* Edit the file test/integration/forhire_show_test.rb.  Just before the line "class ForhireShowTest < ActionDispatch::IntegrationTest", add the line "# rubocop:disable Metrics/BlockLength".
-* Edit the file test/integration/forhire_show_test.rb.  After the last "end" statement, add the line "# rubocop:enable Metrics/BlockLength".
 * Edit the file test/integration/forhire_show_test.rb.  Replace everything between the line "class ForhireShowTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
+  def check_forhire_pages
+    visit forhire_path(@fh_connery)
+    assert page.has_css?('title', 
+                         text: full_title('Sean Connery: James Bond 1962-1971'),
+                         visible: false)
+    assert page.has_css?('h1', text: 'For Hire')
+    assert_text 'I stopped Blofeld 4 times!'
+    assert_text 'first_bond@rubyonracetracks.com'
+    assert_text 'James Bond 1962-1971'
+
+    visit forhire_path(@fh_lazenby)
+    assert page.has_css?('title', 
+                         text: full_title('George Lazenby: James Bond 1969'),
+                         visible: false)
+    assert page.has_css?('h1', text: 'For Hire')
+    assert_text 'I was James Bond for one movie.'
+    assert_text 'george_lazenby@rubyonracetracks.com'
+    assert_text 'James Bond 1969'
+  end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+
+  def check_forhire_for_link
+    visit forhire_path(@fh_connery)
+    assert page.has_link?('Sean Connery', href: user_path(@u1))
+    visit forhire_path(@fh_lazenby)
+    assert page.has_link?('George Lazenby', href: user_path(@u2))
+  end
+
+  def check_user_pages
+    visit user_path(@u1)
+    assert page.has_link?('James Bond 1962-1971', href: forhire_path(@fh_connery))
+    visit user_path(@u2)
+    assert page.has_link?('James Bond 1969', href: forhire_path(@fh_lazenby))
+  end
+
+  test 'visitor sees the expected content on pages' do
+    check_forhire_pages
+    visit forhire_path(@fh_connery)
+    assert_not page.has_link?('Sean Connery', href: user_path(@u1))
+    visit forhire_path(@fh_lazenby)
+    assert_not page.has_link?('George Lazenby', href: user_path(@u2))
+  end
+
+  test 'user sees the expected content on pages' do
+    check_forhire_pages
+    check_user_pages
+  end
+
+  test 'user sees the expected content on pages of another user' do
+    check_forhire_pages
+    check_user_pages
+  end
+
+  test 'regular admin sees the expected content on pages' do
+    check_forhire_pages
+    check_user_pages
+  end
+
+  test 'super admin sees the expected content on pages' do
+    check_forhire_pages
+    check_user_pages
+  end
+  ```
+* Enter the command "sh test_app.sh".  All 5 new integration tests fail.
+* Enter the command "alias test1='Command to run failed tests minus the TESTOPTS portion'".
+* Enter the command "test1".  The same 5 integration tests fail because the forhire profile page does not have the expected content.
+
+#### Forhire Profile Page
+* Fill in the blank app/views/forhires/show.html.erb file with the following code:
 ```
+<% provide(:title, "#{@user.first_name} #{@user.last_name}: #{@forhire.title}") %>
+
+<h1>For Hire</h1>
+
+<% # BEGIN: name and title of user %>
+<% if admin_signed_in? || user_signed_in? %>
+  <%= link_to "#{@user.first_name} #{@user.last_name}", @user %>, <%= @forhire.title %>
+<% else %>
+  <%= @user.first_name %> <%= @user.last_name %>, <%= @forhire.title %>
+<% end %>
+<% # END: name and title of user %>
+<br><br>
+Email: <%= raw(EmailMunger.encode(@forhire.email)) %>
+<br><br>
+<%= @forhire.blurb %>
+```
+
 
 ### Wrapping Up
 * Enter the following commands:
