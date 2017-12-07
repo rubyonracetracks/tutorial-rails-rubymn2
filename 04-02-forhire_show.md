@@ -1,6 +1,6 @@
 # Unit 4
 ## Chapter 2: Forhire Show Method
-In this chapter, you will add the show method for the forhire object.  Please note that only the first forhire object of a given is shown.  (As mentioned before, the number of forehire objects per user will be limited to one in a later chapter.)
+In this chapter, you will add the show method for the forhire object.  Please note that only the first forhire object of a given user is shown.  (As mentioned before, the number of forehire objects per user will be limited to one in a later chapter.)
 
 ### New Branch
 Enter the command "git checkout -b 04-02-forhire_show".
@@ -9,6 +9,7 @@ Enter the command "git checkout -b 04-02-forhire_show".
 
 ### Controller Test
 * Enter the command "rails generate controller Forhires".
+* Enter the command "rm app/helpers/forhires_helper.rb".
 * Edit the file test/controllers/forhires_controller_test.rb.  Replace everything between the line "class ForhiresControllerTest < ActionDispatch::IntegrationTest" and the last "end" command with the following:
 ```
   test 'forhire show action' do
@@ -33,129 +34,75 @@ Enter the command "git checkout -b 04-02-forhire_show".
 ```
   resources :forhires, only: [:show]
 ```
+* Add the following line just before the line "Rails.application.routes.draw do"
+```
+# rubocop:disable Metrics/BlockLength
+```
+* Add the following line just after the last end statement:
+```
+# rubocop:enable Metrics/BlockLength
+```
 * Enter the command "sh testc.sh".  The new controller test fails because of missing routes.  (The forhire objects are not yet provided.)
 
-#### Test Fixtures and Helper
-* Replace the contents of the file test/fixtures/for_hires.yml with the following code:
+#### Test Helper
+* Edit the test/test_helper.rb file.  Just before the minitest-reporters section, add the following line:
 ```
-bond_connery:
-  blurb: 'I was the original James Bond.'
-  email: 'sean_connery@rubyonracetracks.com'
-  title: 'James Bond 1962-1971'
-  user: lazenby
-  created_at: <%= Time.new(1962, 10, 5) %>
-  updated_at: <%= Time.new(1971, 12, 14) %>
-
-bond_lazenby:
-  blurb: 'I was James Bond for one movie.'
-  email: 'george_lazenby@rubyonracetracks.com'
-  title: 'James Bond 1969'
-  user: lazenby
-  created_at: <%= Time.new(1969, 12, 18, 0, 1) %>
-  updated_at: <%= Time.new(1969, 12, 18, 23, 59) %>
-
-bond_moore:
-  blurb: 'I made James Bond campier.'
-  email: 'roger_moore@rubyonracetracks.com'
-  title: 'James Bond 1973-1985'
-  user: moore
-  created_at: <%= Time.new(1973, 6, 27) %>
-  updated_at: <%= Time.new(1985, 5, 22) %>
-
-bond_dalton:
-  blurb: 'I brought gritty realism to the Bond series.'
-  email: 'timothy_dalton@rubyonracetracks.com'
-  title: 'James Bond 1987-1989'
-  user: dalton
-  created_at: <%= Time.new(1987, 6, 29) %>
-  updated_at: <%= Time.new(1989, 6, 13) %>
-
-bond_brosnan:
-  blurb: 'James Bond moved beyond the Cold War Era on my watch.'
-  email: 'pierce_brosnan@rubyonracetracks.com'
-  title: 'James Bond 1995-2002'
-  user: brosnan
-  created_at: <%= Time.new(1995, 11, 13) %>
-  updated_at: <%= Time.new(2002, 11, 20) %>
-
-bond_craig:
-  blurb: 'I rebooted James Bond.'
-  email: 'daniel_craig@rubyonracetracks.com'
-  title: 'James Bond 2006-'
-  user: craig
-  created_at: <%= Time.new(2006, 11, 14) %>
-  updated_at: <%= Time.now %>
+require File.expand_path('../../test/setup_objects.rb', __FILE__)
 ```
-* Edit the file test/test_helper.rb.  Just before the end of the definition of setup_universal, add the following lines:
+* Edit the test/test_helper.rb file.  Just before the end of the definition of setup_universal function, add the following line:
+```
+  add_user_objects
+```
+* Add the file test/setup_objects.rb and give it the following code:
+```
+def add_user_objects
+  add_forhires
+end
+
+def add_forhires
+  @fh_connery = @u1.forhires.create(blurb: 'I stopped Blofeld 4 times!',
+                                    email: 'first_bond@rubyonracetracks.com',
+                                    title: 'James Bond 1962-1971')
+  @fh_lazenby = @u2.forhires.create(blurb: 'I was James Bond for one movie.',
+                                    email: 'george_lazenby@rubyonracetracks.com',
+                                    title: 'James Bond 1969')
+  @fh_moore = @u3.forhires.create(blurb: 'I made James Bond campier.',
+                                  email: 'roger_moore@rubyonracetracks.com',
+                                  title: 'James Bond 1973-1985')
+  @fh_dalton = @u4.forhires.create(blurb: 'I brought gritty realism to the Bond series.',
+                                   email: 'timothy_dalton@rubyonracetracks.com',
+                                   title: 'James Bond 1987-1989')
+  @fh_brosnan = @u5.forhires.create(blurb: 'James Bond moved beyond the Cold War Era on my watch.',
+                                    email: 'pierce_brosnan@rubyonracetracks.com',
+                                    title: 'James Bond 1995-2002')
+  @fh_craig = @u6.forhires.create(blurb: 'I rebooted James Bond.',
+                                  email: 'daniel_craig@rubyonracetracks.com',
+                                  title: 'James Bond 2006-')
+end
 ```
 
-  @fh_connery = forhires(:bond_connery)
-  @fh_lazenby = forhires(:bond_lazenby)
-  @fh_moore = forhires(:bond_moore)
-  @fh_dalton = forhires(:bond_dalton)
-  @fh_brosnan = forhires(:bond_brosnan)
-  @fh_craig = forhires(:bond_craig)
-```
-* Enter the command "sh testc.sh".  The controller test fails because the show action is missing.
-* Enter the command "sh testc.sh".  You now get a long cascade of referential integrity errors.
-* What's the problem?  Because each forhire object belongs to a user object, deleting the user object before deleting the associated forhire object causes chaos.  During the process of deleting objects between tests, this is basically what happens when you use PostgreSQL as your database in the test environment.
-* Enter the command "sh testm.sh".  You get the same long cascade of referential integrity errors.
-* Enter the command "sh test_app.sh".  The same long cascade of referential integrity errors appears again.
-* Enter the command "sh testh.sh".  There's only one referential integrity error, but that's because there's only one helper test.
-* Enter the command "rails db:test:prepare; sh testc.sh".  You now get the expected result.  The controller test fails because the show action is missing.
-* Enter the command "rails db:test:prepare; sh testm.sh".  All model tests should pass.
-* Enter the command "rails db:test:prepare; sh testm.sh".  Your helper test should pass.
-* Enter the command "rails db:test:prepare; sh test_app.sh".  The controller test fails because the show action is missing.
-* In other words, this app now requires you to execute the command "rails db:test:prepare" before running any "rails test" command in order to prevent the referential integrity error.  To execute this action on autopilot, testing scripts must be updated to include this corrective action.
-* NOTE: I tried using the database_cleaner gem, but the truncation mode that worked severely slowed down the tests.  For example, the controller tests that should have taken only about 3 seconds to execute instead took over a minute.
-
-#### Updating the Bash Scripts For Testing
-* Edit the file testc.sh.  Immediately after the comments, insert the following code:
-```
-echo '---------------------'
-echo 'rails db:test:prepare'
-rails db:test:prepare
-```
-* Enter the command "sh testc.sh".  There should be just one error.
-* Edit the file testm.sh.  Immediately after the comments, insert the following code:
-```
-echo '---------------------'
-echo 'rails db:test:prepare'
-rails db:test:prepare
-```
-* Enter the command "sh testm.sh".  All tests should pass.
-* Edit the file testh.sh.  Immediately after the comments, insert the following code:
-```
-echo '---------------------'
-echo 'rails db:test:prepare'
-rails db:test:prepare
-```
-* Enter the command "sh testh.sh".  The test should pass.
-* Enter the command "sh test_app.sh".  Just before the "rails test" section, insert the following code:
-```
-echo '---------------------'
-echo 'rails db:test:prepare'
-rails db:test:prepare
-```
-* Edit the file test/test_helper.rb.  In the line that begins with "reporter_options", change the value of rerun_prefix to the following:
-```
-rm -f log/test.log; rails db:test:prepare; bundle exec
-```
+#### Test Fixture Problems
+* As you can see, this app does NOT use forhire test fixtures.  That's because my attempts to use forhire test fixtures did not pan out.
+* The testing framework is set up to clean the testing environment's database between tests.  A forhire test fixture would have to belong to a user test fixture.  Clearing the user test fixture before clearing the associated forhire test fixture causes chaos in the PostgreSQL database.  The first time I ran tests after creating the forhire test fixtures, everything would work as expected.  The second time I ran tests, I was bombarded with PostgreSQL error messages about a referential integrity problem.
+* One solution to the referential integrity problem was to execute the command "rails db:test:prepare" before each test.  Unfortunately, that took about 15 seconds, compared to less than 2 seconds to run the model tests and less than 4 seconds to run the controller tests.  Given how frequently I run tests, multiplying the amount of time needed was unacceptable.
+* Another solution to the referential integrity problem was to use the DatabaseCleaner gem.  Unfortunately, that severely slowed down the tests.  For example, it took over a minute to run the controller tests.
+* Some people use factories instead of test fixtures and RSpec instead of Minitest.  Unfortunately, that would require rewriting the Rails Neutrino script that builds the template app that I use as a basis for new Rails apps.
+* Thus, my solution is the scripts in test/setup_objects.rb.  It's unorthodox, but it gets the job done quickly without cutting corners on quality.
 
 #### Controller
-* Edit the file app/controllers/forhires_controller.rb. Just before the line "class ForhiresController < ApplicationController", add the line "#".
+* Edit the file app/controllers/forhires_controller.rb.  Add the line "#" immediately before the line "class ForhiresController < ApplicationController".
 * Edit the file app/controllers/forhires_controller.rb. Insert the following lines between "class ForhiresController < ApplicationController" and "end":
 ```
   # BEGIN: action section
   def show
     @forhire = Forhire.find(params[:id])
+    @user = User.where("id=#{@forhire.user_id}")
   end
   # END: action section
 ```
 * Enter the command "sh testc.sh". The controller test fails because of a missing template.
 * Enter the command "touch app/views/forhires/show.html.erb" to provide the template. (You'll add content to it later.)
 * Enter the command "sh testc.sh". All tests should now pass.
-* Enter the command "rm app/helpers/forhires_helper.rb".
 * Enter the command "sh git_check.sh". All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
