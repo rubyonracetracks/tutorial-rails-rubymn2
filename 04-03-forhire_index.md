@@ -41,7 +41,7 @@ Enter the command "git checkout -b 04-03-forhire_index".
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the sponsor index capability"
+git commit -m "Added the forhire index capability"
 git push origin 04-03-forhire_index
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
