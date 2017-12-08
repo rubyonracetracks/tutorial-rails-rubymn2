@@ -38,6 +38,12 @@ Enter the command "git checkout -b 03-03-sponsor_index".
 #### Blank View
 * Enter the command "touch app/views/sponsors/index.html.erb".
 * Enter the command "sh testc.sh".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Added the sponsor index capability (controller level)"
+```
 
 ### Part B: View Level
 
@@ -134,7 +140,7 @@ Enter the command "git checkout -b 03-03-sponsor_index".
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the sponsor index capability"
+git commit -m "Added the sponsor index capability (view level)"
 git push origin 03-03-sponsor_index
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
