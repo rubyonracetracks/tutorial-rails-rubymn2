@@ -87,7 +87,7 @@ end
 * One solution to the referential integrity problem was to execute the command "rails db:test:prepare" before each test.  Unfortunately, that took about 15 seconds, compared to less than 2 seconds to run the model tests and less than 4 seconds to run the controller tests.  Given how frequently I run tests, multiplying the amount of time needed was unacceptable.
 * Another solution to the referential integrity problem was to use the DatabaseCleaner gem.  Unfortunately, that severely slowed down the tests.  For example, it took over a minute to run the controller tests.
 * Some people use factories instead of test fixtures and RSpec instead of Minitest.  Unfortunately, that would require rewriting the Rails Neutrino script that builds the template app that I use as a basis for new Rails apps.
-* Thus, my solution is the scripts in test/setup_objects.rb.  It's unorthodox, but it gets the job done quickly without cutting corners on quality.
+* Thus, my solution is the test/setup_objects.rb script.  It's unorthodox, but it gets the job done quickly without cutting corners on quality.
 
 #### Controller
 * Edit the file app/controllers/forhires_controller.rb.  Add the line "#" immediately before the line "class ForhiresController < ApplicationController".
@@ -163,28 +163,26 @@ git commit -m "Added the forhire show capability (controller level)"
   end
 
   test 'user sees the expected content on pages' do
-    check_forhire_pages
-    check_user_pages
-  end
-
-  test 'user sees the expected content on pages of another user' do
+    login_as(@u1, scope: :user)
     check_forhire_pages
     check_user_pages
   end
 
   test 'regular admin sees the expected content on pages' do
+    login_as(@a4, scope: :admin)
     check_forhire_pages
     check_user_pages
   end
 
   test 'super admin sees the expected content on pages' do
+    login_as(@a1, scope: :admin)
     check_forhire_pages
     check_user_pages
   end
 ```
-* Enter the command "sh test_app.sh".  All 5 new integration tests fail.
+* Enter the command "sh test_app.sh".  All 4 new integration tests fail.
 * Enter the command "alias test1='Command to run failed tests minus the TESTOPTS portion'".
-* Enter the command "test1".  The same 5 integration tests fail because the forhire profile page does not have the expected content.
+* Enter the command "test1".  The same 4 integration tests fail because the forhire profile page does not have the expected content.
 
 #### Forhire Profile Page
 * Fill in the blank app/views/forhires/show.html.erb file with the following code:
@@ -205,7 +203,26 @@ Email: <%= raw(EmailMunger.encode(@forhire.email)) %>
 <br><br>
 <%= @forhire.blurb %>
 ```
+* Enter the command "test1".  The first new integration test passes, but the other 3 fail because the expected content is not present on the user profile page.
 
+#### User Profile Page
+* Edit the file app/controllers/users_controller.rb.  At the end of the "def show" definition, add the following line:
+```
+    @forhire = Forhire.where("user_id=#{@user.id}").first
+```
+* Enter the command "sh testc.sh".  (This step is necessary to make sure that the above change doesn't break the user controller.)  All tests should pass.
+* Edit the file app/views/users/show.html.erb.  Add the following code after the delete button section:
+```
+    <% # BEGIN: forhire section %>
+    <% if Forhire.where("user_id=#{@user.id}").any? %>
+      <h3>Profile</h3>
+      Title: <%= link_to @forhire.title, forhire_path(@forhire) %>
+      <br>
+      <%= @forhire.blurb[0..140] %>
+      <br>
+    <% end %>
+    <% # END: forhire section %>
+```
 
 ### Wrapping Up
 * Enter the following commands:
