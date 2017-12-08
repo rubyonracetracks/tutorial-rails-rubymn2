@@ -80,6 +80,7 @@ def add_forhires
                                   title: 'James Bond 2006-')
 end
 ```
+* Enter the command "sh testc.sh".  Now the test fails because the "show" action is not provided in the forhire controller.
 
 #### Test Fixture Problems
 * As you can see, this app does NOT use forhire test fixtures.  That's because my attempts to use forhire test fixtures did not pan out.
