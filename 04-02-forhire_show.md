@@ -55,6 +55,9 @@ require File.expand_path('../../test/setup_objects.rb', __FILE__)
 ```
 * Add the file test/setup_objects.rb and give it the following code:
 ```
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/LineLength
+
 def add_user_objects
   add_forhires
 end
@@ -79,6 +82,9 @@ def add_forhires
                                   email: 'daniel_craig@rubyonracetracks.com',
                                   title: 'James Bond 2006-')
 end
+
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/LineLength
 ```
 * Enter the command "sh testc.sh".  Now the test fails because the "show" action is not provided in the forhire controller.
 
