@@ -223,12 +223,14 @@ Email: <%= raw(EmailMunger.encode(@forhire.email)) %>
     <% end %>
     <% # END: forhire section %>
 ```
+* Enter the command "test1".  All test should pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the forhire show capability"
+git commit -m "Added the forhire show capability (view level)"
 git push origin 04-02-forhire_show
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
