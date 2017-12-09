@@ -32,7 +32,9 @@ Enter the command "git checkout -b 04-02-forhire_show".
 #### Routing
 * Edit the config/routes.rb file.  Just before the last "end" statement, add the following line:
 ```
+  # BEGIN: forhire section
   resources :forhires, only: [:show]
+  # END: forhire section
 ```
 * Add the following line just before the line "Rails.application.routes.draw do"
 ```
