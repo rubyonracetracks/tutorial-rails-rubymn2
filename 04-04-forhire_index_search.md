@@ -95,6 +95,9 @@ jQuery ->
 ```
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
+### Rails Best Practices
+Edit the file config/rails_best_practices.yml.  For MoveModelLogicIntoModelCheck, add the file /home/winner/shared/rubymn2/app/controllers/forhires_controller.rb to the list of ignored files.
+
 ### Wrapping Up
 * Enter the following commands:
 ```
