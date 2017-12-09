@@ -23,7 +23,7 @@ Edit the file app/controllers/forhires_controller.rb.  Replace the definition of
     @forhires = @search.result.paginate(page: params[:page])
     # NOTE: The following line specifies the sort order.
     # This is reflected in the default sort criteria shown.
-    # The user is free to remove these default criteria.
+    # The visitor is free to remove these default criteria.
     @search.sorts = 'updated_at desc' if @search.sorts.empty?
     @search.build_condition if @search.conditions.empty?
     @search.build_sort if @search.sorts.empty?
