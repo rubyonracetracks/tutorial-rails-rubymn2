@@ -96,7 +96,7 @@ Edit the file app/models/forhire.rb.  Add the following code just before the las
 
 ### Rails Best Practices
 * Edit the file config/rails_best_practices.yml.  For MoveModelLogicIntoModelCheck, add the file app/controllers/forhires_controller.rb to the list of ignored files.
-* * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
