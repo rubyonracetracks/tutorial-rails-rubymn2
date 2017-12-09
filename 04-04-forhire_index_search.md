@@ -87,7 +87,7 @@ jQuery ->
 ### Model
 * Edit the file app/models/forhire.rb.  Add the following code just before the last "end" statement:
 ```
-  # Limit the parameters available for searching the user database
+  # Limit the parameters available for searching the forhire database
   RANSACKABLE_ATTRIBUTES = %w[title blurb email].freeze
   def self.ransackable_attributes(_auth_object = nil)
     RANSACKABLE_ATTRIBUTES + _ransackers.keys
