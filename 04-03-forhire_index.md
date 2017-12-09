@@ -29,7 +29,7 @@ Enter the command "git checkout -b 04-03-forhire_index".
 * Edit the file app/controllers/forhires_controller.rb.  Just before the end of the action section, add the following lines:
 ```
   def index
-    @forhires = Forhire.paginate(page: params[:page])
+    @forhires = Forhire.order('updated_at ASC').paginate(page: params[:page])
   end
 ```
 * Enter the command "sh testc.sh".  The test fails because of a missing template.
