@@ -85,7 +85,7 @@ jQuery ->
 ```
 
 ### Model
-* Edit the file app/models/forhire.rb.  Add the following code just before the last "end" statement:
+Edit the file app/models/forhire.rb.  Add the following code just before the last "end" statement:
 ```
   # Limit the parameters available for searching the forhire database
   RANSACKABLE_ATTRIBUTES = %w[title blurb email].freeze
@@ -93,10 +93,10 @@ jQuery ->
     RANSACKABLE_ATTRIBUTES + _ransackers.keys
   end
 ```
-* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Rails Best Practices
-Edit the file config/rails_best_practices.yml.  For MoveModelLogicIntoModelCheck, add the file /home/winner/shared/rubymn2/app/controllers/forhires_controller.rb to the list of ignored files.
+* Edit the file config/rails_best_practices.yml.  For MoveModelLogicIntoModelCheck, add the file app/controllers/forhires_controller.rb to the list of ignored files.
+* * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
