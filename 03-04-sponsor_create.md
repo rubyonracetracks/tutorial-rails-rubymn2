@@ -103,6 +103,10 @@ Enter the command "git checkout -b 03-04-sponsor_add".
   end
 ```
 * Enter the command "sh testc.sh".  One test fails, because a missing template stops the process of creating a new sponsor.
+
+#### Template
+* Enter the command "touch app/views/sponsors/new.html.erb".
+* Enter the command "sh testc.sh".  All tests should pass.
 * Enter the command "sh git_check.sh".  All tests should now pass, and there should be no offenses.
 * Enter the following commands:
 ```
@@ -206,7 +210,7 @@ git commit -m "Added the create action in the sponsor controller"
 * Enter the command "test1".  Now only one test fails.  The reason is a missing template.
 
 #### Add Sponsor Page
-* Add the file app/views/sponsors/new.html.erb and give it the following content:
+* Edit the blank file app/views/sponsors/new.html.erb and give it the following content:
 ```
 <% provide(:title, 'Add Sponsor') %>
 
