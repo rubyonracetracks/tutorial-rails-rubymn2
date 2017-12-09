@@ -111,14 +111,9 @@ git commit -m "Added the forhire index capability (controller level)"
 <br>
 <%= forhire.blurb[0..140] %>
 ```
-#### Entries Per Page
-* Specify the number of entries per page (50).  Edit the file app/models/forhire.rb.  Add the following code just before the last "end" statement:
-```
-  # Specify the number of entries per page given use of the will_paginate gem
-  self.per_page = 50
-```
-
 * Enter the command "test1".  Now only one test fails.  The forhire index page has the expected content, but the link to this page from the home page has not yet been added.
+
+#### Header
 * Edit the file app/views/layouts/_header.html.erb.  Just before the beginning of the variable section, add the following line:
 ```
         <li><%= link_to "For Hire", forhires_path %></li>
