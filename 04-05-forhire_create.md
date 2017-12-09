@@ -15,7 +15,9 @@ Enter the command "git checkout -b 04-05-forhire_create".
     title1 = 'Master Villain'
     email1 = 'ernst_stavro_blofeld@example.com'
     blurb1 = 'I am out to take over the world!'
-    post forhires_path, params: { forhire: { title: title1, email: email1, blurb: blurb1 } }
+    post forhires_path, params: { forhire: { title: title1,
+                                             email: email1,
+                                             blurb: blurb1 } }
   end
 
   def create_forhire_disabled
@@ -53,12 +55,51 @@ Enter the command "git checkout -b 04-05-forhire_create".
     create_forhire_disabled
   end
 ```
-* Enter the command "sh testc.sh".
-
-#### Routing
+* Enter the command "sh testc.sh".  All 5 new tests fail because the create action is not provided by the forhire controller.
 
 #### Controller
+* Edit the file app/controllers/forhires_controller.rb.  Immediately after the line "class ForhiresController < ApplicationController", add the following code:
+```
+  # BEGIN: before_action section
+  before_action :may_create_forhire, only: [:create]
+  # END: before_action section
+```
+* Edit the file app/controllers/forhires_controller.rb.  Immediately before the last "end" statement, add the following code:
+```
+  # BEGIN: private section
+  # rubocop:disable Metrics/LineLength
+  def may_create_forhire
+    return redirect_to(root_path) unless user_signed_in?
+    return redirect_to(root_path) unless Forhire.where("user_id=#{current_user.id}").empty?
+  end
+  helper_method :may_create_forhire
+  # rubocop:enable Metrics/LineLength
 
+  def forhire_params
+    params.require(:forhire).permit(:title, :email, :blurb)
+  end
+  # END: private section
+```
+* Edit the file app/controllers/forhires_controller.rb.  Add the following code just before the end of the action section:
+```
+  def create
+    @forhire = current_user.forhires.build(forhire_params)
+    if @forhire.save
+      flash[:info] = 'For hire profile added'
+      redirect_to forhires_path
+    else
+      render 'new'
+    end
+  end
+
+  def new
+    @sponsor = Forhire.new
+  end
+```
+* Enter the command "sh testc.sh".  All tests now pass.
+
+#### Template
+* Enter the command "touch app/views/forhires/new.html.erb".
 
 ### Part B: View Level
 
