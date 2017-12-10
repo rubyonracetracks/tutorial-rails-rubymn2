@@ -96,12 +96,17 @@ Enter the command "git checkout -b 04-05-forhire_create".
     @sponsor = Forhire.new
   end
 ```
-* Enter the command "sh testc.sh".  All tests now pass.
-
-#### Template
-* Enter the command "touch app/views/forhires/new.html.erb".
+* Enter the command "sh testc.sh".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Added the forehire create capability (controller level)"
+```
 
 ### Part B: View Level
+
+
 
 ### Wrapping Up
 * Enter the following commands:
