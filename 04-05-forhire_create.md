@@ -93,7 +93,7 @@ Enter the command "git checkout -b 04-05-forhire_create".
   end
 
   def new
-    @sponsor = Forhire.new
+    @forhire = Forhire.new
   end
 ```
 * Enter the command "sh testc.sh".  All tests should now pass.
@@ -106,6 +106,96 @@ git commit -m "Added the forehire create capability (controller level)"
 
 ### Part B: View Level
 
+#### Integration Test
+* Enter the command "rails generate integration_test forhire_create".
+* Edit the file test/integration/forhire_create_test.rb.  Replace everything between the line "class ForhireCreateTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
+```
+  def check_no_create_button
+    visit forhires_path
+    assert page.has_no_link?('Add For Hire Profile', href: forhires_path)
+  end
+
+  test 'visitor does not get button to add forhire' do
+    check_no_create_button
+  end
+
+  test 'user with forhire profile does not get button to add forhire' do
+    login_as(@u1, scope: :user)
+    check_no_create_button
+  end
+
+  test 'user without forhire profile gets button to add forhire' do
+    login_as(@u7, scope: :user)
+    visit forhires_path
+    assert page.has_link?('Add For Hire Profile', href: new_forhire_path)
+  end
+
+  test 'regular admin does not get button to add forhire' do
+    login_as(@a4, scope: :admin)
+    check_no_create_button
+  end
+
+  test 'super admin does not get button to add forhire' do
+    login_as(@a1, scope: :admin)
+    check_no_create_button
+  end
+
+  test 'user without forhire profile can successfully add forhire' do
+    login_as(@u7, scope: :user)
+    visit forhires_path
+
+    click_on 'Add For Hire Profile'
+    assert page.has_css?('title', text: full_title('Add Your For Hire Profile'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'Add Your For Hire Profile')
+    fill_in('Title', with: 'Master Villain')
+    fill_in('Email', with: 'ernst_stavro_blofeld@example.com')
+    fill_in('Background Statement', with: 'I am out to take over the world!')
+    click_button('Submit')
+
+    assert page.has_css?('title', text: full_title('For Hire Index'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'For Hire Index')
+    assert_text 'ernst_stavro_blofeld@example.com'
+    assert_text 'I am out to take over the world!'
+    click_on 'Master Villain'
+
+    assert page.has_css?('title',
+                         text: full_title('Ernst Blofeld: Master Villain'),
+                         visible: false)
+    assert page.has_css?('h1', text: 'For Hire')
+    assert_text 'Master Villain'
+    assert_text 'ernst_stavro_blofeld@example.com'
+    assert_text 'I am out to take over the world!'
+  end
+```
+* Enter the command "sh test_app.sh".  Two of the new integration tests fail.
+* Enter the command "alias test1='(command to run the failed tests minus the TESTOPTS portion)'".
+* Enter the command "test1".  The same two integration tests fail.  Both tests fail because the link to add a new for hire profile is missing.
+
+#### For Hire Index
+* Edit the file app/views/forhires/index.html.erb. Immediately after the h1 heading near the top of the page, add the following code:
+```
+<% # BEGIN: add forhire button %>
+<% if user_signed_in? && current_user.forhires.count < 1 %>
+  <%= link_to "Add For Hire Profile", new_forhire_path,
+              class: "btn btn-lg btn-primary"
+    %>
+<% end %>
+<% # END: add forhire button %>
+```
+* Enter the command "test1".  Two tests fail.  One test fails because the Forhire object with the id of "new" could not be found.  This is because new_forhire_path has not been defined.
+
+#### Routing
+* Edit the file config/routes.rb.  Replace the line that begins with "resources :forhires, only:" with the following:
+```
+  resources :forhires, only: [:show, :index, :create, :new]
+```
+* Enter the command "test1".  The test fails because of a missing template.
+
+#### Form For Adding Forhire Profile
+* Enter the command "touch app/views/forhires/new.html.erb".  
+* Enter the command "test1".  Now the test fails because the page for entering parameters for the for hire profile is blank.
 
 
 ### Wrapping Up
