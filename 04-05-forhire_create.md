@@ -196,7 +196,39 @@ git commit -m "Added the forehire create capability (controller level)"
 #### Form For Adding Forhire Profile
 * Enter the command "touch app/views/forhires/new.html.erb".  
 * Enter the command "test1".  Now the test fails because the page for entering parameters for the for hire profile is blank.
+* Give the blank file app/views/forhires/new.html.erb the following content:
+```
+<% provide(:title, 'Add Your For Hire Profile') %>
 
+<h1>Add Your For Hire Profile</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@forhire) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <div class="field">
+        <%= f.label :title %><br />
+        <%= f.text_field :title %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email, 'Email' %><br />
+        <%= f.text_field :email %>
+      </div>
+
+      <div class="field">
+        <%= f.label :blurb, 'Background Statement' %><br />
+        <%= f.text_area :blurb, placeholder: "Enter background statement here...", rows: 15 %>
+      </div>
+
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+```
+* Enter the command "test1".  All tests should pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
