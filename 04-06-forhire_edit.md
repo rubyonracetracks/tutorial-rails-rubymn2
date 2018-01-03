@@ -80,7 +80,7 @@ Enter the command "git checkout -b 04-06-forhire_edit".
     @forhire = Forhire.find(params[:id])
   end
 ```
-*Just before the line "def forhire_params" in app/controllers/forhires_controller.rb, add the following code:
+* Just before the line "def forhire_params" in app/controllers/forhires_controller.rb, add the following code:
 ```
   def may_edit_forhire
     return redirect_to root_url unless user_signed_in?
