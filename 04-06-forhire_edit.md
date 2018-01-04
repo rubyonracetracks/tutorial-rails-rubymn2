@@ -98,6 +98,55 @@ git commit -m "Added forhire edit (controller level)"
 
 ### Part B: View Level
 
+#### Integration Test
+* Enter the command "rails generate integration_test forhire_edit".
+* In the file test/integration/forhire_edit_test.rb, replace everything between the line "class ForhireEditTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
+```
+  def check_no_edit_button
+    visit forhire_path(@fh_connery)
+    assert page.has_no_link?('Edit For Hire Profile', href: forhire_path(@fh_connery))
+  end
+
+  test 'visitor may not edit forhire' do
+    check_no_edit_button
+  end
+
+  test 'wrong user may not edit forhire' do
+    login_as(@u2, scope: :user)
+    check_no_edit_button
+  end
+
+  test 'correct user gets button to edit sponsor' do
+    login_as(@u1, scope: :user)
+    visit forhire_path(@fh_connery)
+    assert page.has_link?('Edit For Hire Profile', href: edit_forhire_path(@fh_connery)
+  end
+
+  test 'regular admin may not edit forhire' do
+    login_as(@a4, scope: :admin)
+    check_no_edit_button
+  end
+
+  test 'super admin may not edit forhire' do
+    login_as(@a1, scope: :admin)
+    check_no_edit_button
+  end
+
+  test 'correct user can successfully edit forhire' do
+    login_as(@u1, scope: :user)
+    visit edit_forhire_path(@fh_connery)
+
+    assert page.has_css?('title', text: full_title('Edit Sponsor'),
+                                  visible: false)
+
+
+  end
+```
+  * Enter the command "sh test_app.sh".  The last two new integration tests fail.
+  * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
+  * Enter the command "test1".  The same two integration tests fail.
+
+
 ### Wrapping Up
 * Enter the following commands:
 ```
