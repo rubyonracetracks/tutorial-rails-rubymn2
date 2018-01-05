@@ -159,13 +159,16 @@ git commit -m "Added forhire edit (controller level)"
 
 #### Edit Forhire Button
 * Edit the file app/views/forhires/show.html.erb. Immediately after the h1 heading near the top of the page, add the following code:
+```
 <% # BEGIN: edit forhire button %>
 <% if user_signed_in? && current_user == @user %>
   <%= link_to "Edit For Hire Profile", edit_forhire_path(@forhire),
               class: "btn btn-lg btn-primary"
     %>
+  <br><br>
 <% end %>
 <% # END: edit forhire button %>
+```
 * Enter the command "test1".  Now only one test fails, and it's because the forhire edit page is still missing.
 
 #### Edit Forhire Form
