@@ -50,7 +50,7 @@ Enter the command "git checkout -b 04-06-forhire_edit".
     edit_forhire_disabled
   end
 ```
-* Enter the command "sh testc.sh".  All 5 new controller tests fail because the update action is missing.
+* Enter the command "sh testc.sh".  All 5 new controller tests fail because the update action is missing from the forhire controller.
 
 #### Forhire Controller
 * Just before the end of the before_action section in app/controllers/forhires_controller.rb, add the following code:
