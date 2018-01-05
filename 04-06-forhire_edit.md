@@ -57,7 +57,7 @@ Enter the command "git checkout -b 04-06-forhire_edit".
 ```
   resources :forhires, only: [:show, :index, :create, :new, :update, :edit]
 ```
-* Enter the command "sh testc.sh".  The same 5 tests fail because the update action is not provided in the sponsor controller.
+* Enter the command "sh testc.sh".  The same 5 tests fail because the update action is not provided in the forhire controller.
 
 #### Forhire Controller
 * Just before the end of the before_action section in app/controllers/forhires_controller.rb, add the following code:
