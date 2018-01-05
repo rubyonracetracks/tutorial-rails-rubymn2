@@ -116,7 +116,7 @@ git commit -m "Added forhire edit (controller level)"
     check_no_edit_button
   end
 
-  test 'correct user gets button to edit sponsor' do
+  test 'correct user gets button to edit forhire' do
     login_as(@u1, scope: :user)
     visit forhire_path(@fh_connery)
     assert page.has_link?('Edit For Hire Profile', href: edit_forhire_path(@fh_connery))
