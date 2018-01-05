@@ -119,7 +119,7 @@ git commit -m "Added forhire edit (controller level)"
   test 'correct user gets button to edit sponsor' do
     login_as(@u1, scope: :user)
     visit forhire_path(@fh_connery)
-    assert page.has_link?('Edit For Hire Profile', href: edit_forhire_path(@fh_connery)
+    assert page.has_link?('Edit For Hire Profile', href: edit_forhire_path(@fh_connery))
   end
 
   test 'regular admin may not edit forhire' do
@@ -136,16 +136,72 @@ git commit -m "Added forhire edit (controller level)"
     login_as(@u1, scope: :user)
     visit edit_forhire_path(@fh_connery)
 
-    assert page.has_css?('title', text: full_title('Edit Sponsor'),
+    assert page.has_css?('title', text: full_title('Edit For Hire Profile'),
                                   visible: false)
 
+    fill_in('Title', with: 'James Bond 1983')
+    fill_in('Email', with: 'nsna@rubyonracetracks.com')
+    fill_in('Background Statement', with: 'I stopped Largo twice!')
 
+    click_button('Submit')
+    assert page.has_css?('title',
+                         text: full_title('Sean Connery: James Bond 1983'),
+                         visible: false)
+    assert page.has_css?('h1', text: 'For Hire')
+    assert_text 'James Bond 1983'
+    assert_text 'nsna@rubyonracetracks.com'
+    assert_text 'I stopped Largo twice!'
   end
 ```
-  * Enter the command "sh test_app.sh".  The last two new integration tests fail.
+  * Enter the command "sh test_app.sh".  Two of the new integration tests fail.
   * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
-  * Enter the command "test1".  The same two integration tests fail.
+  * Enter the command "test1".  The same two integration tests fail.  One test fails because the correct user does not get the expected edit button.  The other test fails because the forhire edit page is missing.
 
+#### Edit Forhire Button
+* Edit the file app/views/forhires/show.html.erb. Immediately after the h1 heading near the top of the page, add the following code:
+<% # BEGIN: edit forhire button %>
+<% if user_signed_in? && current_user == @user %>
+  <%= link_to "Edit For Hire Profile", edit_forhire_path(@forhire),
+              class: "btn btn-lg btn-primary"
+    %>
+<% end %>
+<% # END: edit forhire button %>
+* Enter the command "test1".  Now only one test fails, and it's because the forhire edit page is still missing.
+
+#### Edit Forhire Form
+* Create the file app/views/forhires/edit.html.erb.  Give it the following content:
+```
+<% provide(:title, 'Edit For Hire Profile') %>
+
+<h1>Edit For Hire Profile</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@forhire) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <div class="field">
+        <%= f.label :title %><br />
+        <%= f.text_field :title %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email, 'Email' %><br />
+        <%= f.text_field :email %>
+      </div>
+
+      <div class="field">
+        <%= f.label :blurb, 'Background Statement' %><br />
+        <%= f.text_area :blurb, rows: 15 %>
+      </div>
+
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+```
+* Enter the command "test1".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should now pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
