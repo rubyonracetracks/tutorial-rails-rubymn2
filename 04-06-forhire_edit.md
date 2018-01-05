@@ -150,14 +150,6 @@ git commit -m "Added forhire edit (controller level)"
   * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
   * Enter the command "test1".  The same two integration tests fail.  One test fails because the correct user does not get the expected edit button.  The other test fails because the forhire edit page is missing.
 
-#### Routing
-* Edit the file config/routes.rb.  Replace the line containing "resources :forhires" with the following:
-```
-  resources :forhires, only: [:show, :index, :create, :new, :update, :edit]
-```
-* Enter the command "sh testc.sh".  The same 5 tests fail because the update action is not provided in the forhire controller.
-
-
 #### Edit Forhire Button
 * Edit the file app/views/forhires/show.html.erb. Immediately after the h1 heading near the top of the page, add the following code:
 ```
@@ -206,6 +198,13 @@ git commit -m "Added forhire edit (controller level)"
 ```
 * Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should now pass, and there should be no offenses.
+
+#### Routing
+* Edit the file config/routes.rb.  Replace the line containing "resources :forhires" with the following:
+```
+  resources :forhires, only: [:show, :index, :create, :new, :update, :edit]
+```
+* Enter the command "sh testc.sh".  The same 5 tests fail because the update action is not provided in the forhire controller.
 
 ### Wrapping Up
 * Enter the following commands:
