@@ -50,14 +50,7 @@ Enter the command "git checkout -b 04-06-forhire_edit".
     edit_forhire_disabled
   end
 ```
-* Enter the command "sh testc.sh".  All 5 new controller tests fail because of a missing route.
-
-#### Routing
-* Edit the file config/routes.rb.  Replace the line containing "resources :forhires" with the following:
-```
-  resources :forhires, only: [:show, :index, :create, :new, :update, :edit]
-```
-* Enter the command "sh testc.sh".  The same 5 tests fail because the update action is not provided in the forhire controller.
+* Enter the command "sh testc.sh".  All 5 new controller tests fail because the update action is missing.
 
 #### Forhire Controller
 * Just before the end of the before_action section in app/controllers/forhires_controller.rb, add the following code:
@@ -89,6 +82,15 @@ Enter the command "git checkout -b 04-06-forhire_edit".
   end
 ```
 * Enter the command "sh testc.sh".  All tests should now pass.
+
+
+#### Routing
+* Edit the file config/routes.rb.  Replace the line containing "resources :forhires" with the following:
+```
+  resources :forhires, only: [:show, :index, :create, :new, :update, :edit]
+```
+* Enter the command "sh testc.sh".  The same 5 tests fail because the update action is not provided in the forhire controller.
+
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
