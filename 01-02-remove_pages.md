@@ -36,7 +36,6 @@ touch app/views/static_pages/about.html.erb
 * Enter the command "test1".  You will get a cascade of error messages.
 * In the test/integration/static_pages_test.rb file, remove the "about page has expected content" test.
 * Enter the command "test1".  All tests should now pass.
-* Enter the command "sh test_app.sh".  All tests should now pass.
 
 ### Blanking Out the Contact Page
 * Enter the following commands:
