@@ -11,52 +11,67 @@ Enter the command "git checkout -b 01-02-remove_pages".
 * Enter the command "alias test1='rails test test/integration/static_pages_test.rb'".
 * Enter the command "test1".  This tests the static page integration tests only.  All tests should pass.
 * Edit the file app/views/layouts/_header.html.erb.  Remove the line containing "about_path".  This removes the links to the "About" page in the header menu bar.
-* Enter the command "test1".  Now the "test_home_page_provides_access_to_the_about_page" test leads to a long cascade of error messages.
-* In the test/integration/static_pages_test.rb file, remove the "home page provides access to the about page" test.
-* Enter the command "test1".  Now the "test_contact_page_provides_access_to_the_about_page" test leads to a long cascade of error messages.
-* In the test/integration/static_pages_test.rb file, remove the "contact page provides access to the about page" test.
+* Enter the command "test1".  Now you get bombarded with a cascade of error messages.
+* In the test/integration/static_pages_test.rb file, remove the "home page provides access to the about page" test and the "contact page provides access to the about page" test.
 * Enter the command "test1".  All tests should now pass.
+* Enter the command "sh test_app.sh".  All tests should now pass.
 
 ### Removing the Contact Link From the Header.
 * Edit the file app/views/layouts/_header.html.erb.  Remove the line containing "contact_path".  This removes the links to the "Contact" page in the header menu bar.
-* Enter the command "test1".  Now the "test_about_page_provides_access_to_the_contact_page" test leads to a long cascade of error messages.
-* In the test/integration/static_pages_test.rb file, remove the "about page provides access to the contact page" test.
-* Enter the command "test1".  Now the "test_home_page_provides_access_to_the_contact_page" test leads to a long cascade
-
-
-
-
-* Edit the file app/views/layouts/_header.html.erb.  Remove the lines containing "about_path" and "contact_path".  This removes the links to the "About" and "Contact" pages in the header menu bar.
-* In your web browser view of your local version of the app, hit the refresh button.  The links to the "About" and "Contact" pages in the header should be gone.
-* Enter the command "sh test_app.sh".  4 tests in test/integration/static_pages_test.rb fail.
-* Enter the command "alias test1='(command for running the failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  These 4 static page tests fail again.
-  Enter the command "test1".  3 of the tests should fail.
-* In the test/integration/static_pages_test.rb file, remove the "home page provides access to the contact page" test.  Enter the command "test1".  2 of the tests should fail.
-* In the test/integration/static_pages_test.rb file, remove the "about page provides access to the contact page" test.  Enter the command "test1".  1 of the tests should fail.
-* In the test/integration/static_pages_test.rb file, remove the "contact page provides access to the about page" test.  Enter the command "test1".  All tests should now pass.
+* Enter the command "test1".  Now you get bombarded with a cascade of error messages.
+* In the test/integration/static_pages_test.rb file, remove the "home page provides access to the contact page" test and the "about page provides access to the contact page" test.
+* Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
-### Blanking Out the About and Contact Pages
-* Enter the following commands to remove all contents from the about and contact pages and leave blank pages in their place:
+### Blanking Out the About Page
+* Enter the following commands:
 ```
 rm app/views/static_pages/about.html.erb
 touch app/views/static_pages/about.html.erb
+```
+* Enter the command "test1".  You will get a cascade of error messages.
+* In the test/integration/static_pages_test.rb file, remove the "about page has expected content" test.
+* Enter the command "test1".  All tests should now pass.
+* Enter the command "sh test_app.sh".  All tests should now pass.
+
+### Blanking Out the Contact Page
+* Enter the following commands:
+```
 rm app/views/static_pages/contact.html.erb
 touch app/views/static_pages/contact.html.erb
 ```
-* Enter the command "test1".  2 tests in test/integration/static_pages_test.rb fail.
-* In the test/integration/static_pages_test.rb file, remove the "about page has expected content" test. Enter the command "test1".  1 test will fail.
-* In the test/integration/static_pages_test.rb file, remove the "contact page has expected content" test.  Enter the command "test1".  All tests should now pass.
+* Enter the command "test1".  You will get a cascade of error messages.
+* In the test/integration/static_pages_test.rb file, remove the "contact page has expected content" test.
+* Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
-### Removing the About and Contact Pages
-* Enter the following commands to remove the about and contact pages:
+### Removing the About Page
+* Enter the following command:
 ```
 rm app/views/static_pages/about.html.erb
+```
+* Enter the command "test1".  You will get a cascade of error messages.
+* In the test/integration/static_pages_test.rb file, remove the "about page provides access to the home page" test.
+* Enter the command "test1".  All tests should now pass.
+* Enter the command "sh test_app.sh".  All tests should now pass.
+
+### Removing the Contact Page
+* Enter the following command:
+```
 rm app/views/static_pages/contact.html.erb
 ```
-* Enter the command "test1".  2 tests should fail.  Both test failures are due to missing templates.  (This is the result of removing the about and contact pages.)
+* Enter the command "test1".  You will get a cascade of error messages.
+* In the test/integration/static_pages_test.rb file, remove the "contact page provides access to the home page" test.  At this point, the only remaining test in this file should be the "home page has expected content" test.
+* Enter the command "test1".  All tests should now pass.
+
+
+
+
+
+
+
+
+
 * In the config/routes.rb file, remove the line containing "get '/about'" and the line containing "get '/contact'".  Enter the command "test1".  Now the 2 tests fail because the about_path and contact_path variables are undefined.
 * In test/integration/static_pages_test.rb file, remove the "about page provides access to the home page" test and the "contact page provides access to the home page" test.  The ONLY test that should remain in this file is "home page has expected content".  Enter the command "test1".  All tests should now pass.
 * Enter the command "sh test_app.sh".  2 of the tests will fail.  Both of the tests are in test/controllers/static_pages_controller_test.rb.
