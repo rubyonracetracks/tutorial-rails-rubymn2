@@ -17,7 +17,7 @@ Enter the command "git checkout -b 01-02-remove_pages".
 
 ### Removing the Contact Link From the Header.
 * Edit the file app/views/layouts/_header.html.erb.  Remove the line containing "contact_path".  This removes the links to the "Contact" page in the header menu bar.
-* Enter the command "test1".  Now you get bombarded with a cascade of error messages.
+* Enter the command "test1".  Now you get bombarded with a cascade of error messages because the "About" link is missing.
 * In the test/integration/static_pages_test.rb file, remove the "home page provides access to the contact page" test and the "about page provides access to the contact page" test.
 * Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
