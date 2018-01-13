@@ -84,7 +84,7 @@ git commit -m "Added the sponsor index capability (controller level)"
 
 <h1>Sponsor Index</h1>
 
-<h2>Current Sponsors</h2>
+<h3>Current Sponsors</h3>
 <div class="sponsors_current">
   <% @sponsors_current.each do |s| %>
     <li>
@@ -94,7 +94,7 @@ git commit -m "Added the sponsor index capability (controller level)"
 </div>
 
 
-<h2>Past Sponsors</h2>
+<h3>Past Sponsors</h3>
 <div class="sponsors_past">
   <% @sponsors_past.each do |s| %>
     <li>
