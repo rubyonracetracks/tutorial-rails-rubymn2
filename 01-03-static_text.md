@@ -41,13 +41,13 @@ Enter the command "git checkout -b 01-03-static_text".
 ### Adding to the Home Page
 * In the app/views/static_pages/home.html.erb page, add the following lines after the end of the variable section:
 ```
-<h2>About</h2>
+<h3>About</h3>
 We are Ruby enthusiasts from the Twin Cities area.
 On this site, we showcase sponsors, post job openings, showcase our projects, and present our qualifications.
 We meet on the last Monday of the month at 6:30PM at Day Block Brewing.
 You can RSVP to our events on our Meetup page, read our Tweets on our Twitter page, and discuss Ruby on our Google group.
 
-<h2>Links</h2>
+<h3>Links</h3>
 <ul>
   <li>Meetup: <%= link_to 'https://www.meetup.com/ruby-mn', 'https://www.meetup.com/ruby-mn'  %></li>
   <li>Twitter: <%= link_to 'https://twitter.com/rubymn', 'https://twitter.com/rubymn' %></li>
