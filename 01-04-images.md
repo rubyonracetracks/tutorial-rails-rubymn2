@@ -1,5 +1,5 @@
 # Unit 1
-## Chapter 4: Adding Footer and Header Images
+## Chapter 4: Adding Footer Images
 
 In this chapter, you will add footer and header images.
 
@@ -36,7 +36,7 @@ curl -o app/assets/images/footer_background.png -OL https://raw.githubuserconten
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added footer and header images"
+git commit -m "Added footer images"
 git push origin 01-04-images
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
