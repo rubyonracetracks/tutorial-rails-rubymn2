@@ -35,7 +35,7 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
 * Enter the command "test1".  Both new integration tests fail.
 
 ### User Edit Page
-* In the file app/views/users/registrations/edit.html.erb, add the following code immediately after the field for entering the email address:
+* In the file app/views/users/registrations/edit.html.erb, add the following code immediately after the if statement that begins with "if devise_mapping.confirmable?":
 ```
 
   <div class="field">
