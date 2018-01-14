@@ -49,7 +49,7 @@ Enter the command "git checkout -b 02-05-user_gravatar_edit".
   <%= gravatar_for @user %>
   <a href="http://gravatar.com/emails" target="_blank">Edit Gravatar</a>
 ```
-* Enter the command "test1".  Now only 1 new integration test fails.
+* Enter the command "test1".  One integration test still fails, because submitting a new gravatar_email address does not actually change this parameter.
 
 ### User Registration Controller
 * Edit the file app/controllers/users/registrations_controller.rb.  Add ":gravatar_email" to the list of keys to be permitted within the definition of the configure_account_update_params methods.
