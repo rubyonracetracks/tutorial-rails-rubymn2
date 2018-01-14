@@ -1,10 +1,10 @@
 # Unit 2
-## Chapter 6: User Relationship Model
+## Chapter 7: User Relationship Model
 
 In this chapter, you will add the relationship model that allows users to follow other users.  Please note that the uniqueness of relationship objects is enforced at the database migration level instead of at the model level.
 
 ### New Branch
-Enter the command "git checkout -b 02-06-follower_model".
+Enter the command "git checkout -b 02-07-follower_model".
 
 ### Generating the Relationship Model
 * Enter the following command:
@@ -163,7 +163,7 @@ sh seed.sh; sh server.sh
 ```
 git add .
 git commit -m "Added the follower model"
-git push origin 02-06-follower_model
+git push origin 02-07-follower_model
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
