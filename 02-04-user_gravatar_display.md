@@ -33,7 +33,7 @@ end
     <%= gravatar_for @user %>
 ```
 * In your web browser, log into your local version of your app, click on "User Index", and view the profiles of the seeded users.  The gravatar should be present on the user profile pages.
-* Unfortunately, the gravatars on the user profile pages are partially blocked by the header.  Fortunately, correcting this is simply a matter of increasing the padding setting of the body.  In the app/assets/stylesheets/custom.scss file, increase the "padding-top" of the body to 80 px.
+* Unfortunately, the gravatars on the user profile pages are partially blocked by the header.  Fortunately, correcting this is simply a matter of increasing the padding setting of the body.  In the app/assets/stylesheets/custom.scss file, increase the "padding-top" of the body to 80px.
 * View the user profiles again.  Now the gravatars are no longer blocked by the header.
 * Enter the command "sh git_check.sh".  All tests should pass, but Brakeman flags your gravatar_for method as a security issue due to the use of the weak MD5 hashing algorithm.
 * Enter the command "bundle exec brakeman -Aq -w2 --no-pager -I".  Because there is no input file yet, you must continue with an empty config.  When prompted, select the option to inspect all warnings.  When prompted on what to do with your weak MD5 hashing algorithm, select the option to add this warning to the ignore list.
