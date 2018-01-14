@@ -1,7 +1,7 @@
 # Unit 2
 ## Chapter 5: User Gravatar Edit
 
-In this chapter, you will allow new users to sign up with a gravatar email address and allow existing users to edit their gravatar email addresses or their gravatars themselves.
+In this chapter, you will users to edit their gravatar email addresses or their gravatars themselves.
 
 ### New Branch
 Enter the command "git checkout -b 02-05-user_gravatar_edit".
