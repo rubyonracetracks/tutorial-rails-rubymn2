@@ -1,10 +1,10 @@
 # Unit 2
-## Chapter 8: User Relationship Buttons
+## Chapter 9: User Relationship Buttons
 
 In this chapter, you will add buttons that allow users to follow or unfollow other users.
 
 ### New Branch
-Enter the command "git checkout -b 02-08-follower_buttons".
+Enter the command "git checkout -b 02-09-follower_buttons".
 
 ### Controller Test
 * Enter the command "rails generate controller Relationships".
@@ -99,7 +99,7 @@ Enter the command "git checkout -b 02-08-follower_buttons".
 ```
 git add .
 git commit -m "Added the follow/unfollow buttons"
-git push origin 02-08-follower_buttons
+git push origin 02-09-follower_buttons
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
