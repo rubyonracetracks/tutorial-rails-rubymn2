@@ -49,50 +49,71 @@ rails generate model Relationship follower_id:integer followed_id:integer
   end
 
   test 'deleting the follower deletes the relationship' do
-    assert_difference 'Relationship.count', -1 do
+    assert_difference 'Relationship.count', -2 do
       users(:lazenby).destroy
     end
   end
 
   test 'deleting the followed deletes the relationship' do
-    assert_difference 'Relationship.count', -2 do
+    assert_difference 'Relationship.count', -3 do
       users(:connery).destroy
     end
   end
 ```
-* Enter the command "sh testm.sh".  34 tests fail because of the initial relationship test fixtures.  Note that in the file test/fixtures/relationships.yml, the follower_id and followed_id in both relationships is 1.  The cascade of failures is to be expected.
-* In the file test/fixtures/relationships.yml, change the value of the followed_id to 2.  (Keep the value of the follower_id at 1.)  Enter the command "sh testm.sh".  The 34 tests should fail again.
-* In the file test/fixtures/relationships.yml, edit the values of the parameters in the relationship "two".  Change the value of the follower_id to 2 and the value of the followed_id to 1.  (This is the inverse of the values of the parameters in the relationship "one".  Enter the command "sh testm.sh".  Now only the last 4 new model tests fail.  This provides confirmation that the modifications you made in the db/migrate/[timestamp]_create_relationships.rb file work at enforcing the uniqueness of each relationship.
-* Remove the default relationship test fixtures by entering the following command:
+* Enter the command "sh testm.sh".  34 tests fail because the initial relationship test fixtures violate the uniqueness requirement that you specified in the database migration script.  (The combination of follower_id and followed_id must be unique.)  Note that in the file test/fixtures/relationships.yml, the follower_id and followed_id in both relationships is 1.  Thus, the cascade of failures is to be expected.
+* In the file test/fixtures/relationships.yml, change the value of the followed_id to 2 for both fixtures.  (Keep the value of the follower_id at 1.)  Enter the command "sh testm.sh".  The 34 tests should fail again.
+* In the file test/fixtures/relationships.yml, edit the values of the parameters in the relationship "two".  Change the value of the follower_id to 2 and the value of the followed_id to 1.  (This is the inverse of the values of the parameters in the relationship "one".)  Enter the command "sh testm.sh".  Now only the last 4 new model tests fail.  This provides confirmation that the modifications you made in the db/migrate/[timestamp]_create_relationships.rb file work at enforcing the uniqueness of each relationship.
+* Replace the contents of test/fixtures/relationships.yml with the following content:
 ```
-echo '# empty' > test/fixtures/relationships.yml
+relationship1:
+  follower: lazenby
+  followed: connery
+
+relationship2:
+  follower: connery
+  followed: lazenby
+
+relationship3:
+  follower: moore
+  followed: connery
+
+relationship4:
+  follower: dalton
+  followed: moore
+
+relationship5:
+  follower: brosnan
+  followed: dalton
+
+relationship6:
+  follower: craig
+  followed: brosnan
+
 ```
-* Enter the command "sh testm.sh".  Two tests fail.
 * In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
 * In file app/models/relationship.rb, add the following lines immediately after the line "class Relationship < ApplicationRecord":
 ```
   validates :follower_id, presence: true
   validates :followed_id, presence: true
 ```
-* Enter the command "sh testm.sh".  All tests should now pass.
-* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the command "sh testm.sh".  Two tests fail.  Deleting the follower user or the followed user in a relationship does not yet automatically delete the relationship.  This must be addressed in the user model.
 
 ### User Model Tests
-* Edit the file test/models/user_test.rb
+* Edit the file test/models/user_test.rb.  Add the following code just before the last "end" statement:
 ```
   test 'should be able to follow and unfollow a user' do
-    lazenby = users(:lazenby)
+    blofeld = users(:blofeld)
     connery = users(:connery)
-    assert_not lazenby.following?(connery)
-    lazenby.follow(connery)
-    assert lazenby.following?(connery)
-    assert connery.followers.include?(lazenby)
-    lazenby.unfollow(connery)
-    assert_not lazenby.following?(connery)
+    assert_not blofeld.following?(connery)
+    blofeld.follow(connery)
+    assert blofeld.following?(connery)
+    assert connery.followers.include?(blofeld)
+    blofeld.unfollow(connery)
+    assert_not blofeld.following?(connery)
   end
 ```
-* Enter the command "sh testm.sh".  The new test should fail.
-* Edit the file app/models/user.rb.  Add the following lines to the beginning of the public section:
+* Enter the command "sh testm.sh".  Three tests fail.
+* Edit the file app/models/user.rb.  Add the following lines just before the end of the public section:
 ```
   # BEGIN: relationship section
   has_many :active_relationships,  class_name:  'Relationship',
