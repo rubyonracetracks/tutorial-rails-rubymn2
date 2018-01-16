@@ -120,6 +120,7 @@ rails generate model Relationship follower_id:integer followed_id:integer
   belongs_to :follower, class_name: 'User'
   belongs_to :followed, class_name: 'User'
 ```
+* Enter the command "sh testm.sh".  Two model tests fail, the same two that were failing earlier.
 * Replace the contents of test/fixtures/relationships.yml with the following content:
 ```
 relationship1:
@@ -148,6 +149,11 @@ relationship6:
 ```
 * Enter the command "sh testm.sh".  All tests should pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Added the relationship model"
+```
 
 ### Seeding
 * Add the following code to the end of the db/seeds.rb file:
