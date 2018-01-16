@@ -189,7 +189,7 @@ sh seed.sh; sh server.sh
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the relationships in the seeding script"
+git commit -m "Added relationships to the seeding script"
 git push origin 02-07-follower_model
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
