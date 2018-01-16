@@ -8,6 +8,72 @@ The profile page lists the number of other users being followed and a link to an
 ### New Branch
 Enter the command "git checkout -b 02-08-follower_display".
 
+### Updating the Test Fixtures
+* Add the following lines to the end of the file test/fixtures/users.yml:
+```
+bandit:
+  last_name: 'Reynolds'
+  first_name: 'Burt'
+  username: 'breynolds'
+  email: 'bo_darville@example.com'
+  encrypted_password: <%= User.new.send(:password_digest, 'Pontiac Trans Am') %>
+  confirmed_at: <%= Time.zone.now %>
+
+snowman:
+  last_name: 'Reed'
+  first_name: 'Jerry'
+  username: 'jreed'
+  email: 'cledus_snow@example.com'
+  encrypted_password: <%= User.new.send(:password_digest, 'The Blocker') %>
+  confirmed_at: <%= Time.zone.now %>
+
+frog:
+  last_name: 'Sally'
+  first_name: 'Field'
+  username: 'sfield'
+  email: 'carrie@example.com'
+  encrypted_password: <%= User.new.send(:password_digest, 'runaway bride') %>
+  confirmed_at: <%= Time.zone.now %>
+
+justice:
+  last_name: 'Gleason'
+  first_name: 'Jackie'
+  username: 'jgleason'
+  email: 'smokey@example.com'
+  encrypted_password: <%= User.new.send(:password_digest, 'attention getter') %>
+  confirmed_at: <%= Time.zone.now %>
+
+junior:
+  last_name: 'Henry'
+  first_name: 'Mike'
+  username: 'mhenry'
+  email: 'junior@example.com'
+  encrypted_password: <%= User.new.send(:password_digest, 'football game') %>
+  confirmed_at: <%= Time.zone.now %>
+```
+* Add the following lines to the end of the file test/fixtures/relationships.yml:
+```
+relationship7:
+  follower: justice
+  followed: bandit
+
+relationship8:
+  follower: justice
+  followed: frog
+
+relationship9:
+  follower: junior
+  followed: justice
+
+relationship10:
+  follower: snowman
+  followed: bandit
+
+relationship11:
+  follower: snowman
+  followed: frog
+```
+
 ### User Controller Test
 * Edit the file test/controllers/users_controller_test.rb and add the following code just before the final "end" statement:
 ```
