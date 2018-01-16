@@ -60,8 +60,9 @@ rails generate model Relationship follower_id:integer followed_id:integer
     end
   end
 ```
-* Enter the command "sh testm.sh".  You get a long cascade of errors because the initial relationship test fixtures violate the uniqueness requirement that you specified in the database migration script.  (The combination of follower_id and followed_id must be unique.)  Note that in the file test/fixtures/relationships.yml, the follower_id and followed_id in both relationships is 1.  Thus, the long cascade of errors is to be expected.
-* In the file test/fixtures/relationships.yml, change the value of the followed_id to 2 for both fixtures.  (Keep the value of the follower_id at 1.)  Enter the command "sh testm.sh".  The 34 tests should fail again.
+* Enter the command "sh testm.sh".  You get a long cascade of test failures because the initial relationship test fixtures violate the uniqueness requirement that you specified in the database migration script.  (The combination of follower_id and followed_id must be unique.)  Note that in the file test/fixtures/relationships.yml, the follower_id and followed_id in both relationships is 1.  Thus, the long cascade of test failures is to be expected.
+* In the file test/fixtures/relationships.yml, change the value of the followed_id to 2 for both fixtures.  (Keep the value of the follower_id at 1.)
+* Enter the command "sh testm.sh".  The long cascade of test failures appears again.
 * In the file test/fixtures/relationships.yml, edit the values of the parameters in the relationship "two".  Change the value of the follower_id to 2 and the value of the followed_id to 1.  (This is the inverse of the values of the parameters in the relationship "one".)  Enter the command "sh testm.sh".  Now only the last 4 new model tests fail.  This provides confirmation that the modifications you made in the db/migrate/[timestamp]_create_relationships.rb file work at enforcing the uniqueness of each relationship.
 * In the app/models/relationship.rb file, add the line "#" immediately before the line "class Relationship < ApplicationRecord".
 * In file app/models/relationship.rb, add the following lines immediately after the line "class Relationship < ApplicationRecord":
@@ -69,7 +70,7 @@ rails generate model Relationship follower_id:integer followed_id:integer
   validates :follower_id, presence: true
   validates :followed_id, presence: true
 ```
-* Enter the command "sh testm.sh".  Two tests fail.  Deleting the follower user or the followed user in a relationship does not yet automatically delete the relationship.  This must be addressed in the user model.
+* Enter the command "sh testm.sh".  Two tests fail.  Deleting the follower user or the followed user in a relationship does not yet automatically delete the relationship.  Correcting this requires editing the user model.
 
 ### User Model Tests
 * Edit the file test/models/user_test.rb.  Add the following code just before the last "end" statement:
