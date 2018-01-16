@@ -43,15 +43,13 @@ Enter the command "git checkout -b 02-08-follower_display".
   # END: following
 ```
 * Enter the command "sh testc.sh".  5 tests fail because following_user_path is undefined.
-* Add the following code just before the end of the user section in config/routes.rb:
+* Edit the config/routes.rb file.  In the "resources :users" section, add the following lines just after the line that begins with "collection":
 ```
-  resources :users do
     member do
       get :following
     end
-  end
 ```
-* Enter the command "sh testc.sh".  Now the 5 tests fail because the following action is not defined in the user controller.
+* Enter the command "sh testc.sh".  Now the 5 tests fail because the following action is not defined.
 * In the file app/controllers/users_controller.rb, add the following code just before the end of the action section:
 ```
   def following
