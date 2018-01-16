@@ -70,7 +70,7 @@ rails generate model Relationship follower_id:integer followed_id:integer
   validates :follower_id, presence: true
   validates :followed_id, presence: true
 ```
-* Enter the command "sh testm.sh".  Two tests fail.  Deleting the follower user or the followed user in a relationship does not yet automatically delete the relationship.  Correcting this requires editing the user model.
+* Enter the command "sh testm.sh".  The last two new tests still fail.  Deleting the follower user or the followed user in a relationship does not yet automatically delete the relationship.  Correcting this requires editing the user model and updating the relationship test fixtures.  Updating the user model is the next step, but updating the relationship test fixtures will be the last change you make in this chapter.  Updating them prematurely leads to the long cascade of test failures.
 
 ### User Model Tests
 * Edit the file test/models/user_test.rb.  Add the following code just before the last "end" statement:
