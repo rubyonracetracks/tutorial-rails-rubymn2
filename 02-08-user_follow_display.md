@@ -50,6 +50,14 @@ junior:
   email: 'junior@example.com'
   encrypted_password: <%= User.new.send(:password_digest, 'football game') %>
   confirmed_at: <%= Time.zone.now %>
+
+needham:
+  last_name: 'Needham'
+  first_name: 'Hal'
+  username: 'hneedham'
+  email: 'director1931@example.com'
+  encrypted_password: <%= User.new.send(:password_digest, 'Smokey and the Bandit') %>
+  confirmed_at: <%= Time.zone.now %>
 ```
 * Add the following lines to the end of the file test/fixtures/relationships.yml:
 ```
@@ -225,27 +233,35 @@ before_action :may_show_following, only: [:following]
 * Enter the command "sh test_app.sh".  The last 5 new integration tests fail.
 * Enter the command "alias test1='(Command for running the failed tests minus the TESTOPTS portion)'".
 * Enter the command "test1".  The same 5 tests fail again because the expected content is missing.
-* Edit the file test/fixtures/relationships.yml.  Replace the entire contents with the following:
+* Edit the file test/fixtures/relationships.yml.  Add the following lines:
 ```
-one:
-  follower: brosnan
-  followed: connery
+relationship7:
+  follower: needham
+  followed: bandit
 
-two:
-  follower: brosnan
-  followed: lazenby
+relationship8:
+  follower: needham
+  followed: snowman
 
-three:
-  follower: brosnan
-  followed: moore
+relationship9:
+  follower: needham
+  followed: frog
 
-four:
-  follower: brosnan
-  followed: dalton
+relationship10:
+  follower: needham
+  followed: justice
 
-five:
-  follower: connery
-  followed: blofeld
+relationship11:
+  follower: needham
+  followed: junior
+
+relationship12:
+  follower: justice
+  followed: bandit
+
+relationship13:
+  follower: junior
+  followed: justice
 ```
 * Update the test/test_helper.rb file.  Add the following lines to the end of the definition of setup_universal:
 ```
