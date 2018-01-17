@@ -8,7 +8,97 @@ The profile page lists the number of other users being followed and a link to an
 ### New Branch
 Enter the command "git checkout -b 02-08-follower_display".
 
-### Updating the Test Fixtures
+### Part A: Controller Level
+
+#### User Controller Test
+* Edit the file test/controllers/users_controller_test.rb and add the following code just before the final "end" statement:
+```
+  # BEGIN: following
+  test 'should redirect following when not logged in' do
+    get following_user_path(@u1)
+    assert_redirected_to root_path
+  end
+
+  test 'should redirect following when logged in as a different user' do
+    sign_in @u2, scope: :user
+    get following_user_path(@u1)
+    assert_redirected_to root_path
+  end
+
+  test 'should not redirect following when logged in as that user' do
+    sign_in @u1, scope: :user
+    get following_user_path(@u1)
+    assert_response :success
+  end
+
+  test 'should not redirect following when logged in as a regular admin' do
+    sign_in @a4, scope: :admin
+    get following_user_path(@u1)
+    assert_response :success
+  end
+
+  test 'should not redirect following when logged in as a super admin' do
+    sign_in @a1, scope: :admin
+    get following_user_path(@u1)
+    assert_response :success
+  end
+  # END: following
+```
+* Enter the command "sh testc.sh".  5 tests fail because following_user_path is undefined.
+
+#### Routing
+* Edit the config/routes.rb file.  In the "resources :users" section, add the following lines just after the line that begins with "collection":
+```
+    member do
+      get :following
+    end
+```
+* Enter the command "sh testc.sh".  Now the 5 tests fail because the following action is not defined.
+
+#### User Controller
+* In the file app/controllers/users_controller.rb, add the following code just before the end of the action section:
+```
+  def following
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+```
+* In the file app/controllers/users_controller.rb, add the following code just before the end of the before_action section:
+```
+before_action :may_show_following, only: [:following]
+```
+* In the file app/controllers/users_controller.rb, add the following code just before the end of the private section:
+```
+  def correct_user
+    current_user == User.find(params[:id])
+  end
+
+  def admin_or_correct_user
+    correct_user || admin_signed_in?
+  end
+  helper_method :admin_or_correct_user
+
+  def may_show_following
+    return redirect_to(root_path) unless admin_or_correct_user
+  end
+  helper_method :may_show_following
+```
+* Enter the command "sh testc.sh".  Now 3 tests fail due to a missing template.
+
+#### Follower Page
+* Enter the command "touch app/views/users/show_follow.html.erb".
+* Enter the command "sh testc.sh".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Added follower page (controller level)"
+```
+
+### Part B: View Level
+
+#### Updating the Test Fixtures
 * Add the following lines to the end of the file test/fixtures/users.yml:
 ```
 bandit:
@@ -62,100 +152,33 @@ needham:
 * Add the following lines to the end of the file test/fixtures/relationships.yml:
 ```
 relationship7:
-  follower: justice
+  follower: needham
   followed: bandit
 
 relationship8:
-  follower: justice
-  followed: frog
+  follower: needham
+  followed: snowman
 
 relationship9:
-  follower: junior
-  followed: justice
+  follower: needham
+  followed: frog
 
 relationship10:
-  follower: snowman
-  followed: bandit
+  follower: needham
+  followed: justice
 
 relationship11:
-  follower: snowman
-  followed: frog
-```
+  follower: needham
+  followed: junior
 
-### User Controller Test
-* Edit the file test/controllers/users_controller_test.rb and add the following code just before the final "end" statement:
-```
-  # BEGIN: following
-  test 'should redirect following when not logged in' do
-    get following_user_path(@u1)
-    assert_redirected_to root_path
-  end
+relationship12:
+  follower: justice
+  followed: bandit
 
-  test 'should redirect following when logged in as a different user' do
-    sign_in @u2, scope: :user
-    get following_user_path(@u1)
-    assert_redirected_to root_path
-  end
-
-  test 'should not redirect following when logged in as that user' do
-    sign_in @u1, scope: :user
-    get following_user_path(@u1)
-    assert_response :success
-  end
-
-  test 'should not redirect following when logged in as a regular admin' do
-    sign_in @a4, scope: :admin
-    get following_user_path(@u1)
-    assert_response :success
-  end
-
-  test 'should not redirect following when logged in as a super admin' do
-    sign_in @a1, scope: :admin
-    get following_user_path(@u1)
-    assert_response :success
-  end
-  # END: following
+relationship13:
+  follower: junior
+  followed: justice
 ```
-* Enter the command "sh testc.sh".  5 tests fail because following_user_path is undefined.
-* Edit the config/routes.rb file.  In the "resources :users" section, add the following lines just after the line that begins with "collection":
-```
-    member do
-      get :following
-    end
-```
-* Enter the command "sh testc.sh".  Now the 5 tests fail because the following action is not defined.
-* In the file app/controllers/users_controller.rb, add the following code just before the end of the action section:
-```
-  def following
-    @user  = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
-    render 'show_follow'
-  end
-```
-* In the file app/controllers/users_controller.rb, add the following code just before the end of the before_action section:
-```
-before_action :may_show_following, only: [:following]
-```
-* In the file app/controllers/users_controller.rb, add the following code just before the end of the private section:
-```
-  def correct_user
-    current_user == User.find(params[:id])
-  end
-
-  def admin_or_correct_user
-    correct_user || admin_signed_in?
-  end
-  helper_method :admin_or_correct_user
-
-  def may_show_following
-    return redirect_to(root_path) unless admin_or_correct_user
-  end
-  helper_method :may_show_following
-```
-* Enter the command "sh testc.sh".  Now 3 tests fail due to a missing template.
-* Enter the command "touch app/views/users/show_follow.html.erb".
-* Enter the command "sh testc.sh".  All tests should now pass.
-* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Integration Test
 * Enter the command "rails generate integration_test user_following".
@@ -233,44 +256,22 @@ before_action :may_show_following, only: [:following]
 * Enter the command "sh test_app.sh".  The last 5 new integration tests fail.
 * Enter the command "alias test1='(Command for running the failed tests minus the TESTOPTS portion)'".
 * Enter the command "test1".  The same 5 tests fail again because the expected content is missing.
-* Edit the file test/fixtures/relationships.yml.  Add the following lines:
-```
-relationship7:
-  follower: needham
-  followed: bandit
-
-relationship8:
-  follower: needham
-  followed: snowman
-
-relationship9:
-  follower: needham
-  followed: frog
-
-relationship10:
-  follower: needham
-  followed: justice
-
-relationship11:
-  follower: needham
-  followed: junior
-
-relationship12:
-  follower: justice
-  followed: bandit
-
-relationship13:
-  follower: junior
-  followed: justice
-```
 * Update the test/test_helper.rb file.  Add the following lines to the end of the definition of setup_universal:
 ```
 
-  @relationship1 = relationships(:one)
-  @relationship2 = relationships(:two)
-  @relationship3 = relationships(:three)
-  @relationship4 = relationships(:four)
-  @relationship5 = relationships(:five)
+  @r1 = relationships(:relationship1)
+  @r2 = relationships(:relationship2)
+  @r3 = relationships(:relationship3)
+  @r4 = relationships(:relationship4)
+  @r5 = relationships(:relationship5)
+  @r6 = relationships(:relationship6)
+  @r7 = relationships(:relationship7)
+  @r8 = relationships(:relationship8)
+  @r9 = relationships(:relationship9)
+  @r10 = relationships(:relationship10)
+  @r11 = relationships(:relationship11)
+  @r12 = relationships(:relationship12)
+  @r13 = relationships(:relationship13)
 ```
 * Give the now-blank app/views/users/show_follow.html.erb file the following content:
 ```
@@ -316,7 +317,7 @@ relationship13:
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the follower display"
+git commit -m "Added the follower display (view level)"
 git push origin 02-08-follower_display
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
