@@ -186,70 +186,71 @@ relationship13:
 ```
   # rubocop:disable Metrics/AbcSize
   def can_view_users_following
-    assert page.has_link?('sconnery', href: user_path(@u1))
-    assert page.has_link?('glazenby', href: user_path(@u2))
-    assert page.has_link?('rmoore', href: user_path(@u3))
-    assert page.has_link?('tdalton', href: user_path(@u4))
+    assert page.has_link?('bandit', href: user_path(@u8))
+    assert page.has_link?('snowman', href: user_path(@u9))
+    assert page.has_link?('frog', href: user_path(@u10))
+    assert page.has_link?('justice', href: user_path(@u11))
+    assert page.has_link?('junior', href: user_path(@u12))
   end
   # rubocop:enable Metrics/AbcSize
 
   test 'visitors cannot view the user following page' do
-    visit following_user_path(@u1)
+    visit following_user_path(@u13)
     assert page.has_css?('title', text: full_title(''),
                                   visible: false)
     assert page.has_css?('h1', text: 'Home', visible: false)
   end
 
   test "user cannot view another user's following page" do
-    login_as(@u2, scope: :user)
-    visit following_user_path(@u1)
+    login_as(@u12, scope: :user)
+    visit following_user_path(@u13)
     assert page.has_css?('title', text: full_title(''),
                                   visible: false)
     assert page.has_css?('h1', text: 'Home', visible: false)
   end
 
   test "user does not get link to another user's following page" do
-    login_as(@u2, scope: :user)
-    visit following_user_path(@u1)
+    login_as(@u12, scope: :user)
+    visit following_user_path(@u13)
     assert_not page.has_text?('Following')
   end
 
   test 'user following other users can access own following page through home page' do
-    login_as(@u5, scope: :user)
+    login_as(@u13, scope: :user)
     visit root_path
-    assert page.has_text?('Following: 4')
-    assert page.has_link?('Following: 4', href: following_user_path(@u5))
+    assert page.has_text?('Following: 5')
+    assert page.has_link?('Following: 5', href: following_user_path(@u13))
   end
 
   test 'user can access own following page through own profile page' do
-    login_as(@u5, scope: :user)
+    login_as(@u13, scope: :user)
     visit root_path
     click_on 'Your Profile'
-    assert page.has_link?('Following: 4', href: following_user_path(@u5))
+    assert page.has_link?('Following: 5', href: following_user_path(@u13))
   end
 
   test 'user can view own list of users followed' do
-    login_as(@u5, scope: :user)
-    visit following_user_path(@u5)
+    login_as(@u13, scope: :user)
+    visit following_user_path(@u13)
     assert page.has_css?('h1', text: 'Users You Are Following')
     can_view_users_following
   end
 
   test 'regular admin can see the list of users followed' do
     login_as(@a4, scope: :admin)
-    visit user_path(@u5)
-    assert page.has_link?('Following: 4', href: following_user_path(@u5))
-    click_on 'Following: 4'
-    assert page.has_css?('h1', text: 'Users Followed By Pierce Brosnan')
+    visit user_path(@u13)
+    assert page.has_link?('Following: 5', href: following_user_path(@u13))
+    click_on 'Following: 5'
+    assert page.has_css?('h1', text: 'Users Followed By Hal Needham')
     can_view_users_following
   end
 
   test 'super admin can see the list of users followed' do
     login_as(@a1, scope: :admin)
-    visit user_path(@u5)
-    assert page.has_link?('Following: 4', href: following_user_path(@u5))
-    click_on 'Following: 4'
-    assert page.has_css?('h1', text: 'Users Followed By Pierce Brosnan')
+    visit user_path(@u13)
+    assert page.has_link?('Following: 5', href: following_user_path(@u13))
+    click_on 'Following: 5'
+    assert page.has_css?('h1', text: 'Users Followed By Hal Needham')
     can_view_users_following
   end
 ```
@@ -258,6 +259,12 @@ relationship13:
 * Enter the command "test1".  The same 5 tests fail again because the expected content is missing.
 * Update the test/test_helper.rb file.  Add the following lines to the end of the definition of setup_universal:
 ```
+  @u8 = users(:bandit)
+  @u9 = users(:snowman)
+  @u10 = users(:frog)
+  @u11 = users(:justice)
+  @u12 = users(:junior)
+  @u13 = users(:needham)
 
   @r1 = relationships(:relationship1)
   @r2 = relationships(:relationship2)
