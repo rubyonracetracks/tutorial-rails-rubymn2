@@ -66,7 +66,7 @@ Enter the command "git checkout -b 02-08-follower_display".
 ```
 * In the file app/controllers/users_controller.rb, add the following code just before the end of the before_action section:
 ```
-before_action :may_show_following, only: [:following]
+  before_action :may_show_following, only: [:following]
 ```
 * In the file app/controllers/users_controller.rb, add the following code just before the end of the private section:
 ```
