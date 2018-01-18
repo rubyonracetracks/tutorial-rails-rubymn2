@@ -7,7 +7,7 @@ In this chapter, you will remove the about and contact pages.  However, this tas
 Enter the command "git checkout -b 01-02-remove_pages".
 
 ### Removing the About Link From the Header
-* Edit the file app/views/layouts/_header.html.erb.  Remove the line containing "about_path".  This removes the links to the "About" page in the header menu bar.
+* Edit the file app/views/layouts/_header.html.erb.  Remove the line containing "about_path".  This removes the link to the "About" page in the header menu bar.
 * Enter the command "sh test_app.sh".  Two of the tests fail.  (NOTE: As of 1-13-2018, version 5.11.1 of the minitest gem gives incomplete test results when tests fail.  Downgrading the minitest gem to version 5.10.3 is necessary to reinstate the expected test results when tests fail.)
 * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
 * Enter the command "test1".  Both tests still fail because the "About" link is no longer on the home page and contact page.
@@ -15,7 +15,7 @@ Enter the command "git checkout -b 01-02-remove_pages".
 * Enter the command "test1".  All tests should now pass.
 
 ### Removing the Contact Link From the Header.
-* Edit the file app/views/layouts/_header.html.erb.  Remove the line containing "contact_path".  This removes the links to the "Contact" page in the header menu bar.
+* Edit the file app/views/layouts/_header.html.erb.  Remove the line containing "contact_path".  This removes the link to the "Contact" page in the header menu bar.
 * Enter the command "test1".  Two tests fail because the "Contact" link is no longer on the home page and about page.
 * In the test/integration/static_pages_test.rb file, remove the "home page provides access to the contact page" test and the "about page provides access to the contact page" test.
 * Enter the command "test1".  All tests should now pass.
