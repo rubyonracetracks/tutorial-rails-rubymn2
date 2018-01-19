@@ -7,23 +7,25 @@ In this chapter, you will allow users to view the profiles of other users.
 Enter the command "git checkout -b 02-01-user_show".
 
 ### Controller Test
-* Edit the file test/controllers/users_controller_test.rb.  Replace everything within the show-other_user section with the following:
+* Edit the file test/controllers/users_controller_test.rb.  Replace the entire show-other_user section with the following:
 ```
-  test 'should not redirect users from the profiles of other users' do
+  # BEGIN: show-other_user
+  test 'should redirect users from profiles other than their own' do
     sign_in @u1, scope: :user
     get user_path(@u2)
-    assert_response :success
+    assert_redirected_to root_path
     get user_path(@u3)
-    assert_response :success
+    assert_redirected_to root_path
     get user_path(@u4)
-    assert_response :success
+    assert_redirected_to root_path
     get user_path(@u5)
-    assert_response :success
+    assert_redirected_to root_path
     get user_path(@u6)
-    assert_response :success
+    assert_redirected_to root_path
     get user_path(@u7)
-    assert_response :success
+    assert_redirected_to root_path
   end
+  # END: show-other_user
 ```
 * Enter the command "sh testc.sh".  Your new controller test fails.
 * Edit the file app/controllers/users_controller.rb.
