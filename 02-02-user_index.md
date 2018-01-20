@@ -7,7 +7,7 @@ In this chapter, you will allow users to view the list of all users.
 Enter the command "git checkout -b 02-02-user_index".
 
 ### Controller Test
-* Edit the file test/controllers/users_controller_test.rb. Replace everything within the "index user" section with the following:
+* Edit the file test/controllers/users_controller_test.rb. Replace the "index user" section with the following:
 ```
   # BEGIN: index user
   test 'should not redirect index page when logged in as a user' do
