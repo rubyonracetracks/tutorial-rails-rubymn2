@@ -9,11 +9,13 @@ Enter the command "git checkout -b 02-02-user_index".
 ### Controller Test
 * Edit the file test/controllers/users_controller_test.rb. Replace everything within the "index user" section with the following:
 ```
+  # BEGIN: index user
   test 'should not redirect index page when logged in as a user' do
     sign_in @u1, scope: :user
     get users_path
     assert_response :success
   end
+  # END: index user
 ```
 * Enter the command "sh testc.sh".  Your new controller test fails.
 * Edit the file app/controllers/users_controller.rb.  Replace the definition of "may_index_user" with the following:
