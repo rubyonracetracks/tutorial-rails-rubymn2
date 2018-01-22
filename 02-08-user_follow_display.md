@@ -180,7 +180,32 @@ relationship13:
   followed: justice
 ```
 
-### Integration Test
+#### Test Helper
+Update the test/test_helper.rb file.  Add the following lines to the end of the definition of setup_universal:
+```
+  @u8 = users(:bandit)
+  @u9 = users(:snowman)
+  @u10 = users(:frog)
+  @u11 = users(:justice)
+  @u12 = users(:junior)
+  @u13 = users(:needham)
+
+  @r1 = relationships(:relationship1)
+  @r2 = relationships(:relationship2)
+  @r3 = relationships(:relationship3)
+  @r4 = relationships(:relationship4)
+  @r5 = relationships(:relationship5)
+  @r6 = relationships(:relationship6)
+  @r7 = relationships(:relationship7)
+  @r8 = relationships(:relationship8)
+  @r9 = relationships(:relationship9)
+  @r10 = relationships(:relationship10)
+  @r11 = relationships(:relationship11)
+  @r12 = relationships(:relationship12)
+  @r13 = relationships(:relationship13)
+```
+
+#### Integration Test
 * Enter the command "rails generate integration_test user_following".
 * Edit the resulting test/integration/user_following_test.rb.  Replace the text between the line "class UserFollowingTest < ActionDispatch::IntegrationTest" and the last "end" line with the following:
 ```
@@ -257,29 +282,8 @@ relationship13:
 * Enter the command "sh test_app.sh".  The last 8 new integration tests fail.
 * Enter the command "alias test1='(Command for running the failed tests minus the TESTOPTS portion)'".
 * Enter the command "test1".  The same 8 tests fail again.  2 tests fail because the expected content is missing, and the other tests fail because the specified user was not found.
-* Update the test/test_helper.rb file.  Add the following lines to the end of the definition of setup_universal:
-```
-  @u8 = users(:bandit)
-  @u9 = users(:snowman)
-  @u10 = users(:frog)
-  @u11 = users(:justice)
-  @u12 = users(:junior)
-  @u13 = users(:needham)
 
-  @r1 = relationships(:relationship1)
-  @r2 = relationships(:relationship2)
-  @r3 = relationships(:relationship3)
-  @r4 = relationships(:relationship4)
-  @r5 = relationships(:relationship5)
-  @r6 = relationships(:relationship6)
-  @r7 = relationships(:relationship7)
-  @r8 = relationships(:relationship8)
-  @r9 = relationships(:relationship9)
-  @r10 = relationships(:relationship10)
-  @r11 = relationships(:relationship11)
-  @r12 = relationships(:relationship12)
-  @r13 = relationships(:relationship13)
-```
+
 * Enter the command "test1".  5 of the tests fail because the expected content is missing.
 * Give the now-blank app/views/users/show_follow.html.erb file the following content:
 ```
