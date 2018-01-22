@@ -254,7 +254,7 @@ relationship13:
     can_view_users_following
   end
 ```
-* Enter the command "sh test_app.sh".  The last 5 new integration tests fail.
+* Enter the command "sh test_app.sh".  The last 8 new integration tests fail.
 * Enter the command "alias test1='(Command for running the failed tests minus the TESTOPTS portion)'".
 * Enter the command "test1".  The same 5 tests fail again because the expected content is missing.
 * Update the test/test_helper.rb file.  Add the following lines to the end of the definition of setup_universal:
