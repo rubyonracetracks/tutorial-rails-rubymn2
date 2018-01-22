@@ -256,7 +256,7 @@ relationship13:
 ```
 * Enter the command "sh test_app.sh".  The last 8 new integration tests fail.
 * Enter the command "alias test1='(Command for running the failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  The same 5 tests fail again because the expected content is missing.
+* Enter the command "test1".  The same 8 tests fail again.  2 tests fail because the expected content is missing, and the other tests fail because the specified user was not found.
 * Update the test/test_helper.rb file.  Add the following lines to the end of the definition of setup_universal:
 ```
   @u8 = users(:bandit)
@@ -280,6 +280,7 @@ relationship13:
   @r12 = relationships(:relationship12)
   @r13 = relationships(:relationship13)
 ```
+* Enter the command "test1".  5 of the tests fail because the expected content is missing.
 * Give the now-blank app/views/users/show_follow.html.erb file the following content:
 ```
 <% provide(:title, 'Following') %>
