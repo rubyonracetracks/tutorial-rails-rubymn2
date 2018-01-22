@@ -47,7 +47,7 @@ Enter the command "git checkout -b 02-08-follower_display".
 * Enter the command "sh testc.sh".  5 tests fail because following_user_path is undefined.
 
 #### Routing
-* Edit the config/routes.rb file.  In the "resources :users" section, add the following lines just after the line that begins with "collection":
+* Edit the config/routes.rb file.  In the "resources :users" section, add the following lines just after the collection statement:
 ```
     member do
       get :following
