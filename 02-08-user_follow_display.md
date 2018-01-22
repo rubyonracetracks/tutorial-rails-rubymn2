@@ -236,7 +236,7 @@ Update the test/test_helper.rb file.  Add the following lines to the end of the 
 
   test "user does not get link to another user's following page" do
     login_as(@u12, scope: :user)
-    visit following_user_path(@u13)
+    visit user_path(@u13)
     assert_not page.has_text?('Following')
   end
 
