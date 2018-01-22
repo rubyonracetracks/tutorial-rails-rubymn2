@@ -211,11 +211,11 @@ Update the test/test_helper.rb file.  Add the following lines to the end of the 
 ```
   # rubocop:disable Metrics/AbcSize
   def can_view_users_following
-    assert page.has_link?('bandit', href: user_path(@u8))
-    assert page.has_link?('snowman', href: user_path(@u9))
-    assert page.has_link?('frog', href: user_path(@u10))
-    assert page.has_link?('justice', href: user_path(@u11))
-    assert page.has_link?('junior', href: user_path(@u12))
+    assert page.has_link?('breynolds', href: user_path(@u8))
+    assert page.has_link?('jreed', href: user_path(@u9))
+    assert page.has_link?('sfield', href: user_path(@u10))
+    assert page.has_link?('jgleason', href: user_path(@u11))
+    assert page.has_link?('mhenry', href: user_path(@u12))
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -279,12 +279,11 @@ Update the test/test_helper.rb file.  Add the following lines to the end of the 
     can_view_users_following
   end
 ```
-* Enter the command "sh test_app.sh".  The last 8 new integration tests fail.
+* Enter the command "sh test_app.sh".  The last 5 new integration tests fail.
 * Enter the command "alias test1='(Command for running the failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  The same 8 tests fail again.  2 tests fail because the expected content is missing, and the other tests fail because the specified user was not found.
+* Enter the command "test1".  The same 5 tests fail again.  1 test fails because of a missing heading, and 4 tests fail because the link to the list of followed users is missing.
 
-
-* Enter the command "test1".  5 of the tests fail because the expected content is missing.
+#### Show/Follow Page
 * Give the now-blank app/views/users/show_follow.html.erb file the following content:
 ```
 <% provide(:title, 'Following') %>
@@ -297,24 +296,25 @@ Update the test/test_helper.rb file.  Add the following lines to the end of the 
   <h1>Users Followed By <%= link_to "#{@user.first_name} #{@user.last_name}", @user %>:</h1>
 <% end %>
 
-<%= will_paginate %>
-
 <%= render @users %>
 <hr>
 
-<%= will_paginate %>
-
 ```
-* Enter the command "test1".  Now 4 of the tests still fail.  The show_follow page passes all tests, but links to this page are missing.
+* Enter the command "test1".  Now 4 of the tests still fail.  The show_follow page passes all tests, but the expected links to this page are missing.
+
+#### User Show Page
 * Update the file app/views/users/show.html.erb.  Just before the delete button section, add the following code:
 ```
     <% # BEGIN: link to users followed %>
     <% if current_user == @user || admin_signed_in? %>
       <%= link_to "Following: #{@user.following.count}", following_user_path(@user) %>
+      <br>
     <% end %>
     <% # END: link to users followed %>
 ```
 * Enter the command "test1".  Now just one test still fails, because the user does not get a direct link to his/her followed users on the home page.
+
+#### Home Page
 * Edit the file app/views/static_pages/home.html.erb. Add the following lines just before the end of the user section:
 ```
     <br>
