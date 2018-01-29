@@ -41,7 +41,7 @@ end
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### User Index
-* In the file app/views/users/index.html.erb, replace everything between the two "will_paginate" statements with the following:
+* In the file app/views/users/index.html.erb, replace everything between the two "paginate @users" statements with the following:
 ```
 <%= render @users %>
 <hr>
