@@ -42,7 +42,7 @@ touch app/views/static_pages/about.html.erb
 rm app/views/static_pages/contact.html.erb
 touch app/views/static_pages/contact.html.erb
 ```
-* Enter the command "test1".  You will get a cascade of error messages because the contact page lacks the expected content.
+* Enter the command "test1".  One test fails because the contact page lacks the expected content.
 * In the test/integration/static_pages_test.rb file, remove the "contact page has expected content" test.
 * Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
