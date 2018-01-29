@@ -8,7 +8,7 @@ Enter the command "git checkout -b 01-02-remove_pages".
 
 ### Removing the About Link From the Header
 * Edit the file app/views/layouts/_header.html.erb.  Remove the line containing "about_path".  This removes the link to the "About" page in the header menu bar.
-* Enter the command "sh test_app.sh".  Two of the tests fail.  (NOTE: As of 1-13-2018, version 5.11.1 of the minitest gem gives incomplete test results when tests fail.  Downgrading the minitest gem to version 5.10.3 is necessary to reinstate the expected test results when tests fail.)
+* Enter the command "sh test_app.sh".  Two of the tests fail.  (NOTE: As of 1-28-2018, version 5.11.* of the minitest gem gives a traceback error if there are any errors.  This cuts off the rest of the test results.  Downgrading the minitest gem to version 5.10.3 is necessary to reinstate normal behavior.)
 * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
 * Enter the command "test1".  Both tests still fail because the "About" link is no longer on the home page and contact page.
 * Edit the file test/integration/static_pages_test.rb.  Remove the "home page provides access to the about page" test and the "contact page provides access to the about page"
