@@ -16,7 +16,7 @@ Enter the command "git checkout -b 01-05-color".
 * Refresh your web browser's view of the local version of your site.  Now the header is dark red instead of black.
 
 ### Updating the Color of Links in the Navigation Bar
-* Unfortunately, the gray text in the navigation bar is less readable with the dark red background than it was with the white background.  The solution is to make the text in the navigation bar always white.
+* Unfortunately, the gray text in the navigation bar is less readable with the dark red background than it was with the default black background.  The solution is to make the text in the navigation bar always white.
 * Making the text in the navigation bar always white means that the user does not clearly see that it's possible to click on the item and go to a different page on the site.  The solution is to change the hover background color immediately around the text to black.  This makes it much more apparent that there is a link that one can click on.
 * In the file app/assets/stylesheets/custom.scss, add the following lines to the end of the header section:
 ```
