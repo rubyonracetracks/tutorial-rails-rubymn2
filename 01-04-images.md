@@ -10,7 +10,7 @@ Enter the command "git checkout -b 01-04-images".
 * Remove the Rails logo graphic file by entering the command "rm app/assets/images/rails.png".
 * Refresh your view of the local app's home page in your browser.  Now you'll get an error because the rails.png file is missing.
 * Edit the file app/views/static_pages/home.html.erb.  Remove the lines containing the link_to element that uses the rails.png file you just deleted.
-* Refresh your view of the local app in your browser.
+* Refresh your view of the local app in your browser.  You should now see your home page again but without the Rails logo graphic.
 
 ### Adding the Logos to the Footer
 * Download the Ruby.MN logo image by entering the following LONG one-line command:
