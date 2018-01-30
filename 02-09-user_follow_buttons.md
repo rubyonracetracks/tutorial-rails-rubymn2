@@ -15,6 +15,10 @@ Enter the command "git checkout -b 02-09-follower_buttons".
       post relationships_path
     end
     assert_redirected_to new_user_session_path
+    assert_difference 'Relationship.count', 1 do
+      sign_in @u13, scope: :user
+      post relationships_path
+    end
   end
 
   test 'destroy should require logged-in user' do
@@ -22,6 +26,10 @@ Enter the command "git checkout -b 02-09-follower_buttons".
       delete relationship_path(relationships(:relationship8))
     end
     assert_redirected_to new_user_session_path
+    assert_difference 'Relationship.count', -1 do
+      sign_in @u13, scope: :user
+      delete relationship_path(relationships(:relationship8))
+    end
   end
 ```
 * Enter the command "sh testc.sh".  Both new controller tests fail because relationships_path is not defined.
