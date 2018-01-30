@@ -19,7 +19,7 @@ Enter the command "git checkout -b 02-09-follower_buttons".
 
   test 'destroy should require logged-in user' do
     assert_no_difference 'Relationship.count' do
-      delete relationship_path(relationships(:one))
+      delete relationship_path(relationships(:relationship8))
     end
     assert_redirected_to new_user_session_path
   end
