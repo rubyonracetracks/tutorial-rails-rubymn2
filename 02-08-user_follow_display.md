@@ -60,7 +60,7 @@ Enter the command "git checkout -b 02-08-follower_display".
 ```
   def following
     @user  = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
+    @users = @user.following.page(params[:page])
     render 'show_follow'
   end
 ```
