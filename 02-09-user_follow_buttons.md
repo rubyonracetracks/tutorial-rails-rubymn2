@@ -10,27 +10,90 @@ Enter the command "git checkout -b 02-09-follower_buttons".
 * Enter the command "rails generate controller Relationships".
 * Edit the file test/controllers/relationships_controller_test.rb.  Replace everything between the line "class RelationshipsControllerTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
-  test 'create should require logged-in user' do
-    assert_no_difference 'Relationship.count' do
-      post relationships_path
-    end
-    assert_redirected_to new_user_session_path
-    assert_difference 'Relationship.count', 1 do
-      sign_in @u13, scope: :user
-      post relationships_path
-    end
+  def create_relationship
+    post relationships_path, params: { relationship: { follower: @u13,
+                                                       followed: @u1 } }
   end
 
-  test 'destroy should require logged-in user' do
-    assert_no_difference 'Relationship.count' do
-      delete relationship_path(relationships(:relationship8))
-    end
-    assert_redirected_to new_user_session_path
-    assert_difference 'Relationship.count', -1 do
-      sign_in @u13, scope: :user
-      delete relationship_path(relationships(:relationship8))
-    end
+  def destroy_relationship
+    delete relationship_path(@r8)
   end
+
+  def create_relationship_disabled
+    assert_no_difference 'Relationship.count' do
+      create_relationship
+    end
+    assert_redirected_to root_path
+  end
+
+  def destroy_relationship_disabled
+    assert_no_difference 'Relationship.count' do
+      destroy_relationship
+    end
+    assert_redirected_to root_path
+  end
+
+  # BEGIN: create
+  test 'visitor cannot create relationship' do
+    create_relationship_disabled
+  end
+
+  test 'the wrong user cannot create relationship' do
+    sign_in @u1, scope: :user
+    create_relationship_disabled
+    sign_in @u2, scope: :user
+    create_relationship_disabled
+  end
+
+  test 'the correct user can create relationship' do
+    sign_in @u13, scope: :user
+    assert_difference 'Relationship.count', 1 do
+      create_relationship
+    end
+    assert_redirected_to user_path(@u1)
+  end
+
+  test 'regular admin cannot create relationship' do
+    sign_in @a4, scope: :admin
+    create_relationship_disabled
+  end
+
+  test 'super admin cannot create relationship' do
+    sign_in @a1, scope: :admin
+    create_relationship_disabled
+  end
+  # END: create
+
+  # BEGIN: destroy
+  test 'visitor cannot destroy relationship' do
+    destroy_relationship_disabled
+  end
+
+  test 'the wrong user cannot destroy relationship' do
+    sign_in @u1, scope: :user
+    destroy_relationship_disabled
+    sign_in @u8, scope: :user
+    destroy_relationship_disabled
+  end
+
+  test 'the correct user can destroy relationship' do
+    sign_in @u13, scope: :user
+    assert_difference 'Relationship.count', 1 do
+      destroy_relationship
+    end
+    assert_redirected_to user_path(@u8)
+  end
+
+  test 'regular admin cannot destroy relationship' do
+    sign_in @a4, scope: :admin
+    destroy_relationship_disabled
+  end
+
+  test 'super admin cannot destroy relationship' do
+    sign_in @a1, scope: :admin
+    destroy_relationship_disabled
+  end
+  # END: destroy
 ```
 * Enter the command "sh testc.sh".  Both new controller tests fail because relationships_path is not defined.
 * Edit the app/controllers/relationships_controller.rb file.  Add the line "#" just before the line "class RelationshipsController < ApplicationController".
