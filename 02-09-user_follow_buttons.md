@@ -29,7 +29,6 @@ Enter the command "git checkout -b 02-09-follower_buttons".
   end
 
   test 'the wrong user cannot destroy relationship' do
-    puts 'the wrong user cannot destroy relationship'
     sign_in @u1, scope: :user
     destroy_relationship_disabled
     sign_in @u8, scope: :user
@@ -37,7 +36,6 @@ Enter the command "git checkout -b 02-09-follower_buttons".
   end
 
   test 'the correct user can destroy relationship' do
-    puts 'the correct user can destroy relationship'
     sign_in @u13, scope: :user
     assert_difference 'Relationship.count', -1 do
       destroy_relationship
@@ -55,8 +53,13 @@ Enter the command "git checkout -b 02-09-follower_buttons".
     destroy_relationship_disabled
   end
 ```
-* Enter the command "sh testc.sh".  Both new controller tests fail because relationships_path is not defined.
-* Edit the app/controllers/relationships_controller.rb file.  Add the line "#" just before the line "class RelationshipsController < ApplicationController".
+* Enter the command "sh testc.sh".  All 5 new controller tests fail because relationships_path is not defined.
+* Edit the file config/routes.rb.  Add the following lines just before the final "end" command:
+```
+  resources :relationships, only: [:create, :destroy]
+```
+* Enter the command "sh testc.sh".  The same 5 controller tests fail because the destroy action is not defined.
+
 * Edit the app/controllers/relationships_controller.rb file.  Between the line "class RelationshipsController < ApplicationController" and "end", insert the following lines:
 ```
   # NOTE: Checking to see if the user is the right user is not a viable
@@ -66,7 +69,7 @@ Enter the command "git checkout -b 02-09-follower_buttons".
   def create
     @user2 = User.find(params[:followed_id])
     current_user.follow(@user2)
-    return redirect_to(user_path(@user2))
+    redirect_to(user_path(@user2))
   end
 
   def destroy
@@ -75,17 +78,40 @@ Enter the command "git checkout -b 02-09-follower_buttons".
     redirect_to user_path(@user2)
   end
 ```
-* Edit the file config/routes.rb.  Add the following lines just before the final "end" command:
-```
-  resources :relationships, only: [:create, :destroy]
-```
+* Enter the command "sh testc.sh".  All tests should pass.
+* Enter the command "sh git_check.sh".  All tests should pass, but there will be Rubocop offenses.
 * Enter the command "rm app/helpers/relationships_helper.rb".
-* Enter the command "sh testc.sh".  All tests should pass.  (No, there is no need to define relationships_path.)
+* In the file app/controllers/relationships_controller.rb, add the line "#" just before the line "class RelationshipsController < ApplicationController".
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Integration Test
-* In the file test/integration/following_test.rb, add the following lines before the last "end" command:
+* Enter the command "rails generate integration_test following_button".
+* In the file test/integration/following_button_test.rb, replace all lines between "class FollowingButtonTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
+  # NOTE: Visitors cannot access the user profile page (where the Follow/
+  # Unfollow button is located).
+
+  def no_follow_unfollow_button
+    visit user_path(@u1)
+    assert page.has_no_link?('Follow', href: user_path(@u1))
+    assert page.has_no_link?('Unfollow', href: user_path(@u1))
+  end
+
+  test 'regular admin does not see the follow or unfollow buttons' do
+    login_as(@a4, scope: :admin)
+    no_follow_unfollow_button
+  end
+
+  test 'super admin does not see the follow or unfollow buttons' do
+    login_as(@a1, scope: :admin)
+    no_follow_unfollow_button
+  end
+
+  test 'user does not see the follow or unfollow buttons on own page' do
+    login_as(@u1, scope: :user)
+    no_follow_unfollow_button
+  end
+
   test 'user can use the follow and unfollow buttons' do
     assert_difference '@u7.following.count', 1 do
       login_as(@u7, scope: :user)
@@ -100,9 +126,9 @@ Enter the command "git checkout -b 02-09-follower_buttons".
     end
   end
 ```
-* Enter the command "sh test_app.sh".  The new integration test fails.
+* Enter the command "sh test_app.sh".  The last new integration test fails.
 * Enter the command "alias test1='(Command to run failed test minus the TESTOPTS portion)'".
-* Enter the command "test1".  The test fails because the Follow button is missing.
+* Enter the command "test1".  The test fails because the follow/unfollow button is missing.
 * Edit the app/views/users/show.html.erb file.  Add the following code just before the delete button:
 ```
     <% # BEGIN: follow/unfollow button %>
