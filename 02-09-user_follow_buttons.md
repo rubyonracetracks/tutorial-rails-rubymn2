@@ -134,19 +134,19 @@ Enter the command "git checkout -b 02-09-follower_buttons".
     <% # BEGIN: follow/unfollow button %>
     <% if user_signed_in? && current_user != @user %>
       <% if current_user.following?(@user) %>
-        <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
-                     html: { method: :delete }) do |f| %>
-          <%= f.submit "Unfollow", class: "btn" %>
-        <% end %>
-        <br>
-      <% else %>
-        <%= form_for(current_user.active_relationships.build) do |f| %>
+        <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
           <div><%= hidden_field_tag :followed_id, @user.id %></div>
           <%= f.submit "Follow", class: "btn btn-primary" %>
         <% end %>
         <br>
+      <% else %>
+        <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
+                     html: { method: :delete },
+                     remote: true) do |f| %>
+          <%= f.submit "Unfollow", class: "btn" %>
+        <% end %>
+        <br>
       <% end %>
-      </div>
     <% end %>
     <% # END: follow/unfollow button %>
 ```
