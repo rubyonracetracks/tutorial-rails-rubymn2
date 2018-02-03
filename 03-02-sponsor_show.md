@@ -78,7 +78,6 @@ flag:
 * Enter the command "sh testc.sh".  The controller test fails because the "show" action is not in the sponsor controller yet.
 
 #### Controller and Template
-* Edit the file app/controllers/sponsors_controller.rb.  Just before the line "class SponsorsController < ApplicationController", add the line "#".
 * Edit the file app/controllers/sponsors_controller.rb.  Insert the following lines between "class SponsorsController < ApplicationController" and "end":
 ```
   # BEGIN: action section
@@ -90,7 +89,9 @@ flag:
 * Enter the command "sh testc.sh".  The controller test fails because of a missing template.
 * Enter the command "touch app/views/sponsors/show.html.erb" to provide the template.  (You'll add content to it later.)
 * Enter the command "sh testc.sh".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and but there will be Rubocop offenses.
 * Enter the command "rm app/helpers/sponsors_helper.rb".
+* Edit the file app/controllers/sponsors_controller.rb.  Just before the line "class SponsorsController < ApplicationController", add the line "#".
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
