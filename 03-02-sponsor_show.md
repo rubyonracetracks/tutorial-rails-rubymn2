@@ -33,8 +33,7 @@ Enter the command "git checkout -b 03-02-sponsor_show".
 * Enter the command "sh testc.sh".  The new controller test fails because of missing routes.  (The sponsor objects are not yet provided.)
 
 #### Test Fixtures and Helper
-* Remove the default sponsor test fixtures (one and two) in test/fixtures/sponsors.yml.
-* Add the following lines to the end of the file test/fixtures/sponsors.yml:
+* In the file test/fixtures/sponsors.yml, replace the original sponsor test fixtures with the following:
 ```
 blessed_buy:
   name: 'Blessed Buy'
