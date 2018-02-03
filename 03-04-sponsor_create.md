@@ -11,6 +11,7 @@ Enter the command "git checkout -b 03-04-sponsor_add".
 #### Controller Test
 * Edit the file test/controllers/sponsors_controller_test.rb.  Add the following code immediately after the line "class SponsorsControllerTest < ActionDispatch::IntegrationTest":
 ```
+  # BEGIN: definitions
   def create_sponsor
     post sponsors_path, params: { sponsor: { name: 'Pear Computer' } }
   end
@@ -21,6 +22,7 @@ Enter the command "git checkout -b 03-04-sponsor_add".
     end
     assert_redirected_to root_path
   end
+  # END: definitions
 ```
 * Edit the file test/controllers/sponsors_controller_test.rb.  Add the following code just before the last "end" statement:
 ```
