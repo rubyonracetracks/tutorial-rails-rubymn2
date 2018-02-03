@@ -119,7 +119,8 @@ git commit -m "Added the sponsor index capability (controller level)"
 * Edit the file app/controllers/static_pages_controller.rb.  Replace the definition of home with the following:
 ```
   def home
-    @sponsors_current = Sponsor.where('current=?', true)
+    ord = 'updated_at desc'
+    @sponsors_current = Sponsor.where('current=?', true).order(ord)
   end
 ```
 * Edit the file app/views/static_pages/home.html.erb.  Add the following code to the bottom of the page:
