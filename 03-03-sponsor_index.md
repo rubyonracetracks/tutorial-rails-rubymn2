@@ -124,7 +124,7 @@ git commit -m "Added the sponsor index capability (controller level)"
 ```
 * Edit the file app/views/static_pages/home.html.erb.  Add the following code to the bottom of the page:
 ```
-<h2>Current Sponsors</h2>
+<h3>Current Sponsors</h3>
 <div class="sponsors_current">
   <% @sponsors_current.each do |s| %>
     <li>
