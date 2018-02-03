@@ -177,6 +177,7 @@ git commit -m "Added the sponsor show capability"
 git push origin 03-02-sponsor_show
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
+* Hakiri will flag app/views/sponsors/show.html.erb for cross-site scripting.  Mark this as a false positive.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
 * Enter the following commands:
 ```
