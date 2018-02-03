@@ -136,6 +136,7 @@ git commit -m "Added the sponsor index capability (controller level)"
 ```
 * Enter the command "test1".  All tests should pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* View the local app in your browser window.  You should see the list of current sponsors on the home page, and a link to the sponsor index should be in the header.  The sponsor index page should have the list of current sponsors and the list of past sponsors.  Cyberdine Systems (most recently updated) should be listed first among the current sponsors on both pages.  Pan American World Airways (most recently updated) should be listed first among the past sponsors.
 
 ### Wrapping Up
 * Enter the following commands:
