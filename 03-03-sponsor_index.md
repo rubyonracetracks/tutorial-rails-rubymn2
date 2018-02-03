@@ -76,7 +76,7 @@ git commit -m "Added the sponsor index capability (controller level)"
 ```
 * Enter the command "sh test_app.sh".  Your 3 new integration tests fail.
 * Enter the command "alias test1='(command to run the failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  The same 3 integration tests fail again.
+* Enter the command "test1".  The same 3 integration tests fail again because the expected content is missing from the sponsor index page, header, and home page.
 
 #### Index Page
 * Edit the blank file app/views/sponsors/index.html.erb.  Give it the following content:
@@ -105,14 +105,14 @@ git commit -m "Added the sponsor index capability (controller level)"
 </div>
 ```
 * NOTE: The sponsors_current and sponsors_past classes are not relevant yet but will be relevant when company logos are added.
-* Enter the command "test1".  One of the new integration tests now passes because the sponsor index page has the expected content.  The other two tests still fail.
+* Enter the command "test1".  One of the new integration tests now passes because the sponsor index page has the expected content.  The other two tests still fail because the header and home page still need to be updated.
 
 #### Header
 * Edit the file app/views/layouts/_header.html.erb. Just before the beginning of the variable section, add the following line:
 ```
         <li><%= link_to "Sponsors", sponsors_path %></li>
 ```
-* Enter the command "test1".  Now just one test still fails.
+* Enter the command "test1".  Now just one test still fails.  The home page needs to be updated.
 
 #### Home Page
 * Displaying the current sponsors on the home page requires updating the home action in the static pages controller to acquire the list of current sponsors.
@@ -137,7 +137,6 @@ git commit -m "Added the sponsor index capability (controller level)"
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
-* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
 git add .
