@@ -114,6 +114,22 @@ puts 'Creating current sponsors'
   create_sponsor(n, true)
 end
 
+puts 'Adding Pan Am'
+Sponsor.create!(name: 'Pan American World Airways',
+                phone: '800-555-GONE',
+                description: 'We used to be the largest air carrier!', 
+                contact_email: 'panam@example.com',
+                contact_url: 'http://www.deadairline.com',
+                current: false)
+
+puts 'Adding Cyberdyne Systems'
+Sponsor.create!(name: 'Cyberdyne Systems',
+                phone: '800-555-SKYN',
+                description: 'We started Skynet!', 
+                contact_email: 'skynet@example.com',
+                contact_url: 'http://www.cyberdine.com',
+                current: true)
+
 ########################
 # END: creating sponsors
 ########################
