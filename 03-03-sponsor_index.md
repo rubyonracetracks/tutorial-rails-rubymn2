@@ -29,8 +29,8 @@ Enter the command "git checkout -b 03-03-sponsor_index".
 * Edit the file app/controllers/sponsors_controller.rb.  Just before the end of the action section, add the following lines:
 ```
   def index
-    @sponsors_current = Sponsor.where('current=?', true)
-    @sponsors_past = Sponsor.where('current!=?', true)
+    @sponsors_current = Sponsor.where('current=?', true).order('updated_at desc')
+    @sponsors_past = Sponsor.where('current!=?', true).order('updated_at desc')
   end
 ```
 * Enter the command "sh testc.sh".  The test fails because of a missing template.
