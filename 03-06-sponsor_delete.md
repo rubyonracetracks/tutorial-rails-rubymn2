@@ -9,7 +9,7 @@ Enter the command "git checkout -b 03-06-sponsor_delete".
 ### Part A: Controller Level
 
 #### Controller Test
-* Edit the file test/controllers/sponsors_controller_test.rb.  Add the following code immediately after the definition of edit_sponsor_disabled:
+* Edit the file test/controllers/sponsors_controller_test.rb.  Add the following code immediately before the end of the definitions section:
 ```
   def delete_sponsor
     delete sponsor_path(@sponsor1)
