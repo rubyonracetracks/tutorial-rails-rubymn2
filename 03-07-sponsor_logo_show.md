@@ -29,7 +29,12 @@ git commit -m "Added the carrierwave and mini_magick gems for sponsor logos"
 ```
 
 ### .gitignore
-* Add the line "public/uploads/" to the end of the .gitignore file.  This is necessary to keep the uploaded and seeded pictures out of the source code.
+* Add the following lines "public/uploads/" to the end of the .gitignore file:
+```
+
+# Keep uploaded and seeded pictures out of the source code
+public/uploads/
+```
 * Enter the following commands:
 ```
 git add .
