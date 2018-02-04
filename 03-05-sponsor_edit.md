@@ -160,7 +160,7 @@ git commit -m "Added sponsor edit (controller level)"
 ```
   * Enter the command "sh test_app.sh".  The last two new integration tests fail.
   * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
-  * Enter the command "test1".  The same two integration tests fail.
+  * Enter the command "test1".  The same two integration tests fail.  One test fails because the "Edit Sponsor" button is missing, and the other test fails because the sponsor edit page is missing.
 
 #### Edit Sponsor Button
 * Edit the file app/views/sponsors/show.html.erb.  After the h1 header section, add the following code:
