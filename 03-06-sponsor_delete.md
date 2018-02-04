@@ -64,7 +64,7 @@ Enter the command "git checkout -b 03-06-sponsor_delete".
   def destroy
     Sponsor.find(params[:id]).destroy
     flash[:success] = 'Sponsor deleted'
-    redirect_to(admins_path)
+    redirect_to(sponsors_path)
   end
 ```
 * Enter the command "sh testc.sh".  All tests should now pass.
