@@ -110,7 +110,7 @@ git commit -m "Allowed the file uploading process to fill in the picture paramet
 ```
 
 ### Seeding the Database
-* Edit the file db/seeds.rb.  In the "Sponsor.create!" statement, add the parameter "remote_picture_url" with the value "Faker::Company.logo".
+* Edit the file db/seeds.rb.  In the create_sponsor function, add the parameter "remote_picture_url" with the value "Faker::Company.logo".
 * Go to the tmux window containing the Rails server.  Stop the server, and then enter the command "sh seed.sh; sh server.sh".
 * Use pgAdmin to view the sponsors in the database.  For the picture parameter, you should see the *.png file names of each sponsor logo.  These files are stored in the public/uploads/sponsor/picture/ directory.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
