@@ -109,7 +109,7 @@ Enter the command "git checkout -b 03-04-sponsor_add".
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the create action in the sponsor controller"
+git commit -m "Added the ability to add sponsors (controller level)"
 ```
 
 ### Part B: View Level
@@ -208,7 +208,7 @@ git commit -m "Added the create action in the sponsor controller"
 * Enter the command "test1".  Now only one test fails.  The reason is a missing template.
 
 #### Add Sponsor Page
-* Edit the blank file app/views/sponsors/new.html.erb and give it the following content:
+* Add the file app/views/sponsors/new.html.erb and give it the following content:
 ```
 <% provide(:title, 'Add Sponsor') %>
 
@@ -287,7 +287,7 @@ touch app/views/shared/_error_messages.html.erb
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the ability to add sponsors at the view level"
+git commit -m "Added the ability to add sponsors (view level)"
 git push origin 03-04-sponsor_add
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
