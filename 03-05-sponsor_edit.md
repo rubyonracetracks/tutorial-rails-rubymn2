@@ -8,7 +8,7 @@ Enter the command "git checkout -b 03-05-sponsor_edit".
 ### Part A: Controller Level
 
 #### Controller Test
-* Edit the file test/controllers/sponsors_controller_test.rb.  Add the following code immediately after the definition of create_sponsor_disabled:
+* Edit the file test/controllers/sponsors_controller_test.rb.  Add the following code just before the end of the definitions section:
 ```
   def edit_sponsor
     patch sponsor_path(@sponsor1),
