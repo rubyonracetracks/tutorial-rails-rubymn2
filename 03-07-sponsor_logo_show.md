@@ -96,7 +96,7 @@ git commit -m "Added the picture parameter to the sponsor model"
 ```
 
 ### Updating the Sponsor Model
-* Edit the file app/models/sponsor.rb.  Add the following line immediately before the last "end" statement:
+* Edit the file app/models/sponsor.rb.  Add the following lines immediately before the last "end" statement:
 ```
   # Allows the file uploading process to fill in the picture parameter
   mount_uploader :picture, PictureUploader
