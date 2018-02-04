@@ -65,6 +65,7 @@ Enter the command "git checkout -b 03-06-sponsor_delete".
     Sponsor.find(params[:id]).destroy
     flash[:success] = 'Sponsor deleted'
     redirect_to(admins_path)
+  end
 ```
 * Enter the command "sh testc.sh".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
