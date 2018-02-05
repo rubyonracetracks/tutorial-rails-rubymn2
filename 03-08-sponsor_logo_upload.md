@@ -115,6 +115,7 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
 ### Sponsor Controller
 * Edit the file app/controllers/sponsors_controller.rb. In the sponsor_params definition, add ":picture" to the list of keys.
 * Enter the command "test1".  All tests should now pass.
+* Enter the command "sh kill_spring.sh".  If you skip this step, tests will fail.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
