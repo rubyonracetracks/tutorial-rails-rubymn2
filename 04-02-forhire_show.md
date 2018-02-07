@@ -36,14 +36,6 @@ Enter the command "git checkout -b 04-02-forhire_show".
   resources :forhires, only: [:show]
   # END: forhire section
 ```
-* Add the following line just before the line "Rails.application.routes.draw do"
-```
-# rubocop:disable Metrics/BlockLength
-```
-* Add the following line just after the last end statement:
-```
-# rubocop:enable Metrics/BlockLength
-```
 * Enter the command "sh testc.sh".  The new controller test fails because of missing routes.  (The forhire objects are not yet provided.)
 
 #### Test Helper
