@@ -151,7 +151,7 @@ end
 * Enter the following commands:
 ```
 git add .
-git commit -m "Updated the seeding script to add for hire profiles"
+git commit -m "Updated the seeding script to add forhire profiles"
 git push origin 04-01-forhire_model
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
