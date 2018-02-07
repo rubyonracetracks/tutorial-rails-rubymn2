@@ -87,7 +87,7 @@ git commit -m "Added the forhire object"
     end
   end
 ```
-* Enter the command "sh testm.sh".  All 8 tests fail because forhires is undefined.
+* Enter the command "sh testm.sh".  All 8 tests fail because forhires is undefined in the user model.
 * Edit the file app/models/user.rb.  At the end of the public section, add the following line:
 ```
   has_many :forhires, dependent: :destroy
