@@ -21,10 +21,7 @@ rails generate model forhire description:text email:string title:string user:ref
 * Please note that if you don't do things right, you will be bombarded with a long cascade of cryptic error messages about PostgreSQL foreign key violations.  Neglecting the above change in the migration script is one factor that will lead to this.
 * Enter the command "rails db:migrate".
 * Enter the command "sh testm.sh".  You will get a long cascade of error messages about PostgreSQL foreign key violations.  The other factor that leads to this is the initial default test fixtures of the for_hire class, which belong to user objects that are not provided in the user test fixtures.
-* Blank out the for_hires test fixtures by entering the following command:
-```
-echo '' > test/fixtures/forhires.yml
-```
+* Remove the forhires test fixtures by entering the command "rm test/fixtures/forhires.yml".
 * Edit the app/models/forhire.rb file.  Add the line "#" just before the line "class ForHire < ApplicationRecord".
 * Enter the command "sh testm.sh".  All tests should pass.  You'll fill in the test fixtures later.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
