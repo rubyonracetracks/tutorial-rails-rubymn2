@@ -10,7 +10,7 @@ Enter the command "git checkout -b 04-01-forhire_model".
 ### Adding the ForHire Object
 * Enter the following command:
 ```
-rails generate model forhire blurb:text email:string title:string user:references
+rails generate model forhire description:text email:string title:string user:references
 ```
 * Note that the "user:references" portion of the above command connects the new for_hire object to a user object.  (The for_hire object belongs to the user object.)
 * In the db/migrate/[timestamp]_create_forhires.rb file, add the following line just before the second to last "end" statement (after the create_table loop):
@@ -39,7 +39,7 @@ git commit -m "Added the forhire object"
 ```
   def setup
     @user = users(:connery)
-    @fh = @user.forhires.create(blurb: 'I stopped Blofeld 4 times!',
+    @fh = @user.forhires.create(description: 'I stopped Blofeld 4 times!',
                                 email: 'first_bond@rubyonracetracks.com',
                                 title: 'James Bond 1962-1971')
   end
@@ -48,8 +48,8 @@ git commit -m "Added the forhire object"
     assert @fh.valid?
   end
 
-  test 'must have blurb' do
-    @fh.blurb = ''
+  test 'must have description' do
+    @fh.description = ''
     assert_not @fh.valid?
   end
 
@@ -63,10 +63,10 @@ git commit -m "Added the forhire object"
     assert_not @fh.valid?
   end
 
-  test 'blurb should be too long' do
-    @fh.blurb = 'a' * 4096
+  test 'description should not be too long' do
+    @fh.description = 'a' * 4096
     assert_not @fh.valid?
-    @fh.blurb = 'a' * 4095
+    @fh.description = 'a' * 4095
     assert @fh.valid?
   end
 
@@ -99,7 +99,7 @@ git commit -m "Added the forhire object"
 * Edit the app/models/for_hire.rb file.  Just before the "end" statement, add the following code:
 ```
   validates :user_id, presence: true
-  validates :blurb, presence: true, length: { maximum: 4095 }
+  validates :description, presence: true, length: { maximum: 4095 }
   validates :email, presence: true, length: { maximum: 255 }
   validates :title, presence: true, length: { maximum: 255 }
 ```
@@ -125,14 +125,14 @@ puts 'Creating forhires'
 def create_forhire(user_n, n)
   t = "Title #{n}: #{Faker::Name.title}"
   e = Faker::Internet.email
-  b = "Blurb #{n}: #{Faker::Lorem.paragraph}"
-  @fh = user_n.forhires.create(title: t, email: e, blurb: b)
+  d = "Description #{n}: #{Faker::Lorem.paragraph}"
+  @fh = user_n.forhires.create(title: t, email: e, description: d)
 end
 
 title1 = 'Galactic Traveler'
 email1 = 'ellie_arroway@projectargus.org'
-blurb1 = 'I traveled around the galaxy in a dodecahedron.'
-user1.forhires.create(title: title1, email: email1, blurb: blurb1)
+desc1 = 'I traveled around the galaxy in a dodecahedron.'
+user1.forhires.create(title: title1, email: email1, description: desc1)
 
 # Other users
 n = 0

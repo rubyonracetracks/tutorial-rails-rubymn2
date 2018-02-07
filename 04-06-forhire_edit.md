@@ -11,7 +11,7 @@ Enter the command "git checkout -b 04-06-forhire_edit".
 ```
   def edit_forhire
     patch forhire_path(@fh_connery),
-          params: { forhire: { blurb: 'I stopped Largo twice!',
+          params: { forhire: { description: 'I stopped Largo twice!',
                                email: 'bond1983@rubyonracetracks.com',
                                title: 'James Bond 1983' } }
   end
@@ -187,8 +187,8 @@ git commit -m "Added forhire edit (controller level)"
       </div>
 
       <div class="field">
-        <%= f.label :blurb, 'Background Statement' %><br />
-        <%= f.text_area :blurb, rows: 15 %>
+        <%= f.label :description, 'Background Statement' %><br />
+        <%= f.text_area :description, rows: 15 %>
       </div>
 
       <%= f.submit "Submit", class: "btn btn-primary" %>

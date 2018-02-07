@@ -109,7 +109,7 @@ git commit -m "Added the forhire index capability (controller level)"
 <br>
 <%= link_to forhire.title, forhire %>, <%= raw(EmailMunger.encode(forhire.email)) %>
 <br>
-<%= forhire.blurb[0..140] %>
+<%= forhire.description[0..140] %>
 ```
 * Enter the command "test1".  Now only one test fails.  The forhire index page has the expected content, but the link to this page from the home page has not yet been added.
 

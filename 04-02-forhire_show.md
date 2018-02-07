@@ -65,22 +65,22 @@ def add_user_objects
 end
 
 def add_forhires
-  @fh_connery = @u1.forhires.create(blurb: 'I stopped Blofeld 4 times!',
+  @fh_connery = @u1.forhires.create(description: 'I stopped Blofeld 4 times!',
                                     email: 'first_bond@rubyonracetracks.com',
                                     title: 'James Bond 1962-1971')
-  @fh_lazenby = @u2.forhires.create(blurb: 'I was James Bond for one movie.',
+  @fh_lazenby = @u2.forhires.create(description: 'I was James Bond for one movie.',
                                     email: 'george_lazenby@rubyonracetracks.com',
                                     title: 'James Bond 1969')
-  @fh_moore = @u3.forhires.create(blurb: 'I made James Bond campier.',
+  @fh_moore = @u3.forhires.create(description: 'I made James Bond campier.',
                                   email: 'roger_moore@rubyonracetracks.com',
                                   title: 'James Bond 1973-1985')
-  @fh_dalton = @u4.forhires.create(blurb: 'I brought gritty realism to the Bond series.',
+  @fh_dalton = @u4.forhires.create(description: 'I brought gritty realism to the Bond series.',
                                    email: 'timothy_dalton@rubyonracetracks.com',
                                    title: 'James Bond 1987-1989')
-  @fh_brosnan = @u5.forhires.create(blurb: 'James Bond moved beyond the Cold War Era on my watch.',
+  @fh_brosnan = @u5.forhires.create(description: 'James Bond moved beyond the Cold War Era on my watch.',
                                     email: 'pierce_brosnan@rubyonracetracks.com',
                                     title: 'James Bond 1995-2002')
-  @fh_craig = @u6.forhires.create(blurb: 'I rebooted James Bond.',
+  @fh_craig = @u6.forhires.create(description: 'I rebooted James Bond.',
                                   email: 'daniel_craig@rubyonracetracks.com',
                                   title: 'James Bond 2006-')
 end
@@ -210,7 +210,7 @@ git commit -m "Added the forhire show capability (controller level)"
 <br><br>
 Email: <%= raw(EmailMunger.encode(@forhire.email)) %>
 <br><br>
-<%= @forhire.blurb %>
+<%= @forhire.description %>
 ```
 * Enter the command "test1".  The first new integration test passes, but the other 3 fail because the expected content is not present on the user profile page.
 
@@ -227,7 +227,7 @@ Email: <%= raw(EmailMunger.encode(@forhire.email)) %>
       <h3>Profile</h3>
       Title: <%= link_to @forhire.title, forhire_path(@forhire) %>
       <br>
-      <%= @forhire.blurb[0..140] %>
+      <%= @forhire.description[0..140] %>
       <br>
     <% end %>
     <% # END: forhire section %>

@@ -14,10 +14,10 @@ Enter the command "git checkout -b 04-05-forhire_create".
   def create_forhire
     title1 = 'Master Villain'
     email1 = 'ernst_stavro_blofeld@example.com'
-    blurb1 = 'I am out to take over the world!'
+    desc1 = 'I am out to take over the world!'
     post forhires_path, params: { forhire: { title: title1,
                                              email: email1,
-                                             blurb: blurb1 } }
+                                             description: desc1 } }
   end
 
   def create_forhire_disabled
@@ -76,7 +76,7 @@ Enter the command "git checkout -b 04-05-forhire_create".
   # rubocop:enable Metrics/LineLength
 
   def forhire_params
-    params.require(:forhire).permit(:title, :email, :blurb)
+    params.require(:forhire).permit(:title, :email, :description)
   end
   # END: private section
 ```
@@ -218,8 +218,8 @@ git commit -m "Added the forehire create capability (controller level)"
       </div>
 
       <div class="field">
-        <%= f.label :blurb, 'Background Statement' %><br />
-        <%= f.text_area :blurb, placeholder: "Enter background statement here...", rows: 15 %>
+        <%= f.label :description, 'Background Statement' %><br />
+        <%= f.text_area :description, placeholder: "Enter background statement here...", rows: 15 %>
       </div>
 
       <%= f.submit "Submit", class: "btn btn-primary" %>
