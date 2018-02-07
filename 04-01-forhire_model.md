@@ -125,7 +125,7 @@ puts 'Creating forhires'
 def create_forhire(user_n, n)
   t = "Title #{n}: #{Faker::Name.title}"
   e = Faker::Internet.email
-  d = "Description #{n}: #{Faker::Lorem.paragraph}"
+  d = "Description #{n}: #{Faker::Lorem.paragraph(10)}"
   @fh = user_n.forhires.create(title: t, email: e, description: d)
 end
 
