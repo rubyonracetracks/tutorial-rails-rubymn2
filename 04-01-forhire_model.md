@@ -105,7 +105,7 @@ git commit -m "Added the forhire object"
 * Enter the following commands:
 ```
 git add .
-git commit -m "Passes the forehire model tests"
+git commit -m "Passes the forhire model tests"
 ```
 
 ### Seeding
