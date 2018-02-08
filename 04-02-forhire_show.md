@@ -53,10 +53,6 @@ require File.expand_path('../../test/setup_objects.rb', __FILE__)
 # rubocop:disable Metrics/LineLength
 
 def add_user_objects
-  add_forhires
-end
-
-def add_forhires
   @fh_connery = @u1.forhires.create(description: 'I stopped Blofeld 4 times!',
                                     email: 'first_bond@rubyonracetracks.com',
                                     title: 'James Bond 1962-1971')
