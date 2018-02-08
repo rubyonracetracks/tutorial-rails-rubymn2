@@ -190,9 +190,8 @@ Email: <%= raw(EmailMunger.encode(@forhire.email)) %>
 <br><br>
 <%= @forhire.description %>
 ```
-* Enter the command "test1".  The first new integration test passes, but the other 3 fail because the expected content is not present on the user profile page.
-
-
+* Enter the command "test1".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
