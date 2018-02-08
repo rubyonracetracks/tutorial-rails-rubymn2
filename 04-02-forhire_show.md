@@ -144,13 +144,6 @@ git commit -m "Added the forhire show capability (controller level)"
     assert page.has_link?('George Lazenby', href: user_path(@u2))
   end
 
-  def check_user_pages
-    visit user_path(@u1)
-    assert page.has_link?('James Bond 1962-1971', href: forhire_path(@fh_connery))
-    visit user_path(@u2)
-    assert page.has_link?('James Bond 1969', href: forhire_path(@fh_lazenby))
-  end
-
   test 'visitor sees the expected content on pages' do
     check_forhire_pages
     visit forhire_path(@fh_connery)
@@ -162,19 +155,16 @@ git commit -m "Added the forhire show capability (controller level)"
   test 'user sees the expected content on pages' do
     login_as(@u1, scope: :user)
     check_forhire_pages
-    check_user_pages
   end
 
   test 'regular admin sees the expected content on pages' do
     login_as(@a4, scope: :admin)
     check_forhire_pages
-    check_user_pages
   end
 
   test 'super admin sees the expected content on pages' do
     login_as(@a1, scope: :admin)
     check_forhire_pages
-    check_user_pages
   end
 ```
 * Enter the command "sh test_app.sh".  All 4 new integration tests fail.
@@ -202,26 +192,7 @@ Email: <%= raw(EmailMunger.encode(@forhire.email)) %>
 ```
 * Enter the command "test1".  The first new integration test passes, but the other 3 fail because the expected content is not present on the user profile page.
 
-#### User Profile Page
-* Edit the file app/controllers/users_controller.rb.  At the end of the "def show" definition, add the following line:
-```
-    @forhire = Forhire.where("user_id=#{@user.id}").first
-```
-* Enter the command "sh testc.sh".  (This step is necessary to make sure that the above change doesn't break the user controller.)  All tests should pass.
-* Edit the file app/views/users/show.html.erb.  Add the following code after the delete button section:
-```
-    <% # BEGIN: forhire section %>
-    <% if Forhire.where("user_id=#{@user.id}").any? %>
-      <h3>Profile</h3>
-      Title: <%= link_to @forhire.title, forhire_path(@forhire) %>
-      <br>
-      <%= @forhire.description[0..140] %>
-      <br>
-    <% end %>
-    <% # END: forhire section %>
-```
-* Enter the command "test1".  All test should pass.
-* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+
 
 ### Wrapping Up
 * Enter the following commands:
