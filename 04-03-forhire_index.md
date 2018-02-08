@@ -92,12 +92,12 @@ git commit -m "Added the forhire index capability (controller level)"
 
 <h1>For Hire Index</h1>
 
-<%= will_paginate %>
+<%= paginate @forhires %>
 
 <%= render @forhires %>
 <hr>
 
-<%= will_paginate %>
+<%= paginate @forhires %>
 ```
 * Create the file app/views/forhires/_forhire.html.erb with the following content:
 ```
