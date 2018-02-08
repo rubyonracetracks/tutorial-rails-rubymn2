@@ -52,16 +52,6 @@ git commit -m "Added the forhire index capability (controller level)"
 ```
   test 'The forhire index page has the expected content' do
     visit forhires_path
-    assert page.has_css?('title', text: full_title('For Hire Index'),
-                                  visible: false)
-    assert page.has_css?('h1', text: 'For Hire Index')
-    assert page.has_link?('James Bond 1962-1971', href: forhire_path(@fh_connery))
-    assert page.has_link?('James Bond 1969', href: forhire_path(@fh_lazenby))
-    assert page.has_link?('James Bond 1973-1985', href: forhire_path(@fh_moore))
-    assert page.has_link?('James Bond 1987-1989', href: forhire_path(@fh_dalton))
-    assert page.has_link?('James Bond 1995-2002', href: forhire_path(@fh_brosnan))
-    assert page.has_link?('James Bond 2006-', href: forhire_path(@fh_craig))
-
     assert_text 'Sean Connery'
     assert_text 'I stopped Blofeld 4 times!'
     assert_text 'George Lazenby'
@@ -74,11 +64,28 @@ git commit -m "Added the forhire index capability (controller level)"
     assert_text 'James Bond moved beyond the Cold War Era on my watch.'
     assert_text 'Daniel Craig'
     assert_text 'I rebooted James Bond.'
-  end
 
-  test 'The header provides access to the forhire index page' do
-    visit root_path
-    assert page.has_link?('For Hire', href: forhires_path)
+    # Verify that index page provides access to profile pages
+    assert page.has_css?('title', text: full_title('For Hire Index'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'For Hire Index')
+    assert page.has_link?('James Bond 1962-1971', href: forhire_path(@fh_connery))
+    assert page.has_link?('James Bond 1969', href: forhire_path(@fh_lazenby))
+    assert page.has_link?('James Bond 1973-1985', href: forhire_path(@fh_moore))
+    assert page.has_link?('James Bond 1987-1989', href: forhire_path(@fh_dalton))
+    assert page.has_link?('James Bond 1995-2002', href: forhire_path(@fh_brosnan))
+    assert page.has_link?('James Bond 2006-', href: forhire_path(@fh_craig))
+  
+    # Verify that root page provides access to index page
+    click_on 'Home'
+    assert page.has_link?('For Hire', href: admins_path)
+  
+    # Verify that the second page of the index works
+    click_on 'For Hire Index'
+    first(:link, '2').click
+    assert page.has_css?('title', text: full_title('Admin Index'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'Admin Index')
   end
 ```
 * Enter the command "sh test_app.sh".  Your 2 new integration tests fail.
