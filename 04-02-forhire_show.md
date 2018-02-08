@@ -45,7 +45,7 @@ require File.expand_path('../../test/setup_objects.rb', __FILE__)
 ```
 * Edit the test/test_helper.rb file.  Just before the end of the definition of setup_universal function, add the following line:
 ```
-    add_user_objects
+  add_user_objects
 ```
 * Add the file test/setup_objects.rb and give it the following code:
 ```
