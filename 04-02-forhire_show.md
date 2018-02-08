@@ -167,6 +167,7 @@ git commit -m "Added the forhire show capability (controller level)"
     check_forhire_pages
   end
 ```
+* Please note that unregistered visitors do not get a link to the user profile page, because they do not have access to it.
 * Enter the command "sh test_app.sh".  All 4 new integration tests fail.
 * Enter the command "alias test1='Command to run failed tests minus the TESTOPTS portion'".
 * Enter the command "test1".  The same 4 integration tests fail because the forhire profile page does not have the expected content.
