@@ -202,6 +202,7 @@ git commit -m "Added the forhire show capability (view level)"
 git push origin 04-02-forhire_show
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
+* Your app will be flagged by Hakiri for cross-site scripting for the display of the email address in app/views/forhires/show.html.erb.  Mark this as a false positive.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
 * Enter the following commands:
 ```
