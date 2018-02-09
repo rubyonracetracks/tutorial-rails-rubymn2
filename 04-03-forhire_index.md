@@ -81,7 +81,7 @@ git commit -m "Added the forhire index capability (controller level)"
     assert page.has_link?('For Hire', href: forhires_path)
   
     # Verify that the second page of the index works
-    click_on 'For Hire Index'
+    click_on 'For Hire'
     first(:link, '2').click
     assert page.has_css?('title', text: full_title('Admin Index'),
                                   visible: false)
