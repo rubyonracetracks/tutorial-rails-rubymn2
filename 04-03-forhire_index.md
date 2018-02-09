@@ -70,9 +70,8 @@ end
 * Enter the command "rails generate integration_test forhire_index".
 * Edit the file test/integration/forhire_index_test.rb.  Replace everything between "class ForhireIndexTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
-  add_extra_forhires
-
   test 'The forhire index page has the expected content' do
+    add_extra_forhires
     visit forhires_path
     assert_text 'Sean Connery'
     assert_text 'I stopped Blofeld 4 times!'
