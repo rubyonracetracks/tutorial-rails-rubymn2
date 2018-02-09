@@ -135,7 +135,7 @@ user1.forhires.create(title: title1, email: email1, description: desc1)
 n = 0
 users.each do |u|
   n += 1
-  next if rand < 0.7 || u == users.first
+  next if rand < 0.2 || u == users.first
   @fh1 = create_forhire(u, n)
 end
 
