@@ -78,7 +78,7 @@ git commit -m "Added the forhire index capability (controller level)"
   
     # Verify that root page provides access to index page
     click_on 'Home'
-    assert page.has_link?('For Hire', href: admins_path)
+    assert page.has_link?('For Hire', href: forhires_path)
   
     # Verify that the second page of the index works
     click_on 'For Hire Index'
