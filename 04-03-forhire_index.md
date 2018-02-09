@@ -88,9 +88,9 @@ git commit -m "Added the forhire index capability (controller level)"
     assert page.has_css?('h1', text: 'Admin Index')
   end
 ```
-* Enter the command "sh test_app.sh".  Your 2 new integration tests fail.
+* Enter the command "sh test_app.sh".  Your new integration test fails.
 * Enter the command "alias test1='(command to run the failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  The same 2 integration tests fail again because the expected content is not present.
+* Enter the command "test1".  The same integration test fails because the forhire index page does not have the expected content.
 
 #### Forhire Index Page
 * Fill in the blank app/views/forhires/index.html.erb file with the following code:
@@ -118,7 +118,7 @@ git commit -m "Added the forhire index capability (controller level)"
 <br>
 <%= forhire.description[0..140] %>
 ```
-* Enter the command "test1".  Now only one test fails.  The forhire index page has the expected content, but the link to this page from the home page has not yet been added.
+* Enter the command "test1".  The same integration test fails for a different reason.  The forhire index page has the expected content, but the link to this page from the home page has not yet been added.
 
 #### Header
 * Edit the file app/views/layouts/_header.html.erb.  Just before the beginning of the variable section, add the following line:
