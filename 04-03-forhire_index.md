@@ -47,10 +47,31 @@ git commit -m "Added the forhire index capability (controller level)"
 
 ### Part B: View Level
 
+#### Setup Objects Script
+* Edit the file test/setup_objects.rb.  Just after the last "end" statement, add the following code:
+```
+def add_extra_forhires
+  users = User.all
+  n = 0
+  users.each do |u|
+    n += 1
+    next if rand < 0.2 || u.forhires.count > 0
+    u.forhires.create(description: "I report on the day's stock market action",
+                      email: "forhire#{n}@example.com",
+                      title: "Daily stock market guru #{n}",
+                      created_at: 11.minutes.ago,
+                      updated_at: 10.minutes.ago)
+  end
+end
+```
+* Please note that the add_extra_forhires function is used only in the tests that require it.  Adding the extra for hire objects in every test would excessively slow down the testing process.
+
 #### Integration Test
 * Enter the command "rails generate integration_test forhire_index".
 * Edit the file test/integration/forhire_index_test.rb.  Replace everything between "class ForhireIndexTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
+  add_extra_forhires
+
   test 'The forhire index page has the expected content' do
     visit forhires_path
     assert_text 'Sean Connery'
@@ -84,9 +105,9 @@ git commit -m "Added the forhire index capability (controller level)"
     # Verify that the second page of the index works
     click_on 'For Hire'
     first(:link, '2').click
-    assert page.has_css?('title', text: full_title('Admin Index'),
+    assert page.has_css?('title', text: full_title('For Hire Index'),
                                   visible: false)
-    assert page.has_css?('h1', text: 'Admin Index')
+    assert page.has_css?('h1', text: 'For Hire Index')
   end
 ```
 * Enter the command "sh test_app.sh".  Your new integration test fails.
