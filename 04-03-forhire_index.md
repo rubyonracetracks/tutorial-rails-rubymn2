@@ -30,6 +30,7 @@ Enter the command "git checkout -b 04-03-forhire_index".
 ```
   def index
     @forhires = Forhire.order('updated_at DESC').page(params[:page]).per(50)
+    @forhires_count = Forhire.count
   end
 ```
 * Enter the command "sh testc.sh".  The test fails because of a missing template.
