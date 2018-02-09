@@ -56,7 +56,7 @@ def add_extra_forhires
   users.each do |u|
     n += 1
     next if rand < 0.2 || u.forhires.count > 0
-    u.forhires.create(description: "I report on the day's stock market action",
+    u.forhires.create(description: "I report on the day's stock market action.",
                       email: "forhire#{n}@example.com",
                       title: "Daily stock market guru #{n}",
                       created_at: 11.minutes.ago,
