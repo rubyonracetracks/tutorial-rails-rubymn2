@@ -119,6 +119,7 @@ end
 <% provide(:title, 'For Hire Index') %>
 
 <h1>For Hire Index</h1>
+Number of for hire profiles: <%= @forhires_count %>
 
 <%= paginate @forhires %>
 
