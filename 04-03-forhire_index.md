@@ -70,6 +70,7 @@ end
 * Enter the command "rails generate integration_test forhire_index".
 * Edit the file test/integration/forhire_index_test.rb.  Replace everything between "class ForhireIndexTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
+  # rubocop:disable Metrics/BlockLength
   test 'The forhire index page has the expected content' do
     add_extra_forhires
     visit forhires_path
@@ -96,11 +97,11 @@ end
     assert page.has_link?('James Bond 1987-1989', href: forhire_path(@fh_dalton))
     assert page.has_link?('James Bond 1995-2002', href: forhire_path(@fh_brosnan))
     assert page.has_link?('James Bond 2006-', href: forhire_path(@fh_craig))
-  
+
     # Verify that root page provides access to index page
     click_on 'Home'
     assert page.has_link?('For Hire', href: forhires_path)
-  
+
     # Verify that the second page of the index works
     click_on 'For Hire'
     first(:link, '2').click
@@ -108,6 +109,7 @@ end
                                   visible: false)
     assert page.has_css?('h1', text: 'For Hire Index')
   end
+  # rubocop:enable Metrics/BlockLength
 ```
 * Enter the command "sh test_app.sh".  Your new integration test fails.
 * Enter the command "alias test1='(command to run the failed tests minus the TESTOPTS portion)'".
