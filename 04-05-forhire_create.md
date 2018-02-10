@@ -106,6 +106,8 @@ git commit -m "Added the forehire create capability (controller level)"
 
 ### Part B: View Level
 
+Please note that a user who successfully adds a for hire profile is redirected to his/her profile page.  In a later chapter, you will add the for hire profile to the user profile page.  In this chapter, the focus is on providing the working "Add For Hire Profile" button to the forhire index page.
+
 #### Integration Test
 * Enter the command "rails generate integration_test forhire_create".
 * Edit the file test/integration/forhire_create_test.rb.  Replace everything between the line "class ForhireCreateTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
@@ -153,17 +155,15 @@ git commit -m "Added the forehire create capability (controller level)"
     fill_in('Background Statement', with: 'I am out to take over the world!')
     click_button('Submit')
 
-    assert page.has_css?('title', text: full_title('For Hire Index'),
+    assert page.has_css?('title', text: full_title('User: Ernst Blofeld'),
                                   visible: false)
-    assert page.has_css?('h1', text: 'For Hire Index')
-    assert_text 'ernst_stavro_blofeld@example.com'
-    assert_text 'I am out to take over the world!'
-    click_on 'Master Villain'
+    assert page.has_css?('h1', text: 'User: Ernst Blofeld')
 
-    assert page.has_css?('title',
-                         text: full_title('Ernst Blofeld: Master Villain'),
+    click_on 'Home'
+    click_on 'For Hire'
+    assert page.has_css?('title', text: full_title('For Hire Index'),
                          visible: false)
-    assert page.has_css?('h1', text: 'For Hire')
+    assert page.has_css?('h1', text: 'For Hire Index')
     assert_text 'Master Villain'
     assert_text 'ernst_stavro_blofeld@example.com'
     assert_text 'I am out to take over the world!'
