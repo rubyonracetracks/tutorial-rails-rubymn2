@@ -62,7 +62,7 @@ Enter the command "git checkout -b 04-05-forhire_create".
 #### Routing
 * Edit the file config/routes.rb.  Replace the line that begins with "resources :forhires" with the following:
 ```
-  resources :forhires, only: [:show, :index,  :create, :new] do
+  resources :forhires, only: [:show, :index, :create, :new] do
 ```
 * Enter the command "sh testc.sh".  The 5 tests fail because the create action could not be found..
 
@@ -110,7 +110,7 @@ Enter the command "git checkout -b 04-05-forhire_create".
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the forehire create capability (controller level)"
+git commit -m "Added the forhire create capability (controller level)"
 ```
 
 ### Part B: View Level
