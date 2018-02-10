@@ -64,7 +64,7 @@ Enter the command "git checkout -b 04-05-forhire_create".
 ```
   resources :forhires, only: [:show, :index,  :create, :new] do
 ```
-* Enter the command "test1".  The test fails because of a missing template.
+* Enter the command "sh testc.sh".  The 5 tests fail because the create action could not be found..
 
 #### Controller
 * Edit the file app/controllers/forhires_controller.rb.  Immediately after the line "class ForhiresController < ApplicationController", add the following code:
