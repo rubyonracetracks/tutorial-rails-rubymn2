@@ -10,8 +10,6 @@ Enter the command "git checkout -b 04-04-forhire_index_search".
 * Enter the command "rails generate integration_test forhire_search".
 * Edit the file test/integration/forhire_search_test.rb.  Replace everything between the line "class ForhireSearchTest < ActionDispatch::IntegrationTest" and the last end statement with the following code:
 ```
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
   test 'forhire search engine works' do
     add_extra_forhires
     visit forhires_path
@@ -19,7 +17,6 @@ Enter the command "git checkout -b 04-04-forhire_index_search".
     select 'Title', from: 'q[c][0][a][0][name]'
     select 'contains', from: 'q[c][0][p]'
     fill_in('q[c][0][v][0][value]', with: 'Daily stock market guru')
-    puts page.body
     click_on 'Search'
     assert page.has_css?('title', text: full_title('For Hire Index'),
                                   visible: false)
@@ -29,8 +26,6 @@ Enter the command "git checkout -b 04-04-forhire_index_search".
                                   visible: false)
     assert page.has_css?('h1', text: 'For Hire Index')
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 ```
 * Enter the command "sh test_app.sh".  The new integration test will fail.
 * Enter the command "alias test1='(Command to run failed tests minus the TESTOPTS portion)'".
@@ -98,10 +93,10 @@ Enter the command "git checkout -b 04-04-forhire_index_search".
     collection { post :search, to: 'forhires#index' }
   end
 ```
-* Enter the command "test1".  Now the test fails because the Search button is not recognized.
+* Enter the command "test1".  The integration test should now pass, but you're not quite finished.
 
 ### app/assets/javascripts/forhires.coffee
-Add the following code to the end of the file app/assets/javascripts/forhires.coffee:
+* To allow the "Add conditions" and "remove" buttons to work, add the following code to the end of the file app/assets/javascripts/forhires.coffee:
 ```
 
 jQuery ->
@@ -115,9 +110,10 @@ jQuery ->
     $(this).before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
 ```
+* Enter the command "test1".  The test should pass.
 
 ### Model
-Edit the file app/models/forhire.rb.  Add the following code just before the last "end" statement:
+* It's time to limit the number of parameters available for searching the forhire database.  Edit the file app/models/forhire.rb.  Add the following code just before the last "end" statement:
 ```
   # Limit the parameters available for searching the forhire database
   RANSACKABLE_ATTRIBUTES = %w[title description email].freeze
@@ -125,8 +121,18 @@ Edit the file app/models/forhire.rb.  Add the following code just before the las
     RANSACKABLE_ATTRIBUTES + _ransackers.keys
   end
 ```
+* Enter the command "test1".  The test should pass.
 
-### Rails Best Practices
+### Correcting offenses
+* Enter the command "sh git_check.sh".  All tests should pass, but there will be offenses.
+* In the config/routes.rb file, add the following line just before the line "Rails.application.routes.draw do":
+```
+# rubocop:disable Metrics/BlockLength
+```
+* In the config/routes.rb file, add the following line just after the last end statement:
+```
+# rubocop:enable Metrics/BlockLength
+```
 * Edit the file config/rails_best_practices.yml.  For MoveModelLogicIntoModelCheck, add the file app/controllers/forhires_controller.rb to the list of ignored files.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
