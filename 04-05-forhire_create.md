@@ -115,7 +115,7 @@ git commit -m "Added the forhire create capability (controller level)"
 
 ### Part B: View Level
 
-Please note that a user who successfully adds a for hire profile is redirected to his/her profile page.  In a later chapter, you will add the for hire profile to the user profile page.  In this chapter, the focus is on providing the working "Add For Hire Profile" button to the forhire index page.
+Please note that a user who successfully adds a for hire profile is redirected to his/her profile page.  In a later chapter, you will add the for hire profile and the "Add For Hire Profile" button (whichever is relevant) on the user profile page.  In this chapter, the focus is on providing the working "Add For Hire Profile" button on the forhire index page.
 
 #### Integration Test
 * Enter the command "rails generate integration_test forhire_create".
