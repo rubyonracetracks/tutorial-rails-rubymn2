@@ -123,7 +123,7 @@ jQuery ->
 ```
 * Enter the command "test1".  The test should pass.
 
-### Correcting offenses
+### Correcting Offenses
 * Enter the command "sh git_check.sh".  All tests should pass, but there will be offenses.
 * In the config/routes.rb file, add the following line just before the line "Rails.application.routes.draw do":
 ```
@@ -135,6 +135,9 @@ jQuery ->
 ```
 * Edit the file config/rails_best_practices.yml.  For MoveModelLogicIntoModelCheck, add the file app/controllers/forhires_controller.rb to the list of ignored files.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+
+### Trying Out the Search Engine
+In your local browser, view your app and try out the forhire search engine.
 
 ### Wrapping Up
 * Enter the following commands:
