@@ -63,7 +63,17 @@ Enter the command "git checkout -b 04-04-forhire_index_search".
   <div class="actions"><%= f.submit "Search" %></div>
 <% end %>
 ```
-* Enter the command "test1".  Now your test fails because no ransack search object is provided.  The next step is to update the forhire controller
+* Enter the command "test1".  Now your test fails because search_forhires_path is undefined.
+
+### Routing
+* Edit the config/routes.rb file.  Replace the line that begins with "resources :forhires" with the following:
+```
+  resources :forhires, only: [:show, :index] do
+    root to: 'forhires#index'
+    collection { post :search, to: 'forhires#index' }
+  end
+```
+* Enter the command "test1". Now your test fails because no ransack search object is provided.
 
 ### Controller
 * Edit the file app/controllers/forhires_controller.rb and replace the definition of the index action with the following code:
@@ -83,17 +93,7 @@ Enter the command "git checkout -b 04-04-forhire_index_search".
   end
   # rubocop:enable Metrics/AbcSize
 ```
-* Enter the command "test1".  Now the test fails because search_forhires_path is undefined.
-
-### Routing
-* Edit the config/routes.rb file.  Replace the line that begins with "resources :forhires" with the following:
-```
-  resources :forhires, only: [:show, :index] do
-    root to: 'forhires#index'
-    collection { post :search, to: 'forhires#index' }
-  end
-```
-* Enter the command "test1".  The integration test should now pass, but you're not quite finished.
+* Enter the command "test1".  Now your test should pass, but you're not quite done yet.
 
 ### app/assets/javascripts/forhires.coffee
 * To allow the "Add conditions" and "remove" buttons to work, add the following code to the end of the file app/assets/javascripts/forhires.coffee:
