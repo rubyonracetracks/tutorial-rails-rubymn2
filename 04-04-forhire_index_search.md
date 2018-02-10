@@ -83,8 +83,8 @@ Enter the command "git checkout -b 04-04-forhire_index_search".
     @search.build_condition if @search.conditions.empty?
     @search.build_sort if @search.sorts.empty?
     @forhires = @search.result
-    @forhires = @forhires.order('updated_at desc').page(params[:page]).per(50)
     @forhires_count = @forhires.count
+    @forhires = @forhires.order('updated_at desc').page(params[:page]).per(50)
   end
   # rubocop:enable Metrics/AbcSize
 ```
@@ -117,43 +117,7 @@ Edit the file app/controllers/forhires_controller.rb.  Replace the definition of
     collection { post :search, to: 'forhires#index' }
   end
 ```
-* 
-
-
-### Index Page
-Edit the file app/views/forhires/index.html.erb.  Add the following code immediately after the heading "For Hire Index":
-```
-<br><br>
-
-<%= search_form_for @search, url: search_forhires_path, method: :post do |f| %>
-  <%= f.condition_fields do |c| %>
-    <%= render "condition_fields", f: c %>
-  <% end %>
-  <p><%= link_to_add_fields "Add Conditions", f, :condition %></p>
-  <div class="field">
-    Sort:
-    <%= f.sort_fields do |s| %>
-      <%= s.sort_select %>
-    <% end %>
-  </div>
-  <div class="actions"><%= f.submit "Search" %></div>
-<% end %>
-```
-
-### Fields and Conditions
-Add the file app/views/forhires/_condition_fields.html.erb.  Give it the following content:
-```
-<div class="field">
-  <%= f.attribute_fields do |a| %>
-    <%= a.attribute_select associations: [:category] %>
-  <% end %>
-  <%= f.predicate_select %>
-  <%= f.value_fields do |v| %>
-    <%= v.text_field :value %>
-  <% end %>
-  <%= link_to "remove", '#', class: "remove_fields" %>
-</div>
-```
+* Enter the command "test1".  Now the test fails because the Search button is not recognized.
 
 ### app/assets/javascripts/forhires.coffee
 Add the following code to the end of the file app/assets/javascripts/forhires.coffee:
