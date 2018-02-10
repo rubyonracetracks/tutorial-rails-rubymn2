@@ -57,7 +57,14 @@ Enter the command "git checkout -b 04-05-forhire_create".
     create_forhire_disabled
   end
 ```
-* Enter the command "sh testc.sh".  All 5 new tests fail because the create action is not provided by the forhire controller.
+* Enter the command "sh testc.sh".  All 5 new tests fail because the expected routing is not provided.
+
+#### Routing
+* Edit the file config/routes.rb.  Replace the line that begins with "resources :forhires" with the following:
+```
+  resources :forhires, only: [:show, :index,  :create, :new] do
+```
+* Enter the command "test1".  The test fails because of a missing template.
 
 #### Controller
 * Edit the file app/controllers/forhires_controller.rb.  Immediately after the line "class ForhiresController < ApplicationController", add the following code:
@@ -187,13 +194,6 @@ Please note that a user who successfully adds a for hire profile is redirected t
 <% # END: add forhire button %>
 ```
 * Enter the command "test1".  Two tests fail.  One test fails because the Forhire object with the id of "new" could not be found.  This is because new_forhire_path has not been defined.
-
-#### Routing
-* Edit the file config/routes.rb.  Replace the line that begins with "resources :forhires, only:" with the following:
-```
-  resources :forhires, only: [:show, :index, :create, :new]
-```
-* Enter the command "test1".  The test fails because of a missing template.
 
 #### Form For Adding Forhire Profile
 * Enter the command "touch app/views/forhires/new.html.erb".  
