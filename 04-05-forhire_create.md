@@ -11,6 +11,7 @@ Enter the command "git checkout -b 04-05-forhire_create".
 #### Controller Test
 * Edit the file test/controllers/forhires_controller_test.rb.  Add the following code immediately after the line "class ForhiresControllerTest < ActionDispatch::IntegrationTest":
 ```
+  # BEGIN: definitions
   def create_forhire
     title1 = 'Master Villain'
     email1 = 'ernst_stavro_blofeld@example.com'
@@ -26,6 +27,7 @@ Enter the command "git checkout -b 04-05-forhire_create".
     end
     assert_redirected_to root_path
   end
+  # END: definitions
 ```
 * Edit the file test/controllers/forhires_controller_test.rb.  Add the following code immediately before the last "end" statement:
 ```
