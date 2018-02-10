@@ -147,6 +147,7 @@ git commit -m "Added the forhire index search capability"
 git push origin 04-04-forhire_index_search
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
+* Hakiri will flag the app/views/forhires/index.html.erb file for a dynamic render path because of parameter values in the path name.  Mark this as a false positive.
 * When you see that your app passes in continuous integration, accept this pull request to merge it with the master branch.
 * Enter the following commands:
 ```
