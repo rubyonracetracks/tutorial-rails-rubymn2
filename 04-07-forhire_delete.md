@@ -9,6 +9,81 @@ Enter the command "git checkout -b 04-07-forhire_delete".
 ### Part A: Controller Level
 
 #### Controller Test
+* Edit the file test/controllers/forhires_controller_test.rb.  Add the following code immediately before the end of the definitions section:
+```
+  def delete_forhire
+    delete forhire_path(@fh_lazenby)
+  end
+
+  def delete_forhire_disabled
+    assert_no_difference 'Forhire.count' do
+      delete_forhire
+      assert_redirected_to root_path
+    end
+  end
+```
+* Edit the file test/controllers/forhires_controller_test.rb.  Add the following code immediately before the last "end" statement:
+```
+  test 'should redirect delete when not logged in' do
+    delete_forhire_disabled
+  end
+
+  test 'should redirect delete when logged in as the wrong user' do
+    sign_in @u1, scope: :user
+    assert_difference 'Sponsor.count', -1 do
+      delete_forhire
+    end
+  end
+
+  test 'should not redirect delete when logged in as the right user' do
+    sign_in @u2, scope: :user
+    assert_difference 'Forhire.count', -1 do
+      delete_forhire
+    end
+  end
+
+  test 'should not redirect delete when logged in as a regular admin' do
+    sign_in @a4, scope: :admin
+    assert_difference 'Forhire.count', -1 do
+      delete_forhire
+    end
+  end
+
+  test 'should not redirect delete when logged in as a super admin' do
+    sign_in @a1, scope: :admin
+    assert_difference 'Forhire.count', -1 do
+      delete_forhire
+    end
+  end
+```
+* Enter the command "sh testc.sh".  All 5 new controller tests fail because of a missing route.
+
+#### Routing
+* In the file config/routes.rb, replace the line containing "resources :sponsors" with the following:
+```
+  resources :forhires, only: [:show, :index, :create, :new, :update, :edit, :destroy] do
+```
+* Enter the command "sh testc.sh".  All 5 new controller tests fail because the destroy action is not defined in the forhire controller.
+
+#### Forhire Controller
+* Edit the file app/controllers/forhires_controller.rb.  Add the following line just before the end of the before_action section:
+```
+  before_action :may_delete_forhire, only: [:destroy]
+```
+* Just before the end of the action section in app/controllers/forhires_controller.rb, add the following code:
+```
+  def destroy
+    Forhire.find(params[:id]).destroy
+    flash[:success] = 'For hire profile deleted'
+    redirect_to(forhires_path)
+  end
+```
+* Enter the command "sh testc.sh".  All tests should now pass.
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
+* Enter the following commands:
+```
+git add .
+git commit -m "Added sponsor delete (controller level)"
 
 ### Part B: View Level
 
