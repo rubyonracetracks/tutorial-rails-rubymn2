@@ -74,9 +74,10 @@ Enter the command "git checkout -b 04-07-forhire_delete".
 * Just before the end of the action section in app/controllers/forhires_controller.rb, add the following code:
 ```
   def destroy
+    uid = Forhire.find(params[:id]).user_id
     Forhire.find(params[:id]).destroy
     flash[:success] = 'For hire profile deleted'
-    redirect_to user_path(current_user)
+    redirect_to user_path(user_path(uid))
   end
 ```
 * Just before the definition of forhire_params, add the following code:
