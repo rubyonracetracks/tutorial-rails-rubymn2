@@ -96,7 +96,7 @@ Enter the command "git checkout -b 04-07-forhire_delete".
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added sponsor delete (controller level)"
+git commit -m "Added forhire delete (controller level)"
 ```
 
 ### Part B: View Level
