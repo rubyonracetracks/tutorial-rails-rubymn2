@@ -7,7 +7,7 @@ Enter the command "git checkout -b 04-06-forhire_edit".
 ### Part A: Controller Level
 
 #### Controller Test
-* Edit the file test/controllers/forhires_controller_test.rb. Add the following code immediately after the definition of create_forhire_disabled:
+* Edit the file test/controllers/forhires_controller_test.rb. Add the following code immediately before the end of the definition section:
 ```
   def edit_forhire
     patch forhire_path(@fh_connery),
