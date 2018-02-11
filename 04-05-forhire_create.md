@@ -172,7 +172,7 @@ Please note that a user who successfully adds a for hire profile is redirected t
     click_on 'Home'
     click_on 'For Hire'
     assert page.has_css?('title', text: full_title('For Hire Index'),
-                         visible: false)
+                                  visible: false)
     assert page.has_css?('h1', text: 'For Hire Index')
     assert_text 'Master Villain'
     assert_text 'ernst_stavro_blofeld@example.com'
