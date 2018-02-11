@@ -59,11 +59,11 @@ Enter the command "git checkout -b 04-07-forhire_delete".
 ```
 * In the file test/controllers/forhires_controller_test.rb, add the following line immediately before "class ForhiresControllerTest < ActionDispatch::IntegrationTest":
 ```
-rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength
 ```
 * In the file test/controllers/forhires_controller_test.rb, add the following line immediately after the last "end" statement:
 ```
-rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength
 ```
 * Enter the command "sh testc.sh".  All 5 new controller tests fail because of a missing route.
 
