@@ -184,13 +184,14 @@ Please note that a user who successfully adds a for hire profile is redirected t
 * Enter the command "test1".  The same two integration tests fail.  Both tests fail because the link to add a new for hire profile is missing.
 
 #### For Hire Index
-* Edit the file app/views/forhires/index.html.erb. Immediately after the h1 heading near the top of the page, add the following code:
+* Edit the file app/views/forhires/index.html.erb. Immediately after the listing of number of for hire profiles, add the following code:
 ```
 <% # BEGIN: add forhire button %>
 <% if user_signed_in? && current_user.forhires.count < 1 %>
   <%= link_to "Add For Hire Profile", new_forhire_path,
               class: "btn btn-lg btn-primary"
     %>
+    <br>
 <% end %>
 <% # END: add forhire button %>
 ```
