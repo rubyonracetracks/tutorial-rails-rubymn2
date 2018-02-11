@@ -45,7 +45,7 @@ Enter the command "git checkout -b 04-05-forhire_create".
     assert_difference 'Forhire.count', 1 do
       create_forhire
     end
-    assert_redirected_to users_path(@u7)
+    assert_redirected_to user_path(@u7)
   end
 
   test 'should redirect create for regular admin' do
