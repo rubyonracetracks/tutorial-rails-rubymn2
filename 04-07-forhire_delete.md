@@ -30,15 +30,14 @@ Enter the command "git checkout -b 04-07-forhire_delete".
 
   test 'should redirect delete when logged in as the wrong user' do
     sign_in @u1, scope: :user
-    assert_difference 'Sponsor.count', -1 do
-      delete_forhire
-    end
+    delete_forhire_disabled
   end
 
   test 'should not redirect delete when logged in as the right user' do
     sign_in @u2, scope: :user
     assert_difference 'Forhire.count', -1 do
       delete_forhire
+      assert_redirected_to user_path(@u2)
     end
   end
 
@@ -46,6 +45,7 @@ Enter the command "git checkout -b 04-07-forhire_delete".
     sign_in @a4, scope: :admin
     assert_difference 'Forhire.count', -1 do
       delete_forhire
+      assert_redirected_to user_path(@u2)
     end
   end
 
@@ -53,6 +53,7 @@ Enter the command "git checkout -b 04-07-forhire_delete".
     sign_in @a1, scope: :admin
     assert_difference 'Forhire.count', -1 do
       delete_forhire
+      assert_redirected_to user_path(@u2)
     end
   end
 ```
