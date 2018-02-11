@@ -77,7 +77,7 @@ Enter the command "git checkout -b 04-07-forhire_delete".
     uid = Forhire.find(params[:id]).user_id
     Forhire.find(params[:id]).destroy
     flash[:success] = 'For hire profile deleted'
-    redirect_to user_path(user_path(uid))
+    redirect_to user_path(uid)
   end
 ```
 * Just before the definition of forhire_params, add the following code:
