@@ -69,7 +69,7 @@ Enter the command "git checkout -b 04-07-forhire_delete".
 #### Forhire Controller
 * Edit the file app/controllers/forhires_controller.rb.  Add the following line just before the end of the before_action section:
 ```
-  before_action :may_destroy_forhire, only: [:update]
+  before_action :may_destroy_forhire, only: [:destroy]
 ```
 * Just before the end of the action section in app/controllers/forhires_controller.rb, add the following code:
 ```
