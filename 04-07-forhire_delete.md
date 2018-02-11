@@ -82,6 +82,7 @@ Enter the command "git checkout -b 04-07-forhire_delete".
 * Just before the definition of forhire_params, add the following code:
 ```
   def correct_user
+    return false unless user_signed_in?
     current_user.id == Forhire.find(params[:id]).user_id
   end
   helper_method :correct_user
