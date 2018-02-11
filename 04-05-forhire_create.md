@@ -195,7 +195,7 @@ Please note that a user who successfully adds a for hire profile is redirected t
 <% end %>
 <% # END: add forhire button %>
 ```
-* Enter the command "test1".  Two tests fail.  One test fails because the Forhire object with the id of "new" could not be found.  This is because new_forhire_path has not been defined.
+* Enter the command "test1".  One test fails because the form for entering a for hire profile is absent.
 
 #### Form For Adding Forhire Profile
 * Enter the command "touch app/views/forhires/new.html.erb".  
