@@ -68,7 +68,7 @@ Enter the command "git checkout -b 04-07-forhire_delete".
 #### Forhire Controller
 * Edit the file app/controllers/forhires_controller.rb.  Add the following line just before the end of the before_action section:
 ```
-  before_action :may_delete_forhire, only: [:destroy]
+  before_action :may_destroy_forhire, only: [:update]
 ```
 * Just before the end of the action section in app/controllers/forhires_controller.rb, add the following code:
 ```
@@ -78,12 +78,21 @@ Enter the command "git checkout -b 04-07-forhire_delete".
     redirect_to(forhires_path)
   end
 ```
+* Just before the definition of forhire_params, add the following code:
+```
+  def may_destroy_forhire
+    return redirect_to(root_path) unless user_signed_in? || admin_signed_in?
+    return redirect_to(root_path) if current_user.id != Forhire.find(params[:id]).id
+  end
+  helper_method :may_destroy_forhire
+```
 * Enter the command "sh testc.sh".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 * Enter the following commands:
 ```
 git add .
 git commit -m "Added sponsor delete (controller level)"
+```
 
 ### Part B: View Level
 
