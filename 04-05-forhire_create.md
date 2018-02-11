@@ -238,7 +238,7 @@ Please note that a user who successfully adds a for hire profile is redirected t
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the ability to add forhires at the view level"
+git commit -m "Added the forhire create capability (view level)"
 git push origin 04-05-forhire_create
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
