@@ -60,7 +60,7 @@ Enter the command "git checkout -b 04-07-forhire_delete".
 * Enter the command "sh testc.sh".  All 5 new controller tests fail because of a missing route.
 
 #### Routing
-* In the file config/routes.rb, replace the line containing "resources :sponsors" with the following:
+* In the file config/routes.rb, replace the line containing "resources :forhires" with the following:
 ```
   resources :forhires, only: [:show, :index, :create, :new, :update, :edit, :destroy] do
 ```
