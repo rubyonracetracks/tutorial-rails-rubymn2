@@ -210,7 +210,7 @@ git commit -m "Added forhire edit (controller level)"
 * Enter the following commands:
 ```
 git add .
-git commit -m "Added the ability to edit forhires at the view level"
+git commit -m "Added forhire edit (view level)"
 git push origin 04-06-forhire_edit
 ```
 * Go to the GitHub repository and click on the "Compare and pull request" button for this branch.
