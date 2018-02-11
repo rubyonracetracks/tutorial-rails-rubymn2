@@ -155,9 +155,9 @@ git commit -m "Added forhire edit (controller level)"
 ```
   * Enter the command "sh test_app.sh".  Two of the new integration tests fail.
   * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
-  * Enter the command "test1".  The same two integration tests fail.  One test fails because the correct user does not get the expected edit button.  The other test fails because the forhire edit page is missing.
+  * Enter the command "test1".  The same two integration tests fail.  One test fails because the correct user does not get the expected edit button.  The other test fails because of a missing template.
 
-#### Edit Forhire Button
+#### Edit Forhire Button  
 * Edit the file app/views/forhires/show.html.erb. Immediately after the h1 heading near the top of the page, add the following code:
 ```
 <% # BEGIN: edit forhire button %>
@@ -169,10 +169,12 @@ git commit -m "Added forhire edit (controller level)"
 <% end %>
 <% # END: edit forhire button %>
 ```
-* Enter the command "test1".  Now only one test fails, and it's because the forhire edit page is still missing.
+* Enter the command "test1".  Now only one test fails, and it's because of a missing template.
 
 #### Edit Forhire Form
-* Create the file app/views/forhires/edit.html.erb.  Give it the following content:
+* Enter the command "touch app/views/forhires/edit.html.erb".
+* Enter the command "test1".  Now the test fails because the forhire edit page does not have the expected content.
+* Give the file app/views/forhires/edit.html.erb the following content:
 ```
 <% provide(:title, 'Edit For Hire Profile') %>
 
