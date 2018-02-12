@@ -111,6 +111,80 @@ git commit -m "Added forhire delete (controller level)"
 
 ### Part B: View Level
 
+#### Integration Test
+* Enter the command "rails generate integration_test forhire_delete".
+* In the file test/integration/forhire_delete_test.rb, replace everything between "class ForhireDeleteTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
+```
+  def no_delete_button
+    visit forhire_path(@fh_lazenby)
+    assert page.has_no_link?('Delete For Hire Profile', href: forhire_path(@fh_lazenby))
+  end
+
+  def gets_delete_button
+    visit forhire_path(@fh_lazenby)
+    assert page.has_link?('Delete For Hire Profile', href: forhire_path(@fh_lazenby))
+  end
+
+  def can_delete
+    gets_delete_button
+    assert_difference 'Forhire.count', -1 do
+      click_on 'Delete For Hire Profile'
+    end
+    assert_text 'For hire profile deleted'
+    assert page.has_css?('title', text: full_title('User: George Lazenby'),
+                                  visible: false)
+    assert page.has_css?('h1', text: 'User: George Lazenby',
+                               visible: false)
+  end
+
+  test 'visitor does not get the delete button' do
+    no_delete_button
+  end
+
+  test 'wrong user does not get the delete button' do
+    no_delete_button
+  end
+
+  test 'right user gets the delete button' do
+    gets_delete_button
+  end
+
+  test 'regular admin gets the delete button' do
+    gets_delete_button
+  end
+
+  test 'super admin gets the delete button' do
+    gets_delete_button
+  end
+
+  test 'right user can delete forhire' do
+    can_delete
+  end
+
+  test 'regular admin can delete forhire' do
+    can_delete
+  end
+
+  test 'super admin can delete forhire' do
+    can_delete
+  end
+```
+* Enter the command "sh test_app.sh".  The last 6 of your new integration tests fail.
+* Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
+* Enter the command "test1".  The same 6 tests fail because the delete button is missing.
+
+#### Adding the Delete Button
+* Edit the file app/views/forhires/show.html.erb. Immediately after the edit button, add the following code:
+```
+<% # BEGIN: delete forhire button %>
+<%= link_to "Delete For Hire Profile", @forhire, method: :delete,
+                                       data: { confirm: "Are you sure you wish to delete this for hire profile?" },
+                                       class: "btn btn-danger"
+%>
+<br><br>
+<% # END: delete forhire button %>
+```
+
 ### Wrapping Up
 * Enter the following commands:
 ```
