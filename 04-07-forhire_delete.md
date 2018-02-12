@@ -184,6 +184,8 @@ git commit -m "Added forhire delete (controller level)"
 <br><br>
 <% # END: delete forhire button %>
 ```
+* Enter the command "test1".  All tests should pass.
+* Enter the command "sh git_check.sh".  
 
 ### Wrapping Up
 * Enter the following commands:
