@@ -142,30 +142,37 @@ git commit -m "Added forhire delete (controller level)"
   end
 
   test 'wrong user does not get the delete button' do
+    login_as(@u1, scope: :user)
     no_delete_button
   end
 
   test 'right user gets the delete button' do
+    login_as(@u2, scope: :user)
     gets_delete_button
   end
 
   test 'regular admin gets the delete button' do
+    login_as(@a4, scope: :admin)
     gets_delete_button
   end
 
   test 'super admin gets the delete button' do
+    login_as(@a1, scope: :admin)
     gets_delete_button
   end
 
   test 'right user can delete forhire' do
+    login_as(@u2, scope: :user)
     can_delete
   end
 
   test 'regular admin can delete forhire' do
+    login_as(@a4, scope: :admin)
     can_delete
   end
 
   test 'super admin can delete forhire' do
+    login_as(@a1, scope: :admin)
     can_delete
   end
 ```
@@ -177,15 +184,26 @@ git commit -m "Added forhire delete (controller level)"
 * Edit the file app/views/forhires/show.html.erb. Immediately after the edit button, add the following code:
 ```
 <% # BEGIN: delete forhire button %>
-<%= link_to "Delete For Hire Profile", @forhire, method: :delete,
-                                       data: { confirm: "Are you sure you wish to delete this for hire profile?" },
-                                       class: "btn btn-danger"
-%>
-<br><br>
+<% @correct_user = false %>
+<% if user_signed_in? %>
+<%   @correct_user = true if current_user.id == Forhire.find(params[:id]).user_id %>
+<% end %>
+<% if @correct_user || admin_signed_in? %>
+  <%= link_to "Delete For Hire Profile", @forhire, method: :delete,
+                                         data: { confirm: "Are you sure you wish to delete this for hire profile?" },
+                                         class: "btn btn-danger"
+  %>
+  <br><br>
+<% end %>
 <% # END: delete forhire button %>
 ```
 * Enter the command "test1".  All tests should pass.
-* Enter the command "sh git_check.sh".  
+* Enter the command "sh git_check.sh".  All tests should pass, but Rails Best Practices flags app/views/forhires/show.html.erb and tells you that you should move the logic into the controller.
+* In the file config/rails_best_practices.yml, replace the line "MoveCodeIntoControllerCheck: { }" with the following:
+```
+MoveCodeIntoControllerCheck: { ignored_files: ['app/views/forhires/show.html.erb'] }
+```
+* Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
 * Enter the following commands:
