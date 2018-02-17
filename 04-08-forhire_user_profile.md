@@ -77,16 +77,21 @@ Enter the command "git checkout -b 04-08-user_forhire".
 ```
 
 ### User Controller
-* Edit the file app/controllers/users_controller.rb.  At the end of the "def show" definition, add the following line:
+* Edit the file app/controllers/users_controller.rb.  At the end of the "def show" definition, add the following lines:
 ```
     @forhire = Forhire.where("user_id=#{@user.id}").first
+    @correct_user = correct_user
+```
+* Edit the file app/controllers/users_controller.rb.  Immediately after the defintion of correct_user, add the following line:
+```
+  helper_method :correct_user
 ```
 * Enter the command "sh testc.sh".  (This step is necessary to make sure that the above change doesn't break the user controller.)  All tests should pass.
 
 ### User Profile Page
 * Edit the file app/views/users/show.html.erb.  Add the following code after the delete button section:
 ```
-    <% # BEGIN: forhire section %>
+    <% # BEGIN: forhire display %>
     <% if Forhire.where("user_id=#{@user.id}").any? %>
       <h3>Profile</h3>
       Title: <%= link_to @forhire.title, forhire_path(@forhire) %>
@@ -94,7 +99,17 @@ Enter the command "git checkout -b 04-08-user_forhire".
       <%= @forhire.description[0..140] %>
       <br>
     <% end %>
-    <% # END: forhire section %>
+    <% # END: forhire %>
+
+    <% # BEGIN: add forhire button %>
+    <% if correct_user == true && Forhire.where("user_id=#{@user.id}").nil? %>
+      <%= link_to "Add For Hire Profile", new_forhire_path,
+                  class: "btn btn-lg btn-primary"
+      %>
+      <br>
+    <% end %>
+    <% # END: add forhire button %>
+
 ```
 * Enter the command "test1".  All test should pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
