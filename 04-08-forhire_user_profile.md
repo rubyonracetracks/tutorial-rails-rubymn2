@@ -24,25 +24,22 @@ Enter the command "git checkout -b 04-08-user_forhire".
 
   test 'user sees the expected content on pages' do
     login_as(@u1, scope: :user)
-    check_forhire_pages
     check_user_pages
   end
 
   test 'regular admin sees the expected content on pages' do
     login_as(@a4, scope: :admin)
-    check_forhire_pages
     check_user_pages
   end
 
   test 'super admin sees the expected content on pages' do
     login_as(@a1, scope: :admin)
-    check_forhire_pages
     check_user_pages
   end
 
   test 'correct user without for hire can create for hire profile' do
     login_as(@u8, scope: :user)
-    visit users_path(@u8)
+    visit user_path(@u8)
     click_on 'Add For Hire Profile'
     assert page.has_css?('title', text: full_title('Add Your For Hire Profile'),
                                   visible: false)
@@ -51,7 +48,7 @@ Enter the command "git checkout -b 04-08-user_forhire".
     fill_in('Email', with: 'bandit@rubyonracetracks.com')
     fill_in('Background Statement', with: 'I can smuggle Coors Beer east bound and down!')
     click_button('Submit')
-    assert_page.has_css?('h3', text: 'Profile')
+    assert page.has_css?('h3', text: 'Profile')
     assert_text 'I can smuggle Coors Beer east bound and down!'
   end
 
@@ -75,6 +72,9 @@ Enter the command "git checkout -b 04-08-user_forhire".
     check_no_create_button
   end
 ```
+* Enter the command "sh test_app.sh".  4 tests fail.
+* Enter the command "alias test1='Command to run failed tests minus the TESTOPTS portion'".
+* Enter the command "test1".  The same 4 tests fail again.  Three tests fail because the user profile page does not display the for hire profile.  One test fails because the "Add For Hire Profile" button is not present.
 
 ### User Controller
 * Edit the file app/controllers/users_controller.rb.  At the end of the "def show" definition, add the following lines:
@@ -88,6 +88,7 @@ Enter the command "git checkout -b 04-08-user_forhire".
 ```
 * Enter the command "sh testc.sh".  (This step is necessary to make sure that the above change doesn't break the user controller.)  All tests should pass.
 
+
 ### User Profile Page
 * Edit the file app/views/users/show.html.erb.  Add the following code after the delete button section:
 ```
@@ -99,13 +100,12 @@ Enter the command "git checkout -b 04-08-user_forhire".
       <%= @forhire.description[0..140] %>
       <br>
     <% end %>
-    <% # END: forhire %>
+    <% # END: forhire display %>
 
     <% # BEGIN: add forhire button %>
-    <% if correct_user == true && Forhire.where("user_id=#{@user.id}").nil? %>
+    <% if @correct_user == true && Forhire.where("user_id=#{@user.id}").empty? %>
       <%= link_to "Add For Hire Profile", new_forhire_path,
-                  class: "btn btn-lg btn-primary"
-      %>
+                  class: "btn btn-lg btn-primary" %>
       <br>
     <% end %>
     <% # END: add forhire button %>
