@@ -38,8 +38,7 @@ git commit -m "Added the project object"
     @p = @user.projects.create(title: 'Anti-SPECTRE',
                                description: "Blow up Blofeld's hideout",
                                source_code_url: url_s,
-                               deployed_url: url_d
-                               )
+                               deployed_url: url_d)
   end
 
   test 'should be valid' do
