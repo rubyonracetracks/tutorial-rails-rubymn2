@@ -1,5 +1,5 @@
 # Unit 4
-## Chapter 4: For Hire Model
+## Chapter 1: For Hire Model
 
 ### Special Note
 In this app, there should be only one For Hire profile per user.  This limit will be enforced at the controller level in a later chapter.  I was unable to get the has_one association to work and could not find any good examples on how to do this.  Thus, I was forced to use the tried-and-true has_many association instead.  Attempts to limit the number of For Hire profiles per user at the model level did not pan out even though old StackOverflow posts suggested that this was possible.
