@@ -58,6 +58,8 @@ Enter the command "git checkout -b 05-02-project_show".
   @p5 = @u6.projects.create(title: 'Quantum of Solace',
                             description: 'Get revenge for the death of Vesper Lynd.')
 ```
+* In the file test/setup_objects.rb, add the line "# rubocop:disable Metrics/AbcSize" just before the beginning of the definition of add_user_objects.
+* In the file test/setup_objects.rb, add the line "# rubocop:enable Metrics/AbcSize" just after the end of the definition of add_user_objects.
 * Enter the command "sh testc.sh".  Now the test fails because the "show" action is not provided in the project controller.
 
 #### Controller
