@@ -127,7 +127,7 @@ git commit -m "Added the project show capability (controller level)"
     assert_text 'Source Code URL:'
     assert_text 'Deployed URL:'
     assert page.has_link?('ttps://github.com/pbrosnan/goldeneye',
-                           href: 'ttps://github.com/pbrosnan/goldeneye')
+                           href: 'https://github.com/pbrosnan/goldeneye')
     assert page.has_link?('http://www.goldeneye.com',
                            href: 'http://www.goldeneye.com')
 
@@ -211,7 +211,7 @@ git commit -m "Added the project show capability (controller level)"
 ```
 <% provide(:title, "Project: #{@project.title}") %>
 
-<h1>Project: #{@project.title}</h1>
+<h1>Project: <%= @project.title %></h1>
 
 <% # BEGIN: name and title of user %>
 <% if admin_signed_in? || user_signed_in? %>
@@ -221,9 +221,18 @@ git commit -m "Added the project show capability (controller level)"
 <% end %>
 <% # END: name and title of user %>
 <br><br>
-Source Code URL: <%= @project.source_code_url %>
+Description: <%= @project.description %>
 <br><br>
-Deployed URL: <%= @project.deployed_url %>
+
+<% if @project.source_code_url.nil? == false %>
+  Source Code URL: <%= link_to "#{@project.source_code_url}", @project.source_code_url %>
+  <br><br>
+<% end %>
+
+<% if @project.deployed_url.nil? == false %>
+  Deployed URL: <%= link_to "#{@project.deployed_url}", @project.deployed_url %>
+  <br><br>
+<% end %>
 ```
 * Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
