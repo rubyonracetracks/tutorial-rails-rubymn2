@@ -154,7 +154,7 @@ Number of projects: <%= @projects_count %>
 * Create the file app/views/projects/_project.html.erb with the following content:
 ```
 <hr>
-<h3><%= project.title %></h3>
+<h4><%= link_to "#{project.title}", project_path(project) %></h4>
 <% user_f = User.where(id: "#{project.user_id}").first %>
 <%= user_f.first_name %> <%= user_f.last_name %>
 <br>
