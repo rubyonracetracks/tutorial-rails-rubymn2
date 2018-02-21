@@ -120,7 +120,7 @@ git commit -m "Passes the project model tests"
 ##########################
 puts 'Creating projects'
 def create_project(user_n, n)
-  t = "Title #{n}: #{Faker::Name.title}"
+  t = "Title #{n}: #{Faker::Company.catch_phrase}"
   url_s = Faker::Internet.url
   url_d = Faker::Internet.url
   d = "Description #{n}: #{Faker::Lorem.paragraph(10)}"
