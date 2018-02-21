@@ -101,9 +101,9 @@ git commit -m "Added the project show capability (controller level)"
     assert_text 'Source Code URL:'
     assert_text 'Deployed URL:'
     assert page.has_link?('https://github.com/rmoore/kananga',
-                           href: 'https://github.com/rmoore/kananga')
+                          href: 'https://github.com/rmoore/kananga')
     assert page.has_link?('http://www.kananga.com',
-                           href: 'http://www.kananga.com')
+                          href: 'http://www.kananga.com')
 
     visit project_path(@p2)
     assert page.has_css?('title',
@@ -114,9 +114,9 @@ git commit -m "Added the project show capability (controller level)"
     assert_text 'Source Code URL:'
     assert_text 'Deployed URL:'
     assert page.has_link?('https://github.com/rmoore/scaramanga',
-                           href: 'https://github.com/rmoore/scaramanga')
+                          href: 'https://github.com/rmoore/scaramanga')
     assert page.has_link?('http://www.scaramanga.com',
-                           href: 'http://www.scaramanga.com')
+                          href: 'http://www.scaramanga.com')
 
     visit project_path(@p3)
     assert page.has_css?('title',
@@ -127,9 +127,9 @@ git commit -m "Added the project show capability (controller level)"
     assert_text 'Source Code URL:'
     assert_text 'Deployed URL:'
     assert page.has_link?('ttps://github.com/pbrosnan/goldeneye',
-                           href: 'https://github.com/pbrosnan/goldeneye')
+                          href: 'https://github.com/pbrosnan/goldeneye')
     assert page.has_link?('http://www.goldeneye.com',
-                           href: 'http://www.goldeneye.com')
+                          href: 'http://www.goldeneye.com')
 
     visit project_path(@p4)
     assert page.has_css?('title',
@@ -140,9 +140,9 @@ git commit -m "Added the project show capability (controller level)"
     assert_text 'Source Code URL:'
     assert_text 'Deployed URL:'
     assert page.has_link?('https://github.com/pbrosnan/carver',
-                           href: 'https://github.com/pbrosnan/carver')
+                          href: 'https://github.com/pbrosnan/carver')
     assert page.has_link?('http://www.carvernewsnetwork.com',
-                           href: 'http://www.carvernewsnetwork.com')
+                          href: 'http://www.carvernewsnetwork.com')
 
     visit project_path(@p5)
     assert page.has_css?('title',
@@ -153,7 +153,6 @@ git commit -m "Added the project show capability (controller level)"
     assert_not page.has_text?('Source Code URL:')
     assert_not page.has_text?('Deployed URL:')
   end
-  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
 
   def check_project_for_link
@@ -168,6 +167,7 @@ git commit -m "Added the project show capability (controller level)"
     visit project_path(@p5)
     assert page.has_link?('Daniel Craig', href: user_path(@u6))
   end
+  # rubocop:enable Metrics/AbcSize
 
   test 'visitor sees the expected content on pages' do
     check_project_pages
