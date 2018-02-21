@@ -12,15 +12,15 @@ Enter the command "git checkout -b 04-01-forhire_model".
 ```
 rails generate model forhire description:text email:string title:string user:references
 ```
-* Note that the "user:references" portion of the above command connects the new for_hire object to a user object.  (The for_hire object belongs to the user object.)
+* Note that the "user:references" portion of the above command connects the new forhire object to a user object.  (The forhire object belongs to the user object.)
 * In the db/migrate/[timestamp]_create_forhires.rb file, add the following line just before the second to last "end" statement (after the create_table loop):
 ```
     add_index :forhires, [:user_id, :created_at]
 ```
-* Please note that the above migration uses the combination of the creation time and the ID of the associated user to index the for_hires objects.
+* Please note that the above migration uses the combination of the creation time and the ID of the associated user to index the forhires objects.
 * Please note that if you don't do things right, you will be bombarded with a long cascade of cryptic error messages about PostgreSQL foreign key violations.  Neglecting the above change in the migration script is one factor that will lead to this.
 * Enter the command "rails db:migrate".
-* Enter the command "sh testm.sh".  You will get a long cascade of error messages about PostgreSQL foreign key violations.  The other factor that leads to this is the initial default test fixtures of the for_hire class, which belong to user objects that are not provided in the user test fixtures.
+* Enter the command "sh testm.sh".  You will get a long cascade of error messages about PostgreSQL foreign key violations.  The other factor that leads to this is the initial default test fixtures of the forhire class, which belong to user objects that are not provided in the user test fixtures.
 * Remove the forhires test fixtures by entering the command "rm test/fixtures/forhires.yml".  For reasons that will be explained later, forhires test fixtures will not be used.
 * Edit the app/models/forhire.rb file.  Add the line "#" just before the line "class ForHire < ApplicationRecord".
 * Enter the command "sh testm.sh".  All tests should pass.
@@ -93,7 +93,7 @@ git commit -m "Added the forhire object"
   has_many :forhires, dependent: :destroy
 ```
 * Enter the command "sh testm.sh".  The first and last tests now pass, but the other 6 still fail.
-* Edit the app/models/for_hire.rb file.  Just before the "end" statement, add the following code:
+* Edit the app/models/forhire.rb file.  Just before the "end" statement, add the following code:
 ```
   validates :user_id, presence: true
   validates :description, presence: true, length: { maximum: 4095 }

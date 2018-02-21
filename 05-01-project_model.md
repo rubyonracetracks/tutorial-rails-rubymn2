@@ -9,7 +9,7 @@ Enter the command "git checkout -b 05-01-project_model".
 ```
 rails generate model project title:string source_code_url:string deployed_url:string description:text user:references
 ```
-* Like the for_hire object, the project object belongs to the user object.
+* Like the forhire object, the project object belongs to the user object.
 * In the db/migrate/[timestamp]_create_projects.rb file, add the following line just before the second to last "end" statement (after the create_table loop):
 ```
     add_index :projects, [:user_id, :created_at]
@@ -17,7 +17,7 @@ rails generate model project title:string source_code_url:string deployed_url:st
 * Please note that the above migration uses the combination of the creation time and the ID of the associated user to index the project objects.
 * Please note that if you don't do things right, you will be bombarded with a long cascade of cryptic error messages about PostgreSQL foreign key violations.  Neglecting the above change in the migration script is one factor that will lead to this.
 * Enter the command "rails db:migrate".
-* Enter the command "sh testm.sh".  You will get a long cascade of error messages about PostgreSQL foreign key violations.  The other factor that leads to this is the initial default test fixtures of the for_hire class, which belong to user objects that are not provided in the user test fixtures.
+* Enter the command "sh testm.sh".  You will get a long cascade of error messages about PostgreSQL foreign key violations.  The other factor that leads to this is the initial default test fixtures of the forhire class, which belong to user objects that are not provided in the user test fixtures.
 * Remove the project test fixtures by entering the command "rm test/fixtures/projects.yml".  Again, this is necessary to avoid the PostgreSQL foreign key violations.
 * Edit the app/models/project.rb file.  Add the line "#" just before the line "class Project < ApplicationRecord".
 * Enter the command "sh testm.sh".  All tests should pass.
