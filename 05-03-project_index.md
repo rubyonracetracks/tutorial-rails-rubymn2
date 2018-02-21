@@ -154,19 +154,19 @@ Number of projects: <%= @projects_count %>
 * Create the file app/views/projects/_project.html.erb with the following content:
 ```
 <hr>
-<h3><%= @project.title %></h3>
-<% user_f = User.where(id: "#{@project.user_id}") %>
+<h3><%= project.title %></h3>
+<% user_f = User.where(id: "#{project.user_id}").first %>
 <%= user_f.first_name %> <%= user_f.last_name %>
 <br>
-<% if @project.source_code_url.nil? == false %>
-  Source Code URL: <%= link_to "#{@project.source_code_url}", @project.source_code_url %>
+<% if project.source_code_url.nil? == false %>
+  Source Code URL: <%= link_to "#{project.source_code_url}", project.source_code_url %>
   <br>
 <% end %>
-<% if @project.deployed_url.nil? == false %>
-  Deployed URL: <%= link_to "#{@project.deployed_url}", @project.deployed_url %>
+<% if project.deployed_url.nil? == false %>
+  Deployed URL: <%= link_to "#{project.deployed_url}", project.deployed_url %>
   <br>
 <% end %>
-<%= @project.description[0..140] %>
+<%= project.description[0..140] %>
 ```
 * Enter the command "test1".  The same integration test fails for a different reason.  The project index page has the expected content, but the link to this page from the home page has not yet been added.
 
