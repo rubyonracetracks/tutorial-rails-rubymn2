@@ -1,5 +1,5 @@
 # Unit 5
-## Chapter 1: For Hire Model
+## Chapter 1: Project Model
 
 ### New Branch
 Enter the command "git checkout -b 05-01-project_model".
