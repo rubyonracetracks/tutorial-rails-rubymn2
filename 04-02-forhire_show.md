@@ -155,16 +155,19 @@ git commit -m "Added the forhire show capability (controller level)"
   test 'user sees the expected content on pages' do
     login_as(@u1, scope: :user)
     check_forhire_pages
+    check_forhire_for_link
   end
 
   test 'regular admin sees the expected content on pages' do
     login_as(@a4, scope: :admin)
     check_forhire_pages
+    check_forhire_for_link
   end
 
   test 'super admin sees the expected content on pages' do
     login_as(@a1, scope: :admin)
     check_forhire_pages
+    check_forhire_for_link
   end
 ```
 * Please note that unregistered visitors do not get a link to the user profile page, because they do not have access to it.
