@@ -50,6 +50,9 @@ git commit -m "Added the project index capability (controller level)"
 #### Setup Objects Script
 * Edit the file test/setup_objects.rb.  Just after the last "end" statement, add the following code:
 ```
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/LineLength
 def add_extra_projects
   users = User.all
   n = 0
@@ -64,6 +67,9 @@ def add_extra_projects
                       updated_at: 10.minutes.ago)
   end
 end
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/LineLength
 ```
 * Please note that the add_extra_projects function is used only in the tests that require it.  Adding the extra project objects in every test would excessively slow down the testing process.
 
