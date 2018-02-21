@@ -125,14 +125,6 @@ jQuery ->
 
 ### Correcting Offenses
 * Enter the command "sh git_check.sh".  All tests should pass, but there will be offenses.
-* In the config/routes.rb file, add the following line just before the line "Rails.application.routes.draw do":
-```
-# rubocop:disable Metrics/BlockLength
-```
-* In the config/routes.rb file, add the following line just after the last end statement:
-```
-# rubocop:enable Metrics/BlockLength
-```
 * Edit the file config/rails_best_practices.yml.  For MoveModelLogicIntoModelCheck, add the file app/controllers/projects_controller.rb to the list of ignored files.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
 
