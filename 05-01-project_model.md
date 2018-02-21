@@ -161,7 +161,7 @@ end
 ########################
 ```
 * Go to the tmux window containing your local Rails server. Press Ctrl-C to stop the server, and then enter the command "sh seed.sh; sh server.sh".  Wait for these scripts to finish executing.
-* Use pgAdmin or the Rails sandbox to verify that the database has been seeded with the for hire profiles.
+* Use pgAdmin or the Rails sandbox to verify that the database has been seeded with the project profiles.
 * Enter the command "sh git_check.sh". All tests should pass, and there should be no offenses.
 
 ### Wrapping Up
