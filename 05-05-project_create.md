@@ -170,7 +170,7 @@ Please note that a user who successfully adds a project is redirected to his/her
     assert_text 'Smokey and the Bandit'
     assert_text 'total lack of respect for the law'
     assert page.has_link?('https://github.com/hneedham/smokey_and_the_bandit',
-                          href: 'https://github.com/hneedham/smokey_and_the_bandit')    
+                          href: 'https://github.com/hneedham/smokey_and_the_bandit')
     assert page.has_link?('http://www.smokeyandthebandit.com',
                           href: 'http://www.smokeyandthebandit.com')
   end
