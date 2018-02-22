@@ -76,6 +76,8 @@ Enter the command "git checkout -b 04-05-forhire_create".
 ```
 * Edit the file app/controllers/forhires_controller.rb.  Immediately before the last "end" statement, add the following code:
 ```
+  private
+
   # BEGIN: private section
   # rubocop:disable Metrics/LineLength
   def may_create_forhire
