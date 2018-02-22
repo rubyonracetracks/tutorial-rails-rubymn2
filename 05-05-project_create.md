@@ -55,7 +55,7 @@ Enter the command "git checkout -b 05-05-project_create".
     create_project_disabled
   end
 ```
-* Enter the command "sh testc.sh".  All 5 new tests fail because the expected routing is not provided.
+* Enter the command "sh testc.sh".  All 4 new tests fail because the expected routing is not provided.
 
 #### Routing
 * Edit the file config/routes.rb.  Replace the line that begins with "resources :projects" with the following:
