@@ -73,6 +73,8 @@ Enter the command "git checkout -b 05-05-project_create".
 ```
 * Edit the file app/controllers/projects_controller.rb.  Immediately before the last "end" statement, add the following code:
 ```
+  private
+
   # BEGIN: private section
   # rubocop:disable Metrics/LineLength
   def may_create_project
