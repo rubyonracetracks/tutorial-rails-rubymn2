@@ -213,17 +213,17 @@ Please note that a user who successfully adds a project is redirected to his/her
       </div>
 
       <div class="field">
-        <%= f.label :source_code_url %><br />
+        <%= f.label :source_code_url, 'Source Code URL' %><br />
         <%= f.text_field :source_code_url %>
       </div>
 
       <div class="field">
-        <%= f.label :deployed_url %><br />
+        <%= f.label :deployed_url, 'Deployed URL' %><br />
         <%= f.text_field :deployed_url %>
       </div>
 
       <div class="field">
-        <%= f.label :description, 'Background Statement' %><br />
+        <%= f.label :description %><br />
         <%= f.text_area :description, placeholder: "Enter background statement here...", rows: 15 %>
       </div>
 
