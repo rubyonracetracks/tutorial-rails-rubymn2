@@ -76,15 +76,14 @@ Enter the command "git checkout -b 05-05-project_create".
   private
 
   # BEGIN: private section
-  # rubocop:disable Metrics/LineLength
   def may_create_project
     return redirect_to(root_path) unless user_signed_in?
   end
   helper_method :may_create_project
-  # rubocop:enable Metrics/LineLength
 
   def project_params
-    params.require(:project).permit(:title, :source_code_url, :deployed_url, :description)
+    params.require(:project).permit(:title, :source_code_url,
+                                    :deployed_url, :description)
   end
   # END: private section
 ```
