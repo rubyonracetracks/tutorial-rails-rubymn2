@@ -147,7 +147,7 @@ git commit -m "Added project delete (controller level)"
   end
 
   test 'right user gets the delete button' do
-    login_as(@u2, scope: :user)
+    login_as(@u3, scope: :user)
     gets_delete_button
   end
 
@@ -162,7 +162,7 @@ git commit -m "Added project delete (controller level)"
   end
 
   test 'right user can delete project' do
-    login_as(@u2, scope: :user)
+    login_as(@u3, scope: :user)
     can_delete
   end
 
@@ -186,7 +186,7 @@ git commit -m "Added project delete (controller level)"
 <% # BEGIN: delete project button %>
 <% @correct_user = false %>
 <% if user_signed_in? %>
-<%   @correct_user = true if current_user.id == Project.find(params[:id]).user_id %>
+  <% @correct_user = true if current_user.id == Project.find(params[:id]).user_id %>
 <% end %>
 <% if @correct_user || admin_signed_in? %>
   <%= link_to "Delete Project", @project, method: :delete,
