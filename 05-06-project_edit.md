@@ -19,6 +19,7 @@ Enter the command "git checkout -b 05-06-project_edit".
                                description: desc1,
                                source_code_url: url_s,
                                deployed_url: url_d } }
+  end
 
   def edit_project_disabled
     edit_project
