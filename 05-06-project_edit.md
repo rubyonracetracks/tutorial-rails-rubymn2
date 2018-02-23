@@ -157,7 +157,7 @@ git commit -m "Added project edit (controller level)"
     assert page.has_link?('https://github.com/rmoore/avtak',
                           href: 'https://github.com/rmoore/avtak')
     assert page.has_link?('http://www.aviewtoakill.com',
-                          href: 'http://www.aviewtoakill.comm')
+                          href: 'http://www.aviewtoakill.com')
   end
 ```
   * Enter the command "sh test_app.sh".  Two of the new integration tests fail.
