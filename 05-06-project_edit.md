@@ -15,12 +15,10 @@ Enter the command "git checkout -b 05-06-project_edit".
     url_s = 'https://github.com/rmoore/fyeo'
     url_d = 'http://www.fyeo1981.com'
     patch project_path(@p2),
-          params: { project: { 
-                               title: title1,
+          params: { project: { title: title1,
                                description: desc1,
                                source_code_url: url_s,
-                               title: url_d } }
-  end
+                               deployed_url: url_d } }
 
   def edit_project_disabled
     edit_project
