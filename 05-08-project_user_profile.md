@@ -88,7 +88,6 @@ Enter the command "git checkout -b 05-08-user_project".
 * Edit the file app/controllers/users_controller.rb.  At the end of the "def show" definition, add the following lines:
 ```
     @projects = Project.where("user_id=#{@user.id}")
-    @correct_user = correct_user
 ```
 * Edit the file app/controllers/users_controller.rb.  Immediately after the defintion of correct_user, add the following line:
 ```
