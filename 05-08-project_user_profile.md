@@ -10,6 +10,7 @@ Enter the command "git checkout -b 05-08-user_project".
 * Enter the command "rails generate integration_test project_user_profile".
 * Edit the file test/integration/project_user_profile_test.rb.  Replace everything between the line "class ProjectUserProfileTest < ActionDispatch::IntegrationTest" and the last end statement with the following:
 ```
+  # rubocop:disable Metrics/AbcSize
   def check_user_pages
     visit user_path(@u2)
     assert_not page.has_text?('Projects')
@@ -22,6 +23,7 @@ Enter the command "git checkout -b 05-08-user_project".
     assert page.has_link?('GoldenEye', href: project_path(@p3))
     assert page.has_link?('Tomorrow Never Dies', href: project_path(@p4))
   end
+  # rubocop:enable Metrics/AbcSize
 
   def check_no_create_button
     visit users_path(@u4)
