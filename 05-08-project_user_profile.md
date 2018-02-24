@@ -119,7 +119,7 @@ Enter the command "git checkout -b 05-08-user_project".
     <% # END: project display %>
 
     <% # BEGIN: add project button %>
-    <% if @correct_user == true && Project.where("user_id=#{@user.id}").empty? %>
+    <% if @correct_user == true %>
       <%= link_to "Add Project", new_project_path,
                   class: "btn btn-lg btn-primary" %>
       <br>
