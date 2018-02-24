@@ -89,10 +89,6 @@ Enter the command "git checkout -b 05-08-user_project".
 ```
     @projects = Project.where("user_id=#{@user.id}")
 ```
-* Edit the file app/controllers/users_controller.rb.  Immediately after the defintion of correct_user, add the following line:
-```
-  helper_method :correct_user
-```
 * Enter the command "sh testc.sh".  (This step is necessary to make sure that the above change doesn't break the user controller.)  All tests should pass.
 
 
