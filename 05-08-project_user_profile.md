@@ -13,7 +13,7 @@ Enter the command "git checkout -b 05-08-user_project".
   # rubocop:disable Metrics/AbcSize
   def check_user_pages
     visit user_path(@u2)
-    assert_not page.has_text?('Projects')
+    assert_not page.has_css?('h3', text: 'Projects')
     visit user_path(@u3)
     assert page.has_css?('h3', text: 'Projects')
     assert page.has_link?('Live and Let Die', href: project_path(@p1))
@@ -55,7 +55,7 @@ Enter the command "git checkout -b 05-08-user_project".
     fill_in('Title', with: 'The Living Daylights')
     fill_in('Source Code URL', with: 'https://github.com/tdalton/tld')
     fill_in('Deployed URL', with: 'http://www.livingdaylights.com')
-    fill_in('Description', with: 'Help Koskov defect from the USSR.')
+    fill_in('Description', with: 'Help Koskov defect from the USSR!')
     click_button('Submit')
     assert_text 'The Living Daylights'
     assert_text 'Help Koskov defect from the USSR!'
@@ -111,11 +111,11 @@ Enter the command "git checkout -b 05-08-user_project".
           Deployed URL: <%= link_to "#{project.deployed_url}", project.deployed_url %>
           <br>
         <% end %>
-        <br>
         <%= project.description[0..140] %>
         </li>
       <% end %>
       </ul>
+    <% end %>
     <% # END: project display %>
 
     <% # BEGIN: add project button %>
@@ -125,7 +125,6 @@ Enter the command "git checkout -b 05-08-user_project".
       <br>
     <% end %>
     <% # END: add project button %>
-
 ```
 * Enter the command "test1".  All test should pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
