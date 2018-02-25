@@ -99,10 +99,9 @@ Enter the command "git checkout -b 06-02-opening_show".
 
   # BEGIN: private section
   def may_view_project
-    if user_signed_in? == false && admin_signed_in? == false
-      flash[:alert] = 'You must be logged in to view job openings.'
-      return redirect_to(new_user_session_path)
-    end
+    return if user_signed_in? || admin_signed_in?
+    flash[:alert] = 'You must be logged in to view job openings.'
+    redirect_to(new_user_session_path)
   end
   helper_method :may_view_project
   # END: private section
