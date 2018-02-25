@@ -78,8 +78,6 @@ Enter the command "git checkout -b 06-02-opening_show".
   @op5 = @u11.openings.create(title: 'Body Repair Technician',
                               description: 'Fix those police cars I keep wrecking')
 ```
-* In the file test/setup_objects.rb, add the line "# rubocop:disable Metrics/AbcSize" just before the beginning of the definition of add_user_objects.
-* In the file test/setup_objects.rb, add the line "# rubocop:enable Metrics/AbcSize" just after the end of the definition of add_user_objects.
 * Enter the command "sh testc.sh".  Now the test fails because the "show" action is not provided in the opening controller.
 
 #### Controller
