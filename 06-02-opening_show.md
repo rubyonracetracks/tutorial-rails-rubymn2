@@ -167,6 +167,21 @@ git commit -m "Added the opening show capability (controller level)"
   end
   # rubocop:enable Metrics/MethodLength
 
+  def check_redirect(proj)
+    visit opening_path(proj)
+    assert_text 'You must be logged in to view job openings.'
+    assert page.has_css?('title', text: full_title('User Login'), visible: false)
+    assert page.has_css?('h1', text: 'User Login')
+  end
+
+  test 'unregistered visitor is redirected to the user login page' do
+    check_redirect(@op1)
+    check_redirect(@op2)
+    check_redirect(@op3)
+    check_redirect(@op4)
+    check_redirect(@op5)
+  end
+
   test 'user sees the expected content on pages' do
     login_as(@u1, scope: :user)
     check_opening_pages
