@@ -53,7 +53,7 @@ Enter the command "git checkout -b 06-02-opening_show".
     opening_show_enabled
   end
 ```
-* Enter the command "sh testc.sh".  The new controller test fails because opening_path is undefined.
+* Enter the command "sh testc.sh".  All 4 new controller tests fail because opening_path is undefined.
 
 #### Routing
 * Edit the config/routes.rb file.  Just before the last "end" statement, add the following line:
@@ -62,7 +62,7 @@ Enter the command "git checkout -b 06-02-opening_show".
   resources :openings, only: [:show]
   # END: opening section
 ```
-* Enter the command "sh testc.sh".  The new controller test fails because of missing routes.  (The opening objects are not yet provided.)
+* Enter the command "sh testc.sh".  The tests fail because of missing routes.  (The opening objects are not yet provided.)
 
 #### Test Helper
 * In the file test/setup_objects.rb, add the following lines just before the end of the definition of add_user_objects:
@@ -78,7 +78,7 @@ Enter the command "git checkout -b 06-02-opening_show".
   @op5 = @u11.openings.create(title: 'Body Repair Technician',
                               description: 'Fix those police cars I keep wrecking')
 ```
-* Enter the command "sh testc.sh".  Now the test fails because the "show" action is not provided in the opening controller.
+* Enter the command "sh testc.sh".  Now the tests fail because the "show" action is not provided in the opening controller.
 
 #### Controller
 * Edit the file app/controllers/openings_controller.rb.  Add the line "#" immediately before the line "class OpeningsController < ApplicationController".
@@ -107,7 +107,7 @@ Enter the command "git checkout -b 06-02-opening_show".
   helper_method :may_view_project
   # END: private section
 ```
-* Enter the command "sh testc.sh". The controller test fails because of a missing template.
+* Enter the command "sh testc.sh". 3 tests fail because of a missing template.
 * Enter the command "touch app/views/openings/show.html.erb" to provide the template. (You'll add content to it later.)
 * Enter the command "sh testc.sh". All tests should now pass.
 * Enter the command "sh git_check.sh". All tests should pass, and there should be no offenses.
