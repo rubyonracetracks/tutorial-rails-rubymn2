@@ -200,10 +200,9 @@ git commit -m "Added the opening show capability (controller level)"
     check_opening_for_link
   end
 ```
-* Please note that unregistered visitors do not get a link to the user profile page, because they do not have access to it.
-* Enter the command "sh test_app.sh".  All 4 new integration tests fail.
+* Enter the command "sh test_app.sh".  All 3 new integration tests fail.
 * Enter the command "alias test1='Command to run failed tests minus the TESTOPTS portion'".
-* Enter the command "test1".  The same 4 integration tests fail because the opening profile page does not have the expected content.
+* Enter the command "test1".  The same 3 integration tests fail because the opening profile page does not have the expected content.
 
 #### Opening Profile Page
 * Fill in the blank app/views/openings/show.html.erb file with the following code:
@@ -217,7 +216,6 @@ Posted by: <%= link_to "#{@user.first_name} #{@user.last_name}", @user %>
 <br><br>
 Description: <%= @opening.description %>
 <br><br>
-
 ```
 * Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
