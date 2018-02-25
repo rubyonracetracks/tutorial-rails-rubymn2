@@ -34,7 +34,7 @@ git commit -m "Added the opening object"
   def setup
     @user = users(:justice)
     @op = @user.openings.create(title: 'Deputy',
-                                description: "Help catch the Bandit!")
+                                description: 'Help catch the Bandit!')
   end
 
   test 'should be valid' do
