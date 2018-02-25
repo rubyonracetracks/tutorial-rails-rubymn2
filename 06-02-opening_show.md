@@ -212,10 +212,8 @@ git commit -m "Added the opening show capability (controller level)"
 <h1>Job Opening: <%= @opening.title %></h1>
 
 Posted by: <%= link_to "#{@user.first_name} #{@user.last_name}", @user %>
-
 <br><br>
 Description: <%= @opening.description %>
-<br><br>
 ```
 * Enter the command "test1".  All tests should now pass.
 * Enter the command "sh git_check.sh".  All tests should pass, and there should be no offenses.
