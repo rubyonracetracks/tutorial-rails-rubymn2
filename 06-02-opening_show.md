@@ -12,6 +12,7 @@ Enter the command "git checkout -b 06-02-opening_show".
 * Enter the command "rm app/helpers/openings_helper.rb".
 * Edit the file test/controllers/openings_controller_test.rb.  Replace everything between the line "class OpeningsControllerTest < ActionDispatch::IntegrationTest" and the last "end" command with the following:
 ```
+  # BEGIN: definitions
   def opening_show_enabled
     get opening_path(@op1)
     assert_response :success
@@ -24,6 +25,7 @@ Enter the command "git checkout -b 06-02-opening_show".
     get opening_path(@op5)
     assert_response :success
   end
+  # END: definitions
 
   test 'unregistered visitor redirected to user login page' do
     get opening_path(@op1)
