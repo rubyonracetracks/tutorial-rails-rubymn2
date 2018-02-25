@@ -71,12 +71,12 @@ git commit -m "Added the opening object"
     end
   end
 ```
-* Enter the command "sh testm.sh".  All 5 tests fail because openings is undefined in the user model.
+* Enter the command "sh testm.sh".  All 6 tests fail because openings is undefined in the user model.
 * Edit the file app/models/user.rb.  At the end of the public section, add the following line:
 ```
   has_many :openings, dependent: :destroy
 ```
-* Enter the command "sh testm.sh".  The first and last tests now pass, but the other 3 still fail.
+* Enter the command "sh testm.sh".  The first and last tests now pass, but the other 4 still fail.
 * Edit the app/models/opening.rb file.  Just before the "end" statement, add the following code:
 ```
   validates :user_id, presence: true
