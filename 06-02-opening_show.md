@@ -155,7 +155,7 @@ git commit -m "Added the opening show capability (controller level)"
                          visible: false)
     assert page.has_css?('h1', text: 'Job Opening: Deputy')
     assert_text 'Catch that black Trans Am!'
-    assert page.has_link?('Buford Justice', href: user_path(@u11))
+    assert page.has_link?('Jackie Gleason', href: user_path(@u11))
 
     visit opening_path(@op5)
     assert page.has_css?('title',
@@ -163,7 +163,7 @@ git commit -m "Added the opening show capability (controller level)"
                          visible: false)
     assert page.has_css?('h1', text: 'Job Opening: Body Repair Technician')
     assert_text 'Fix those police cars I keep wrecking'
-    assert page.has_link?('Buford Justice', href: user_path(@u11))
+    assert page.has_link?('Jackie Gleason', href: user_path(@u11))
   end
   # rubocop:enable Metrics/MethodLength
 
