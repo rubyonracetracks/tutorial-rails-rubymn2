@@ -27,15 +27,15 @@ Enter the command "git checkout -b 06-02-opening_show".
 
   test 'unregistered visitor redirected to user login page' do
     get opening_path(@op1)
-    assert_redirected_to new_user_session
+    assert_redirected_to new_user_session_path
     get opening_path(@op2)
-    assert_redirected_to new_user_session
+    assert_redirected_to new_user_session_path
     get opening_path(@op3)
-    assert_redirected_to new_user_session
+    assert_redirected_to new_user_session_path
     get opening_path(@op4)
-    assert_redirected_to new_user_session
+    assert_redirected_to new_user_session_path
     get opening_path(@op5)
-    assert_redirected_to new_user_session
+    assert_redirected_to new_user_session_path
   end
 
   test 'user can access job openings' do
