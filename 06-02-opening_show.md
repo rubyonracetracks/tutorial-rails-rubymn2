@@ -165,6 +165,7 @@ git commit -m "Added the opening show capability (controller level)"
     assert_text 'Fix those police cars I keep wrecking'
     assert page.has_link?('Jackie Gleason', href: user_path(@u11))
   end
+  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
 
   def check_redirect(proj)
