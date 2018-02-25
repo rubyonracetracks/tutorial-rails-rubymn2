@@ -12,7 +12,7 @@ Enter the command "git checkout -b 06-02-opening_show".
 * Enter the command "rm app/helpers/openings_helper.rb".
 * Edit the file test/controllers/openings_controller_test.rb.  Replace everything between the line "class OpeningsControllerTest < ActionDispatch::IntegrationTest" and the last "end" command with the following:
 ```
-  test 'opening show action' do
+  def opening_show_enabled
     get opening_path(@op1)
     assert_response :success
     get opening_path(@op2)
@@ -23,6 +23,34 @@ Enter the command "git checkout -b 06-02-opening_show".
     assert_response :success
     get opening_path(@op5)
     assert_response :success
+  end
+
+  test 'unregistered visitor redirected to user login page' do
+    get opening_path(@op1)
+    assert_redirected_to new_user_session
+    get opening_path(@op2)
+    assert_redirected_to new_user_session
+    get opening_path(@op3)
+    assert_redirected_to new_user_session
+    get opening_path(@op4)
+    assert_redirected_to new_user_session
+    get opening_path(@op5)
+    assert_redirected_to new_user_session
+  end
+
+  test 'user can access job openings' do
+    sign_in @u7, scope: :user
+    opening_show_enabled
+  end
+
+  test 'regular admin can access job openings' do
+    sign_in @a4, scope: :admin
+    opening_show_enabled
+  end
+
+  test 'super admin can access job openings' do
+    sign_in @a1, scope: :admin
+    opening_show_enabled
   end
 ```
 * Enter the command "sh testc.sh".  The new controller test fails because opening_path is undefined.
