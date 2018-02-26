@@ -30,7 +30,7 @@ Enter the command "git checkout -b 06-06-opening_edit".
 
   # rubocop:disable Metrics/LineLength
   test 'should not redirect edit to root when logged in as the user with the opening' do
-    sign_in @u7, scope: :user
+    sign_in @u11, scope: :user
     edit_opening
     assert_redirected_to opening_path(@op4)
   end
