@@ -40,7 +40,9 @@ Enter the command "git checkout -b 06-03-opening_index".
 #### Routing
 * Edit the file config/routes.rb.  Replace the line containing "resources :openings" with the following:
 ```
+  # rubocop:disable Style/SymbolArray
   resources :openings, only: [:show, :index]
+  # rubocop:enable Style/SymbolArray
 ```
 * Enter the command "sh testc.sh".  The 4 controller tests fail because the index action is not defined in the opening controller.
 
