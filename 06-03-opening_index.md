@@ -9,7 +9,6 @@ Enter the command "git checkout -b 06-03-opening_index".
 ### Part A: Controller Level
 
 #### Controller Test
-```
 * Edit the file test/controllers/openings_controller_test.rb.
   Add the following lines before the last "end" statement:
 ```
