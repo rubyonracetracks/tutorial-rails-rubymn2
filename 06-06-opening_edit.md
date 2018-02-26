@@ -142,7 +142,7 @@ git commit -m "Added opening edit (controller level)"
   end
 
   test 'correct user can successfully edit opening' do
-    login_as(@u3, scope: :user)
+    login_as(@u11, scope: :user)
     visit edit_opening_path(@op4)
 
     assert page.has_css?('title', text: full_title('Edit Job Opening'),
