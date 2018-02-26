@@ -122,7 +122,7 @@ end
 
     # Verify that root page provides access to index page
     click_on 'Home'
-    assert page.has_link?('openings', href: openings_path)
+    assert page.has_link?('Job Openings', href: openings_path)
 
     # Verify that the second page of the index works
     click_on 'Job Openings'
