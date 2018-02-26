@@ -10,6 +10,8 @@ Enter the command "git checkout -b 06-04-opening_index_search".
 * Enter the command "rails generate integration_test opening_search".
 * Edit the file test/integration/opening_search_test.rb.  Replace everything between the line "class OpeningSearchTest < ActionDispatch::IntegrationTest" and the last end statement with the following code:
 ```
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def opening_search_enabled
     add_extra_openings
     visit openings_path
@@ -26,6 +28,8 @@ Enter the command "git checkout -b 06-04-opening_index_search".
                                   visible: false)
     assert page.has_css?('h1', text: 'Job Opening Index')
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   test 'user can search job openings' do
     login_as(@u1, scope: :user)
