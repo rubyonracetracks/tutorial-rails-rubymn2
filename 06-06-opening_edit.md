@@ -126,7 +126,7 @@ git commit -m "Added opening edit (controller level)"
   end
 
   test 'correct user gets button to edit opening' do
-    login_as(@u3, scope: :user)
+    login_as(@u11, scope: :user)
     visit opening_path(@op4)
     assert page.has_link?('Edit Job Opening', href: edit_opening_path(@op4))
   end
