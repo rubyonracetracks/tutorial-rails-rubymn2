@@ -180,7 +180,7 @@ Number of openings: <%= @openings_count %>
 <hr>
 <h4><%= link_to "#{opening.title}", opening_path(opening) %></h4>
 <% user_f = User.where(id: "#{opening.user_id}").first %>
-<%= user_f.first_name %> <%= user_f.last_name %>
+Posted by: <%= user_f.first_name %> <%= user_f.last_name %>
 <br>
 <%= opening.description[0..140] %>
 ```
