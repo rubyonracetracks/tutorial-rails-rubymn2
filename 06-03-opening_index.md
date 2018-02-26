@@ -181,7 +181,7 @@ Posted by: <%= user_f.first_name %> <%= user_f.last_name %>
 <br>
 <%= opening.description[0..140] %>
 ```
-* Enter the command "test1".  The same integration test fails for a different reason.  The opening index page has the expected content, but the link to this page from the home page has not yet been added.
+* Enter the command "test1".  The same 3 integration tests fail for a different reason.  The opening index page has the expected content, but the link to this page from the home page has not yet been added.
 
 #### Header
 * Edit the file app/views/layouts/_header.html.erb.  Just before the beginning of the variable section, add the following line:
