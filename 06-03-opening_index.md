@@ -125,7 +125,7 @@ end
     assert page.has_link?('openings', href: openings_path)
 
     # Verify that the second page of the index works
-    click_on 'Openings'
+    click_on 'Job Openings'
     first(:link, '2').click
     assert page.has_css?('title', text: full_title('Job Opening Index'),
                                   visible: false)
