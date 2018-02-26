@@ -10,7 +10,7 @@ Enter the command "git checkout -b 06-04-opening_index_search".
 * Enter the command "rails generate integration_test opening_search".
 * Edit the file test/integration/opening_search_test.rb.  Replace everything between the line "class OpeningSearchTest < ActionDispatch::IntegrationTest" and the last end statement with the following code:
 ```
-  test 'opening search engine works' do
+  def opening_search_enabled
     add_extra_openings
     visit openings_path
     click_on 'Openings'
@@ -25,6 +25,21 @@ Enter the command "git checkout -b 06-04-opening_index_search".
     assert page.has_css?('title', text: full_title('Job Opening Index'),
                                   visible: false)
     assert page.has_css?('h1', text: 'Job Opening Index')
+  end
+
+  test 'user can search job openings' do
+    login_as(@u1, scope: :user)
+    opening_search_enabled
+  end
+
+  test 'regular admin can search job openings' do
+    login_as(@a4, scope: :admin)
+    opening_search_enabled
+  end
+
+  test 'super admin can search job openings' do
+    login_as(@a1, scope: :admin)
+    opening_search_enabled
   end
 ```
 * Enter the command "sh test_app.sh".  The new integration test will fail.
