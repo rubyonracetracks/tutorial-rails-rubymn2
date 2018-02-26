@@ -57,14 +57,6 @@ Enter the command "git checkout -b 06-07-opening_delete".
     end
   end
 ```
-* In the file test/controllers/openings_controller_test.rb, add the following line immediately before "class OpeningsControllerTest < ActionDispatch::IntegrationTest":
-```
-# rubocop:disable Metrics/ClassLength
-```
-* In the file test/controllers/openings_controller_test.rb, add the following line immediately after the last "end" statement:
-```
-# rubocop:enable Metrics/ClassLength
-```
 * Enter the command "sh testc.sh".  All 5 new controller tests fail because of a missing route.
 
 #### Routing
