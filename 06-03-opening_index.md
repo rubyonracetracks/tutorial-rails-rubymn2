@@ -42,7 +42,7 @@ Enter the command "git checkout -b 06-03-opening_index".
 ```
   resources :openings, only: [:show, :index]
 ```
-* Enter the command "sh testc.sh".  The test fails because the index action is not defined in the opening controller.
+* Enter the command "sh testc.sh".  The 4 controller tests fail because the index action is not defined in the opening controller.
 
 #### Controller
 * Edit the file app/controllers/openings_controller.rb.  Replace the line containing "before_action :may_view_project" with the following:
@@ -56,7 +56,7 @@ Enter the command "git checkout -b 06-03-opening_index".
     @openings_count = Opening.count
   end
 ```
-* Enter the command "sh testc.sh".  The test fails because of a missing template.
+* Enter the command "sh testc.sh".  3 tests still fail because of a missing template.
 
 #### Blank View
 * Enter the command "touch app/views/openings/index.html.erb".  Leave this file blank for now.  (You'll fill it in soon.)
