@@ -1,4 +1,4 @@
-# Unit 5
+# Unit 6
 ## Chapter 8: Adding Job Opening Display to User Profile
 
 In this chapter, you will add openings to the associated user's profile page.  You will also give users the ability to add openings from their own profile pages.  Please note that visitors who do not log in do not have access to user profile pages and are thus not relevant in this chapter.
