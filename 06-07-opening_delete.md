@@ -123,9 +123,9 @@ git commit -m "Added opening delete (controller level)"
       click_on 'Delete Job Opening'
     end
     assert_text 'Job opening deleted'
-    assert page.has_css?('title', text: full_title('User: Roger Moore'),
+    assert page.has_css?('title', text: full_title('User: Jackie Gleason'),
                                   visible: false)
-    assert page.has_css?('h1', text: 'User: Roger Moore',
+    assert page.has_css?('h1', text: 'User: Jackie Gleason',
                                visible: false)
   end
 
