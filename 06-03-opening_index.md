@@ -99,7 +99,6 @@ end
 * Edit the file test/integration/opening_index_test.rb.  Replace everything between "class OpeningIndexTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/BlockLength
   # rubocop:disable Metrics/MethodLength
   def opening_index_enabled
     add_extra_openings
@@ -132,7 +131,6 @@ end
     assert page.has_css?('h1', text: 'Job Opening Index')
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/BlockLength
   # rubocop:enable Metrics/MethodLength
 
   test 'unregistered visitor redirected to user login page' do
