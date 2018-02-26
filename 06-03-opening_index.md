@@ -157,9 +157,9 @@ end
     opening_index_enabled
   end
 ```
-* Enter the command "sh test_app.sh".  Your new integration test fails.
+* Enter the command "sh test_app.sh".  3 of your new integration tests fail.
 * Enter the command "alias test1='(command to run the failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  The same integration test fails because the opening index page does not have the expected content.
+* Enter the command "test1".  The same 3 integration tests fail because the opening index page does not have the expected content.
 
 #### Job Opening Index Page
 * Fill in the blank app/views/projects/index.html.erb file with the following code:
