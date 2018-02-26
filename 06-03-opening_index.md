@@ -110,10 +110,6 @@ end
     assert_text 'Catch that black Trans Am!'
     assert_text 'Fix those police cars I keep wrecking'
 
-    # Verify that index page provides access to user profile pages
-    assert page.has_link?('Ernst Blofeld', href: user_path(@u7))
-    assert page.has_link?('Jackie Gleason', href: user_path(@u11))
-
     # Verify that index page provides access to opening profile pages
     assert page.has_css?('title', text: full_title('Opening Index'),
                                   visible: false)
