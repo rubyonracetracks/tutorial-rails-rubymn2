@@ -129,7 +129,7 @@ end
     first(:link, '2').click
     assert page.has_css?('title', text: full_title('Job Opening Index'),
                                   visible: false)
-    assert page.has_css?('h1', text: 'Jop Opening Index')
+    assert page.has_css?('h1', text: 'Job Opening Index')
   end
   # rubocop:enable Metrics/BlockLength
 
