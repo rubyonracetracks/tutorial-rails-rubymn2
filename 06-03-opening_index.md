@@ -45,10 +45,10 @@ Enter the command "git checkout -b 06-03-opening_index".
 * Enter the command "sh testc.sh".  The 4 controller tests fail because the index action is not defined in the opening controller.
 
 #### Controller
-* Edit the file app/controllers/openings_controller.rb.  Replace the line containing "before_action :may_view_project" with the following:
+* Edit the file app/controllers/openings_controller.rb.  Replace the line containing "before_action :may_view_opening" with the following:
 ```
   # rubocop:disable Style/SymbolArray
-  before_action :may_view_project, only: [:show, :index]
+  before_action :may_view_opening, only: [:show, :index]
   # rubocop:enable Style/SymbolArray
 ```
 * Edit the file app/controllers/openings_controller.rb.  Just before the end of the action section, add the following lines:
@@ -158,7 +158,7 @@ end
 * Enter the command "test1".  The same 3 integration tests fail because the opening index page does not have the expected content.
 
 #### Job Opening Index Page
-* Fill in the blank app/views/projects/index.html.erb file with the following code:
+* Fill in the blank app/views/openings/index.html.erb file with the following code:
 ```
 <% provide(:title, 'Job Opening Index') %>
 
