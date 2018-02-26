@@ -1,7 +1,7 @@
 # Unit 6
 ## Chapter 4: Opening Index Search
 
-In this chapter, you will add a search engine to the opening index page.
+In this chapter, you will add a search engine to the opening index page.  Because unregistered visitors who try to view job openings are automatically redirected to the user login page, they are not relevant in this chapter.
 
 ### New Branch
 Enter the command "git checkout -b 06-04-opening_index_search".
