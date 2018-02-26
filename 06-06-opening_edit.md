@@ -9,11 +9,11 @@ Enter the command "git checkout -b 06-06-opening_edit".
 #### Controller Test
 * Edit the file test/controllers/openings_controller_test.rb.  Just before the line "class OpeningsControllerTest < ActionDispatch::IntegrationTest", add the following line:
 ```
-rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/ClassLength
 ```
 * Edit the file test/controllers/openings_controller_test.rb.  Just after the last "end" statement, add the following line:
 ```
-rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength
 ```
 * Edit the file test/controllers/openings_controller_test.rb. Add the following code immediately before the end of the definition section:
 ```
