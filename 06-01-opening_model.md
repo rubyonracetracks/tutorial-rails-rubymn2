@@ -9,7 +9,7 @@ Enter the command "git checkout -b 06-01-opening_model".
 ```
 rails generate model opening title:string description:text user:references
 ```
-* Like the forhire object, the opening object belongs to the user object.
+* Like the forhire and project objects, the opening object belongs to the user object.
 * In the db/migrate/[timestamp]_create_openings.rb file, add the following line just before the second to last "end" statement (after the create_table loop):
 ```
     add_index :openings, [:user_id, :created_at]
