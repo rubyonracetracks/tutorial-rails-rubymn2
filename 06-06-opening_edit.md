@@ -157,7 +157,7 @@ git commit -m "Added opening edit (controller level)"
     assert page.has_css?('h1', text: 'Job Opening: Lawyer')
     assert_text 'Defend me from lawsuits'
   end
-```
+  ```
   * Enter the command "sh test_app.sh".  Two of the new integration tests fail.
   * Enter the command "alias test1='command for running failed tests minus the TESTOPTS portion'".
   * Enter the command "test1".  The same two integration tests fail.  One test fails because the correct user does not get the expected edit button.  The other test fails because of a missing template.
