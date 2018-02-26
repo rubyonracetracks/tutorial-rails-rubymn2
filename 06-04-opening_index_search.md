@@ -42,9 +42,9 @@ Enter the command "git checkout -b 06-04-opening_index_search".
     opening_search_enabled
   end
 ```
-* Enter the command "sh test_app.sh".  The new integration test will fail.
+* Enter the command "sh test_app.sh".  The 3 new integration tests will fail.
 * Enter the command "alias test1='(Command to run failed tests minus the TESTOPTS portion)'".
-* Enter the command "test1".  The new integration test fails because the search engine elements are missing.
+* Enter the command "test1".  The same 3 tests fail because the search engine elements are missing.
 
 ### Views
 * Create the file app/views/openings/_condition_fields.html.erb and give it the following content:
@@ -78,7 +78,7 @@ Enter the command "git checkout -b 06-04-opening_index_search".
   <div class="actions"><%= f.submit "Search" %></div>
 <% end %>
 ```
-* Enter the command "test1".  Now your test fails because search_openings_path is undefined.
+* Enter the command "test1".  Now your 3 test fail because search_openings_path is undefined.
 
 ### Routing
 * Edit the config/routes.rb file.  Replace the line that begins with "resources :openings" with the following:
@@ -88,7 +88,7 @@ Enter the command "git checkout -b 06-04-opening_index_search".
     collection { post :search, to: 'openings#index' }
   end
 ```
-* Enter the command "test1". Now your test fails because no ransack search object is provided.
+* Enter the command "test1". Now your 3 tests fail because no ransack search object is provided.
 
 ### Controller
 * Edit the file app/controllers/openings_controller.rb and replace the definition of the index action with the following code:
@@ -108,7 +108,7 @@ Enter the command "git checkout -b 06-04-opening_index_search".
   end
   # rubocop:enable Metrics/AbcSize
 ```
-* Enter the command "test1".  Now your test should pass, but you're not quite done yet.
+* Enter the command "test1".  All tests should pass, but you're not quite done yet.
 
 ### app/assets/javascripts/openings.coffee
 * To allow the "Add conditions" and "remove" buttons to work, add the following code to the end of the file app/assets/javascripts/openings.coffee:
