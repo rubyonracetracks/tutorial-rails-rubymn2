@@ -76,7 +76,6 @@ git commit -m "Added the opening index capability (controller level)"
 * Edit the file test/setup_objects.rb.  Just after the last "end" statement, add the following code:
 ```
 # rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/LineLength
 def add_extra_openings
   users = User.all
@@ -91,7 +90,6 @@ def add_extra_openings
   end
 end
 # rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/LineLength
 ```
 * Please note that the add_extra_openings function is used only in the tests that require it.  Adding the extra opening objects in every test would excessively slow down the testing process.
@@ -100,7 +98,9 @@ end
 * Enter the command "rails generate integration_test opening_index".
 * Edit the file test/integration/opening_index_test.rb.  Replace everything between "class OpeningIndexTest < ActionDispatch::IntegrationTest" and the last "end" statement with the following:
 ```
+  # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/BlockLength
+  # rubocop:disable Metrics/MethodLength
   def opening_index_enabled
     add_extra_openings
     visit openings_path
@@ -131,7 +131,9 @@ end
                                   visible: false)
     assert page.has_css?('h1', text: 'Job Opening Index')
   end
+  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/BlockLength
+  # rubocop:enable Metrics/MethodLength
 
   test 'unregistered visitor redirected to user login page' do
     get openings_path
