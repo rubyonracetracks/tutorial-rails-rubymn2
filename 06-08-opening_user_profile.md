@@ -11,6 +11,7 @@ Enter the command "git checkout -b 06-08-user_opening".
 * Edit the file test/integration/opening_user_profile_test.rb.  Replace everything between the line "class OpeningUserProfileTest < ActionDispatch::IntegrationTest" and the last end statement with the following:
 ```
   # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def check_user_pages
     visit user_path(@u2)
     assert_not page.has_css?('h3', text: 'Job Openings')
@@ -32,6 +33,7 @@ Enter the command "git checkout -b 06-08-user_opening".
     assert_text 'Fix those police cars I keep wrecking'
   end
   # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   def check_no_create_button
     visit users_path(@u4)
