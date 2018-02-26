@@ -87,7 +87,7 @@ Enter the command "git checkout -b 06-02-opening_show".
 * Edit the file app/controllers/openings_controller.rb. Insert the following lines between "class OpeningsController < ApplicationController" and "end":
 ```
   # BEGIN: before_action section
-  before_action :may_view_project, only: [:show]
+  before_action :may_view_opening, only: [:show]
   # END: before_action section
 
   # BEGIN: action section
@@ -100,12 +100,12 @@ Enter the command "git checkout -b 06-02-opening_show".
   private
 
   # BEGIN: private section
-  def may_view_project
+  def may_view_opening
     return if user_signed_in? || admin_signed_in?
     flash[:alert] = 'You must be logged in to view job openings.'
     redirect_to(new_user_session_path)
   end
-  helper_method :may_view_project
+  helper_method :may_view_opening
   # END: private section
 ```
 * Enter the command "sh testc.sh". 3 tests fail because of a missing template.
