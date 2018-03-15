@@ -34,14 +34,13 @@ curl -o app/assets/images/Best_Buy_Logo.png -OL https://raw.githubusercontent.co
   end
 
   # rubocop:disable Metrics/AbcSize
-  # fn: filename of image file
-  def edit_logo(fn)
-    basename = File.basename fn
+  def edit_logo(filename)
+    basename = File.basename filename
 
     login_as(@a1, scope: :admin)
     visit sponsor_path(@sponsor1)
     click_on 'Edit Sponsor'
-    find('form input[type="file"]').set(Rails.root + fn)
+    find('form input[type="file"]').set(Rails.root + filename)
     click_button('Submit')
 
     assert page.has_text?('Sponsor updated')
