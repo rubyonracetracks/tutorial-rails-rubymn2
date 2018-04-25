@@ -1,4 +1,4 @@
-# Ruby on Racetracks Tutorial: Ruby Users of Minnesota
+# Long Ruby.MN Tutorial
 
 Welcome to the [Ruby on Racetracks](http://www.rubyonracetracks.com/) Tutorial on creating your own version of the Ruby Users of Minnesota (Ruby.MN) site.
 
