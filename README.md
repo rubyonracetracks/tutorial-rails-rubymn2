@@ -10,6 +10,6 @@ This app allows Ruby.MN to credit its current and past sponsors.  Users can shar
 
 ## Prerequisites
 * Docker should be installed.  This is covered in the [Docker Tutorial](https://github.com/jhsu802701/tutorial-docker-stretch).
-* You should have one of my rbenv-general Docker images installed.  This is covered in the [Docker Tutorial](https://github.com/jhsu802701/tutorial-docker-stretch).
+* You should have one of my rails-general Docker images installed.  This is covered in the [Docker Tutorial](https://github.com/jhsu802701/tutorial-docker-stretch).
 * You should be familiar with the process of creating a new Rails app.  This is covered in the [GenericApp Tutorial](https://gist.github.com/jhsu802701/ace85adf7c3f197391c4457dec863e89).
 
